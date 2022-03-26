@@ -43,7 +43,8 @@
 \newpage
 \vspace*{\fill}
 \begin{flushright} % mexer aqui
-	\textit{``Eu tinha um pintinho chamado Relã, toda vez que chovia, Relã piava!''}.
+	\textit{``Since I have always preferred making plans to executing them, I have gravitated towards situations and systems that, once set into operation, could create music with little or no intervention on my part. That is to say, I tend towards the roles of planner and programmer, and then become an audience to the results''} \newline
+	\textit{Brian Eno (Alpern, 1995)}.
 \end{flushright}
 
 % Agradecimentos
@@ -84,9 +85,14 @@ In this work ....
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introdução}
 
-% talvez olhar estes artigo:
-% https://musica.ufmg.br/nasnuvens/wp-content/uploads/2020/11/2016-38-A-interatividade-nas-trilhas-sonoras-de-jogos-digitais-e-um-comparativo-com-a-música-de-cinema.pdf
+A utilização de músicas é muito presente em filmes, séries, jogos; essas obras, que usualmente fazem parte de uma trilha sonora, têm os mais diversos estilos e servem para inúmeras finalidades (animar o expectador, emocioná-lo ou criar tensão, para citar algumas). No entanto, compor músicas não é algo simples e, muitas vezes, requer um compositor ou grupo de compositores para que seja criada uma nova faixa musical. Apesar disso, técnicas como modelagem sistêmica \citep[veja][]{da2017modelagem} ou machine learning (mais especificamente as técnicas de redes neurais) são exploradas com o intuito de realizar uma composição \citep[ver em][]{agarwala2017music} seja como inspiração para o compositor, seja como uma automatização do processo.
+
+% certamente olhar este artigo e suas bibliografias:
 % https://ccrma.stanford.edu/~blackrse/algorithm.html
+
+% talvez olhar este artigo:
+% https://musica.ufmg.br/nasnuvens/wp-content/uploads/2020/11/2016-38-A-interatividade-nas-trilhas-sonoras-de-jogos-digitais-e-um-comparativo-com-a-música-de-cinema.pdf
+
 
 
 % referencial teórico
@@ -152,14 +158,16 @@ w: Ve-nha is-tu-dar Ve-nha is-tu-dar o Be-a--bá
 % coleta de dados
 \section{Coleta de Dados}
 
-A coleta de dados foi realizada por meio de um \textit{crawler/bot}, desenvolvido na linguagem Python, para extrair músicas em formato \textit{.abc} do site \href{https://abcnotation.com/}{``abcnotation.com''}. Após uma semana de execução, foram obtidos 184.900 arquivos contendo diversas informações sobre as peças musicais (como título, autor, tonalidade, entre outras).
+A coleta de dados foi realizada por meio de um \textit{crawler/bot}, desenvolvido na linguagem \href{https://python.org/}{Python}, para extrair músicas em formato \textit{.abc} do site \href{https://abcnotation.com/}{``abcnotation.com''}. Após uma semana de execução, foram obtidos 184.900 arquivos contendo diversas informações sobre as peças musicais (como título, autor, tonalidade, entre outras).
 
 % tratamento de dados
 \section{Tratamento de Dados}
 
 % rede neural
 \section{Rede Neural}
+    % arquitetura
 \subsection{Arquitetura}
+    % parâmetros de treinamento
 \subsection{Parâmetros de Treinamento}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
