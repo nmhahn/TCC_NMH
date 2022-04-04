@@ -1,0 +1,14 @@
+# Folders
+bibliografia/
+material_complementar/
+# Extensions
+*.mp3
+*.ini
+*.log
+*.aux
+*.gz
+*.fdb*
+*.fls
+*.txt
+*.abc
+*.mid
