@@ -24,7 +24,7 @@
 % departamento:
 \dept{\DEST}
 
-% data de entrega
+% data de entrega:
 \date{Outubro de 2022}
 
 
@@ -44,7 +44,7 @@
 \vspace*{\fill}
 \begin{flushright} % mexer aqui
 	\textit{``Since I have always preferred making plans to executing them, I have gravitated towards situations and systems that, once set into operation, could create music with little or no intervention on my part. That is to say, I tend towards the roles of planner and programmer, and then become an audience to the results.''} \newline
-	\textit{Brian Eno (Alpern, 1995)}.
+	\textit{Brian Eno \citep{alpern1995}}.
 \end{flushright}
 
 % Agradecimentos
@@ -85,33 +85,30 @@ In this work ....
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introdução}
 
-% processo de composição algoritmica antes da utilização dos computadores
-A ideia de utilizar instruções formais e processos para criar músicas data tão antigamente quanto os gregos antigos. Portanto, aplicações teóricas de números (i.e. ``dados'', num sentido), e várias propriedades matemáticas derivadas da natureza foram os formalismos, ou ``algoritmos'', em que os gregos construíram seus sistemas musicais. Esses formalismos dos gregos antigos, no entanto, estão enraizados majoritariamente em teoria, e suas aplicações em performance musical são provavelmente questionáveis, considerando que músicas gregas são quase inteiramente improvisadas \citep{grout1996}. Portanto, enquanto as conjecturas matemáticas gregas certamente criaram um sistema musical de intervalos e modas em que o músico operava e provavelmete também se guiava e influenciava sua performance de alguma forma, o músico não era de forma alguma inteiramente removido do processo de tomada de decisão. Portanto, músicas da antiga Grécia não eram ``composição algoritmicas'' em sua forma pura, mas é sem dúvidas importante historicamente na música pela sua tendência em direção aos processos extra-humanos.
+% obs.: muita cópia traduzida ainda, além de faltar averiguar melhor essas bibliografias (ou complementar com outras)
+A área de composição automática, também chamada de composição algorítmica, refere-se ao uso de um processo formal para compor músicas, minimizando a intervenção humana no ato de criação. Apesar de usualmente ser realizada com o auxílio de computadores por meio de diversos algoritmos, essa técnica tem sido explorada desde os tempos antigos \citep{grout1996}.
 
+O termo ``algoritmo'' é definido como um conjunto de instruções determinadas para resolver um problema específico em um número limitado de passos. Além disso, esse termo foi adotado das áreas da ciência da computação e da informática, por volta da metade do século XX \citep{burns1997}. Nesse caso, o objetivo é realizar a criação de músicas sem o auxílio de um compositor humano.
 
-Uma camada extra de abstração foi obtida no fim do século XV com o nascimento da composição ``canônica''. O método predominante era escrever uma única voz e fornecer instruções aos músicos para derivarem vozes adicionais com base na voz base. A instrução ou regra pela qual essas outras vozes foram derivadas é denominada \texit{canon}, que significa ``regra'' ou ``lei''. Essas ``regras'' são de fato ``algoritmos'' pelos quais os intérpretes desdobravam a música. Nesse caso, oposto ao dos antigos Gregos, podemos observar uma clara remoção do compositor por uma grande parte do processo composicional: o compositor invernta um \textit{kernel} da música - uma única melodia ou seção - em que uma composição inteira é construída \citep{grout1996}. % verificar...
+\cite{grout1996} comenta que, na Grécia Antiga, os gregos construíram seus sistemas musicas por meio de aplicações teóricas de números (``dados'', em um sentido) e várias propriedades matemáticas derivadas da natureza, resultando em ``formalismos'' ou ``algoritmos'' que os músicos se guiavam durante sua performance. Apesar disso, as músicas na Grécia Antiga eram quase inteiramente improvisadas, dado que os intérpretes da época se inspiravam nesses sistemas, mas não se restringiam a ele na criação das músicas \citep{grout1996}. Portanto, as peças musicais da Grécia Antiga não era uma ``composição algorítmica'' de nenhuma forma, mas foi sem dúvidas importante historicamente na música para sua tendência em direção a processos extra-humanos.
 
+No final do século XV, foi obtida uma nova camada de abstração: a composição \textit{canônica}. O método predominante era o de compor uma única voz (ou seção) e fornecer instruções aos músicos para derivarem vozes adicionais com base na voz inicial. A instrução pela qual essas outras vozes foram derivadas é denominada \textit{canon}, que significa ``regra'' ou ``lei''. Essas ``regras'' são de fato ``algoritmos'' pelos quais os intérpretes desdobravam a música. Nesse caso, oposto ao dos antigos Gregos, podemos observar uma clara remoção do compositor por uma grande parte do processo composicional: o compositor inventa um \textit{kernel} da música - uma única melodia ou seção - em que uma composição inteira é construída \citep{grout1996}. % averiguar
 
 De acordo com \cite{alpern1995}, Mozart também utilizou técnicas de composição automática em sua \textit{Musikalisches Wurfelspiel} (``Dice Music''), um jogo musical em que envolvia uma montagem de fragmentos de músicas combinados pelo acaso gerando uma nova peça musical. Esta forma simples de composição ``algoritmica'' deixa o processo criativo nas mãos do acaso, em que o rolar de um dado decide quais notas serão utilizadas.
 
-
 Existem exemplo mais modernos de composição algoritmica sem o uso de computadores. John Cage, assim como Mozart, utilizou aleatorização in várias de suas composições, como as realizadas em \textit{Reunion}, criada ao jogar xadrez em um tabuleiro equipado com um fotorreceptor: as jogadas dos enxadristas acionavam sons, e, consequentemente, a peça musical era diferente a cada vez que era performada \citep{alpern1995}.
 
+% daqui para baixo: (rascunhos/traduções apenas) %
 
-% composição algoritmica
-A área de composição automática refere-se ao processo de utilizar um processo formal para a composição musical com o mínimo de intervenção humana. Esse processo é usualmente realizado com em um computador, com o auxílio de vários formalismos: geração de números aleatórios, sistemas \textit{rule-based} e diversos outros algoritmos.
-
-
-Composição algoritmica, também chamada de ``composição automática'', basicamente refere-se ao ``processo de utilização de algum processo formal para composição musical com o mínimo de intervenção humana'' \citep{alpern1995}. Tais ``processos formais''
 
 % TEXTOS JOGADOS ABAIXO
-Algorithmic composition, sometimes also referred to as "automated composition," basically refers to "the process of using some formal process to make music with minimal human intervention" (Alpern, 1995). Such "formal processes," as we will see, have been familiar to music since ancient times. The title itself, however, is relatively new—the term "algorithm" having been adopted from the fields of computer science and information science around the halfway mark of the 20th century (Burns, 1997). Computers have given composers new opportunities to automate the compositional process. Furthermore, as we will explore, several different methods of doing so have developed in the last forty years or so.
 
-To begin with the title itself, Webster's dictionary defines an "algorithm" simply as "a predetermined set of instructions for solving a specific problem in a limited number of steps." The "problem" composers are faced with, of course, is creating music; the "instructions" for creating this music according to the definition are "predetermined," suggesting that intervention on the part of the human composer is superceded once the compositional process itself is set into motion, as hinted at as well in the above Brian Eno quote. Thus, "automated composition" also suitably describes this kind of music, since "automation" refers to "anything that can move or act of itself."
+
+Computers have given composers new opportunities to automate the compositional process. Furthermore, as we will explore, several different methods of doing so have developed in the last forty years or so.
 
 The earliest instance of computer generated composition is that of Lejaren Hiller and Leonard Isaacson at the University of Illinois in 1955-56. Using the Illiac high-speed digital computer, they succeeded in programming basic material and stylistic parameters which resulted in the Illiac Suite (1957). The score of the piece was composed by the computer and then transposed into traditional musical notation for performance by a string quartet. What Hiller and Isaacson had done in the Illiac Suite was to (a.) generate certain "raw materials" with the computer, (b.) modify these musical materials according to various functions, and then (c.) select the best results from these modifcations according to various rules (Alpern, 1995). This "generator/modifier/selector" paradigm was also later applied to MUSICOMP, one of the first computer systems for automated composition, written in the late 1950s and early 1960s by Hiller and Robert Baker, which realized Computer Cantata: "Since [MUSICOMP] was written as a library of subroutines, it made the process of writing composition programs much easier, as the programmer/composer could use the routines within a larger program that suited his or her own style" (Alpern, 1995; italics added). This idea of building small, well-defined compositional functions—i.e. "subroutines"—and assembling them together would prove efficient and allow the system a degree of flexibility and generality (Alpern, 1995), which has made this approach a popular one, as we will see, in many algorithmic composition systems even into the present day.
 
-Another pioneering use of the computer in algorithmic compostion is that of Iannis Xenakis, who created a program that would produce data for his "stochastic" compositions, which he had written about in great detail in his book Formalized Music (1963). Xenakis used the computer's high-speed computations to calculate various probability theories to aid in compositions like Atrées (1962) and Morsima-Amorsima (1962). The program would "deduce" a score from a "list of note densities and probabilistic weights supplied by the programmer, leaving specific decisions to a random number generator" (Alpern, 1995). "Stochastic" is a term from mathematics which designates such a process, "in which a sequence of values is drawn from a corresponding sequence of jointly distributed random variables" (Webster's dictionary). As in the previous example of the Illiac Suite, these scores were performed by live performers on traditional instruments.
+Another pioneering use of the computer in algorithmic composition is that of Iannis Xenakis, who created a program that would produce data for his "stochastic" compositions, which he had written about in great detail in his book Formalized Music (1963). Xenakis used the computer's high-speed computations to calculate various probability theories to aid in compositions like Atrées (1962) and Morsima-Amorsima (1962). The program would "deduce" a score from a "list of note densities and probabilistic weights supplied by the programmer, leaving specific decisions to a random number generator" (Alpern, 1995). "Stochastic" is a term from mathematics which designates such a process, "in which a sequence of values is drawn from a corresponding sequence of jointly distributed random variables" (Webster's dictionary). As in the previous example of the Illiac Suite, these scores were performed by live performers on traditional instruments.
 
 With Xenakis, it should be noted, however, "the computer has not actually produced the resultant sound; it has only aided the composer by virtue of its high-speed computations" (Cope, 1984): in essence, what the computer was outputing was not the composition itself but material with which Xenakis could compose. In contrast, the work of Hiller and Isaacson attempted to simulate the compositional process itself entirely, completely delegating creative decisions to the computer.
 
