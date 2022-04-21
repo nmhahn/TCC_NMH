@@ -8,7 +8,7 @@
 \LoadClass[12pt,a4paper]{report}
 \RequirePackage[brazil]{babel}
 \RequirePackage{indentfirst}
-\RequirePackage[utf8x]{inputenc}
+%\RequirePackage[utf8x]{inputenc}
 \RequirePackage{times}
 \RequirePackage{natbib}
 \RequirePackage{graphicx}
