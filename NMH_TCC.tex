@@ -1,11 +1,14 @@
 \documentclass{automatextcc}
+\usepackage{ulem}
+\usepackage{dsfont}
 
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
 
 %\makeindex  Opcional (Índice Remissivo)
 
-
+\newcommand{\pumi}[1]{\textcolor{blue}{#1}}
+\newcommand{\R}{\mathds{R}}
 \begin{document}
 
 
@@ -112,6 +115,8 @@ In this work ....
 \section{Redes Neurais Artificiais - ANN}
 
     % parágrafo retirado de \citep{aggarwal2018DeepLearning}
+\pumi{Esta parte achei muito blog-like e pouco TCC. Eu começaria falando algo do tipo ANN são métodos de machine learning muito utilizados blablabla uma rede neural é composta por blablabla entrada, saída, camadas, funções etc... Redes neurais surgiram como um modelo para simular blablabla neuronios, sinapses, etc. }    
+
 Redes neurais artificiais, ou apenas redes neurais, são populares técnicas de \textit{machine learning} que simulam o mecanismo de aprendizagem dos organismos biológicos. Os neurônios são conectados uns aos outros por meio de axônios e dendritos, e as regiões de conexão entre ambos é referida como sinapse. A força das conexões sinápticas usualmente muda em reposta ao estímulo externo. Essa troca é como a aprendizagem acontece em organismos vivos \citep{aggarwal2018DeepLearning}. 
 
     % itens abaixo retirados de \citet{haykin2001redesneurais}
@@ -120,24 +125,19 @@ De acordo com \citet{haykin2001redesneurais}, o modelo de um neurônio forma a b
 \begin{enumerate}
     \item Um conjunto de sinapses, cada uma caracterizada por um peso/força própria. Especificamente, um sinal $x_j$ na entrada da sinapse $j$ conectada ao neurônio $k$ é multiplicado por cada peso sináptico $w_{kj}$. O peso sináptico de um neurônio artificial pode estar em um intervalo que inclui valores positivos e negativos.
     \item Um \textit{somador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
-    \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito). Tipicamente, o intervalo normalizado é escrito como $[0,1]$ ou $[-1,1]$.
+    \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito). Tipicamente, o intervalo normalizado é escrito\pumi{??} como $[0,1]$ ou $[-1,1]$.
 \end{enumerate}
 
-Além disso, também é incluído um \textit{bias} (viés) no modelo, representado por $b_k$. Esse \texit{bias} tem o efeito de aumentar/diminuir a entrada líquida da função de ativação, dependendo se ele é positivo ou negativo. 
+\pumi{Regra de ouro de um TCC: 100\% proibido parágrafos compostos de apenas uma sentença!! Outra coisa, entre texto e environment não pode ser colocado espaço em branco ou o tex interpretará como parágrafo e adicionará espaço extra.}
+
+Além disso, também é incluído um \textit{bias} (viés) no modelo, representado por $b_k$ \sout{ Esse \textit{bias} tem o} \pumi{cujo} efeito de aumentar/diminuir a \pumi{entrada líquida???} da função de ativação, \pumi{dependendo de seu sinal.} \sout{se ele é positivo ou negativo.}
 
 Matematicamente, podemos descrever um neurônio $k$ escrevendo o seguinte par de equações:
-
-\begin{equation}
-    \mu_k = \sum_{j=1}^{m} w_{kj}x_j
-\end{equation}
-
-e
-
-\begin{equation}
-    y_k = \varphi(\mu_k + b_k)
-\end{equation}
-
-em que $x_1,x_2,\dots,x_m$ são os sinais de entrada, $w_{k1},w_{k2},\dots,w_{km}$ são os pesos sinápticos do neurônio $k$; $\mu_k$ é a saída da combinação linear devida aos sinais de entrada; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é a função de ativação; e $y_k$ é o sinal de saída do neurônio.
+\begin{align*}
+y_k &= \varphi(\mu_k + b_k);\\[.2cm]
+\mu_k &= \displaystyle{\sum_{j=1}^{m} }w_{kj}x_j;
+\end{align*}
+em que $x_1,\dots,x_m$ são os sinais de entrada \pumi{são vetores, escalares, caracteres?}, $w_{k1},\dots,w_{km}$ são os pesos sinápticos do neurônio $k$ \pumi{Ponto chato, usando esta notação $w_{km}$, então $w_{123}$ é qual peso de qual neurônio? Além disso esses pesos são reais, complexos, positivos,$\ldots$?}; $\mu_k$ é a saída da combinação linear devida aos sinais de entrada; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é a função de ativação; e $y_k$ é o sinal de saída do neurônio. \pumi{Esta representação é legal, faltou formalizar.}
 
 
 % Obs.:
@@ -147,24 +147,24 @@ em que $x_1,x_2,\dots,x_m$ são os sinais de entrada, $w_{k1},w_{k2},\dots,w_{km
 % - inserir/citar mais bibliografias?
 % - comentar sobre arquiteturas?
 
-
-
-        % função de ativação
+% função de ativação
+\pumi{Acho que falta explicar qual o interesse numa rede neural (estimar os pesos) e como fazer isso, sem, porém, entrar em detalhes do algoritmo de backpropagation (apenas citar uma boa referência)}
 \subsection{Função de Ativação}
     % funções de ativação coletadas de \citep{dsa2021deeplearningbook}
-O objetivo da função de ativação é determinar se o neurônio de uma rede neural será ativado ou não. Ou seja, se a informação que o neurônio está recebendo é fornecida ou deve ser ignorada \citep{dsa2021deeplearningbook}.
-
-Existem diversas funções de ativação:
-
+O objetivo da função de ativação é determinar se o neurônio de uma rede neural será ativado ou não. Ou seja, se a informação que o neurônio está recebendo é \pumi{fornecida? passada adiante quem sabe?} ou \sout{deve ser} ignorada \citep{dsa2021deeplearningbook}. Existem diversas funções de ativação:
 \begin{itemize}
-    \item Etapa Binária: $f(x) = 1, \; x>=0$; $f(x) = 0, \; x<0$ 
-    \item Linear: $f(x) = \alpha x, \; \alpha \in \mathbb{R}$
-    \item Sigmóide: $f(x) = \frac{1}{1+e^{-x}}$ 
-    \item Tangente Hiperbólica (tanh): $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$
-    \item ReLU: $f(x) = max(0,x)$
-    \item Leaky ReLU: $f(x) = \alpha x \; x<0, \alpha \in \mathbb{R}$; $f(x) = x \; x>=0$
+    \item \pumi{Etapa Binária:?} \sout{$f(x) = 1, \; x>=0$; $f(x) = 0, \; x<0$ } \pumi{$f(x)=I(x\geq 0)$, onde $I(\cdot)$ denota a função indicadora de $A$. Pode dar mais detalhes sobre a indicadora se achares necessário}
+    \item Linear: $f(x) = \alpha x, \; \alpha \in\R$; \sout{$\mathbb{R}$}
+    \item Sigmóide ou logit: $f(x) = \frac{1}{1+e^{-x}}$; 
+    \item Tangente Hiperbólica ($\tanh$): $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$;
+    \item ReLU: $f(x) = \max\{0,x\}$;
+    \item Leaky ReLU: \sout{$f(x) = \alpha x \; x<0, \alpha \in \mathbb{R}$; $f(x) = x \; x>=0$}\pumi{$f(x)=\alpha^{I(x<0)}x$, para $\alpha\in\R$}
+    \[\mbox{exemplo de begin cases }\quad f(x)=\begin{cases}
+    1, & \mbox{ se } x>0\\
+    0, & \mbox{ se } x\leq 0.
+    \end{cases}\]
 \end{itemize}
-
+\pumi{Um detalhe importante sobre as funções de ativação são os domínios e imagens da função, pois isso basicamente define se a função é adequada ou não para um determinado problema. Por exemplo, para a logit, $f:\R\rightarrow(0,1)$, enquanto para a ReLU, $f:A\rightarrow A\cap [0,\infty)$, onde $A\subseteq\R$. Acho que seria interessante adicionar estas informações.  }
 % Obs.:
 % - falta inserir gráficos
 % - desenvolver mais o texto e inserir mais citações/bibliografias?
@@ -174,13 +174,19 @@ Existem diversas funções de ativação:
     % RNN 
 \subsection{Redes Neurais Recorrentes - RNN}
     % texto abaixo inserido com base em \citet{mit2016deeplearningbook}
-De acordo com \citet{mit2016deeplearningbook}, RNN's são uma família de redes neurais para o processamento de dados sequenciais, ou seja, uma sequência de valores $x_1,\dots,x_n$. Diferentemente de uma rede multicamadas, em que há parâmetros específicos para cada índice de tempo $t, \; t=1,\dots,T$, é realizado um compartilhamento dos parâmetros (consequentemente, mesmos pesos ao longo de diversos passos de tempos), o que possibilita estender e aplicar o modelo a exemplos e generalizá-lo através deles. Tal compartilhamento é importante quando um pedaço particular de informação pode ocorrer em diversas posições em uma sequência. 
+De acordo com \citet{mit2016deeplearningbook}, RNN's são uma família de redes neurais para o processamento de dados sequenciais, ou seja, uma sequência de valores $x_1,\dots,x_n$ \pumi{fora o $m$ do tamanho da sequência, a notação é a mesma..}. Diferentemente de uma \pumi{rede multicamadas [ainda não foi falado sobre isso]}, em que há parâmetros específicos para cada índice de tempo $t, \; t=1,\dots,T$, é realizado um compartilhamento dos parâmetros (consequentemente, mesmos pesos ao longo de diversos passos de tempos), o que possibilita estender e aplicar o modelo a exemplos e generalizá-lo através deles. Tal compartilhamento é importante quando um pedaço particular de informação pode ocorrer em diversas posições em uma sequência. \pumi{Muito vago este parágrafo melhorar}
 
 % Obs.:
 % - falta bastante leitura para eu entender melhor isso
 % - bibliografias com outras formas de explicação
 
-
+% https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks
+% https://matheusfacure.github.io/2017/09/12/rnn/
+% https://stringfixer.com/pt/Recurrent_neural_networks
+% http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+% https://www.deeplearningbook.org/contents/rnn.html
+% http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+% https://www.youtube.com/watch?v=WCUNPb-5EYI&list=PLVZqlMpoM6kaJX_2lLKjEhWI0NlqHfqzp&t=167s
 
 
 % https://en.wikipedia.org/wiki/Recurrent_neural_network
@@ -194,9 +200,9 @@ De acordo com \citet{mit2016deeplearningbook}, RNN's são uma família de redes 
 \section{Notação ABC}
 
     % texto baseado no 'about' do site oficial do criador: abcnotation.com
-ABC é uma linguagem desenvolvida para notação musical apenas em formato texto. Um dos principais intuitos da linguagem, o que acaba a diferindo de outras linguagens de computadores, é que ela é bastante concisa e pode ser facilmente lida por humanos. Em outras palavras, é possível tocar uma peça musical diretamente da notação ABC, sem o processo de impressão ou conversão. 
+ABC é uma linguagem desenvolvida para notação musical apenas em formato texto. Um dos principais intuitos da linguagem, é que ela é bastante concisa e pode ser facilmente lida por humanos,  o que acaba a diferindo de outras linguagens de computadores. Em outras palavras, é possível tocar uma peça musical diretamente da notação ABC, sem o processo de impressão ou conversão. 
 
-Desde sua introdução ao final de 1993 por Chris Walshaw, se tornou muito popular e existem agora vários programas (para sistemas operacionais diversos, como Windows, MacOS, Unix e mesmo para PDAs) que podem ler notação ABC, convertendo-a em partitura ou tocando-a através de alto-falantes de um computador. Além disso, existem centenas de milhares de músicas em ABC, em uma variedade de coleções online históricas e contemporâneas.
+Desde sua introdução ao final de 1993 por Chris Walshaw, se tornou muito popular e existem agora vários programas (para sistemas operacionais diversos, como Windows, MacOS, Unix e mesmo para PDAs) \sout{que podem} \pumi{capazes de} ler a notação ABC, convertendo-a em partitura ou tocando-a através de alto-falantes de um computador. Além disso, existem centenas de milhares de músicas em ABC, em uma variedade de coleções online históricas e contemporâneas.
 
 
 % Obs:
@@ -237,6 +243,10 @@ A coleta de dados foi realizada por meio de um \textit{crawler/bot}, desenvolvid
 %%%%  Resultados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Resultados}
+
+% trocar função de ativação (mesma semente)
+% treinar rede apenas com mesma tonalidade (ou algo assim)
+% retirar músicas no treino, o quanto que muda o resultado final
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão
