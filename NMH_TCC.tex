@@ -111,22 +111,161 @@ In this work ....
 % referencial teórico
 \chapter{Referencial Teórico}
 
+% - rede neurais artificiais (supervisionada e não supervisionada?)
+% - gradient descending e backpropagation?
+% - funções de ativação
+% - redes neurais recorrentes
+% - Long Short Term Memory
+% - Deep Learning
+
     % NN
 \section{Redes Neurais Artificiais - ANN}
 
-    % parágrafo retirado de \citep{aggarwal2018DeepLearning}
+%% contexto
+Redes neurais artificiais, ou apenas redes neurais, são populares técnicas de \textit{machine learning} que visam a mimetizar o processo de aprendizagem dos organismos vivos. Assim sendo, o mecanismo biológico é simulado artificialmente por meio de unidades computacionais chamadas de neurônios, que são interconectados por meio de pesos, replicando a intensidade das conexões sinápticas realizada pelas células neuronais do sistema nervoso biológico \citep{aggarwal2018DeepLearning}.
+
+%% neuronio
+\citet{haykin2001redesneurais} comenta que um neurônio é uma unidade de processamento de informação que é fundamental para a operação de uma rede neural. Além disso, identificamos três elementos básicos do modelo neuronal:
+\begin{enumerate}
+    \item Um conjunto de sinapses, cada uma caracterizada por um peso ou força própria. O peso sináptico de um neurônio artificial pode estar em um intervalo que inclui valores positivos e negativos.
+    \item Um \textit{somador} ou \textit{acumulador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
+    \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito).
+\end{enumerate}
+Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, com o intuito de aumentar ou diminuir a entrada da função de ativação, dependendo do seu sinal.
+
+Matematicamente, podemos descrever um neurônio $k$, $k \in \mathds{N}$, por meio de um par de equações:
+\begin{align*}
+y_k &= \varphi(v_k + b_k);\\[.2cm]
+v_k &= \displaystyle{\sum_{j=1}^{m} }w_{[k,j]}x_j;
+\end{align*}
+em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $j,m \in \mathds{N}$, são os sinais de entrada; $w_{[k,j]} \in \R$, são os pesos sinápticos do neurônio $k$; $v_k$ é a saída da combinação linear entre sinais de entrada e pesos sinápticos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é a função de ativação; e $y_k$ é o sinal de saída.
+
+%% arquiteturas base e objetivo da rede neural
+
+% Uma rede neural pode ser composta por três tipos de camadas: entrada, oculta e saída. 
+    % A camada de entrada é um vetor de entradas numéricas (reais), podendo ser consideradas como as covariáveis de um modelo de regressão. 
+    % A camada oculta, se existir, é o resultado após a combinação linear entre os sinais de entrada e os pesos, junto da função de ativação.
+    % A camada de saída é o resultado das camadas ocultas (ou de entrada, caso a oculta não exista) após a combinação linear entre o resultado anterior e pesos, aplicados à função de ativação. Seu tamanho (nº de neurônios) pode variar dependendo do objetivo: regressão (1), classificação binária (2) ou classificação múltipla (n).
+% As redes neurais são treinadas por meio 
+
+% (Neural Networks Systhematic Introduction-Springer 1996)
+    % aviso ao leitor
+``At this point we must issue a warning to the reader: in the theory of artificial neural networks we do not consider the whole complexity of real biological neurons. We only abstract some general principles and content ourselves with different levels of detail when simulating neural ensembles. The general approach is to conceive each neuron as a primitive function producing numerical results at some points in time. However we can also think of artificial neurons as computing units which produce pulse trains in the way that biological neurons do. We can then simulate this behavior and look at the output of simple networks. This kind of approach, although more closely related to the biological paradigm, is still a very rough approximation of the biological processes.''
+    % black box
+``Artificial neural networks are used in many cases as a black box : a certain input should produce a desired output, but how the network achieves this result is left to a self-organizing process.''
+    % artificial neural networks
+``We will start our investigations with the general notion that a neural network is a network of functions in which synchronization can be considered explicitly or not.''
+``The nodes of the networks we consider will be called computing elements or simply units.''
+``The primitive function computed at each node is in general a function of n arguments. Normally, however, we try to use very simple primitive functions of one argument at the nodes. This means that the incoming n arguments have to be reduced to a single numerical value. Therefore computing units are split into two functional parts: an integration function g reduces the n arguments to a single value and the output or activation function f produces the output of this node taking that single value as its argument. Usually the integration function g is the addition function.''
+``McCulloch–Pitts networks are even simpler than this, because they use solely binary signals, i.e., ones or zeros. The nodes produce only binary results and the edges transmit exclusively ones or zeros. Each McCulloch–Pitts unit is also provided with a certain threshold value θ''
+``The rule for evaluating the input to a McCulloch–Pitts unit is the following:
+    • Assume that a McCulloch–Pitts unit gets an input x1, x2, . . . , xn through n excitatory edges and an input y1, y2, . . . , ym through m inhibitory edges.
+    • If m ≥ 1 and at least one of the signals y1, y2, . . . , ym is 1, the unit is inhibited and the result of the computation is 0.
+    • Otherwise the total excitation x = x1 + x2 + · · · + xn is computed and compared with the threshold θ of the unit (if n = 0 then x = 0). If x ≥ θ the unit fires a 1, if x < θ the result of the computation is 0.
+''
+
+
+% livro MIT (cap 1)
+    % deep learning
+``deep learning is an approach to machine learning that has drawn heavily on our knowledge of the human brain, statistics and applied math as it developed over the past several decades. In recent years, it has seen tremendous growth in its popularity and usefulness, due in large part to more powerful computers, larger datasets and techniques to train deeper networks. The years ahead are full of challenges and opportunities to improve deep learning even further and bring it to new frontiers.''
+    % neural network
+``Some of the earliest learning algorithms we recognize today were intended
+to be computational models of biological learning, i.e. models of how learning happens or could happen in the brain. As a result, one of the names that deep learning has gone by is artificial neural networks (ANNs). The corresponding perspective on deep learning models is that they are engineered systems inspired by the biological brain (whether the human brain or the brain of another animal). While the kinds of neural networks used for machine learning have sometimes been used to understand brain function (Hinton and Shallice, 1991), they are generally not designed to be realistic models of biological function. The neural perspective on deep learning is motivated by two main ideas. One idea is that the brain provides a proof by example that intelligent behavior is possible, and a conceptually straightforward path to building intelligence is to reverse engineer the computational principles behind the brain and duplicate its functionality. Another perspective is that it would be deeply interesting to understand the brain and the principles that underlie human intelligence, so machine learning models that shed light on these basic scientific questions are useful apart from their ability to solve engineering applications. ''
+``The earliest predecessors of modern deep learning were simple linear models motivated from a neuroscientific perspective. These models were designed to take a set of n input values x1, . . . , xn and associate them with an output y. These models would learn a set of weights w1, . . . , wn and compute their output f(x, w) = x1w1 + · · · + xnwn. This first wave of neural networks research was known as cybernetics, as illustrated in figure 1.7. ''
+``The McCulloch-Pitts Neuron (McCulloch and Pitts, 1943) was an early model of brain function. This linear model could recognize two different categories of inputs by testing whether f (x, w) is positive or negative. Of course, for the model to correspond to the desired definition of the categories, the weights needed to be set correctly. These weights could be set by the human operator. In the 1950s, the perceptron (Rosenblatt, 1958, 1962) became the first model that could learn the weights defining the categories given examples of inputs from each category.''
+``Models based on the f(x, w) used by the perceptron and ADALINE are called linear models. These models remain some of the most widely used machine learning models, though in many cases they are trained in different ways than the original models were trained.''
+``Today, neuroscience is regarded as an important source of inspiration for deep learning researchers, but it is no longer the predominant guide for the field. The main reason for the diminished role of neuroscience in deep learning research today is that we simply do not have enough information about the brain to use it as a guide.''
+``We are able to draw some rough guidelines from neuroscience. The basic idea of having many computational units that become intelligent only via their interactions with each other is inspired by the brain''
+``The central idea in connectionism is that a large number of simple computational units can achieve intelligent behavior when networked together. This insight applies equally to neurons in biological nervous systems and to hidden units in computational models.''
+``Another major accomplishment of the connectionist movement was the successful use of back-propagation to train deep neural networks with internal representations and the popularization of the back-propagation algorithm (Rumelhart et al., 1986a; LeCun, 1987). This algorithm has waxed and waned in popularity but as of this writing is currently the dominant approach to training deep models.''
+
+% livro MIT (cap 6 - feedforward or MLP)
+    % arquitetura
+``Another key design consideration for neural networks is determining the architecture. The word architecture refers to the overall structure of the network: how many units it should have and how these units should be connected to each other. Most neural networks are organized into groups of units called layers. Most neural network architectures arrange these layers in a chain structure, with each layer being a function of the layer that preceded it.''
+``In these chain-based architectures, the main architectural considerations are to choose the depth of the network and the width of each layer. As we will see, a network with even one hidden layer is sufficient to fit the training set. Deeper networks often are able to use far fewer units per layer and far fewer parameters and often generalize to the test set, but are also often harder to optimize. The ideal network architecture for a task must be found via experimentation guided by monitoring the validation set error.''
+``So far we have described neural networks as being simple chains of layers, with the main considerations being the depth of the network and the width of each layer.''
+``Feedforward networks may also be generalized to the recurrent neural networks for sequence processing''
+    % back-propagation and other differenciation algorithms
+``When we use a feedforward neural network to accept an input x and produce an output yˆ, information flows forward through the network. The inputs x provide the initial information that then propagates up to the hidden units at each layer and finally produces yˆ. This is called forward propagation. During training, forward propagation can continue onward until it produces a scalar cost J(θ). The back-propagation algorithm (Rumelhart et al., 1986a), often simply called backprop, allows the information from the cost to then flow backwards through the network, in order to compute the gradient.''
+    % historical notes
+``Feedforward networks can be seen as efficient nonlinear function approximators based on using gradient descent to minimize the error in a function approximation.''
+``Rectified linear units are also of historical interest because they show that neuroscience has continued to have an influence on the development of deep learning algorithms. Glorot et al. (2011a) motivate rectified linear units from biological considerations. The half-rectifying nonlinearity was intended to capture these properties of biological neurons: 1) For some inputs, biological neurons are completely inactive. 2) For some inputs, a biological neuron’s output is proportional to its input. 3) Most of the time, biological neurons operate in the regime where they are inactive (i.e., they should have sparse activations).''
+
+
+% elements of statistical learning
+    % intro
+``The central idea is to extract linear combinations of the inputs as derived features, and then model the target as a nonlinear function of these features.''
+    % neural networks
+``The term neural network has evolved to encompass a large class of models and learning methods. Here we describe the most widely used “vanilla” neural net, sometimes called the single hidden layer back-propagation network, or single layer perceptron.''
+``As we make clear in this section, they are just nonlinear statistical models''
+``The units in the middle of the network, computing the derived features Zm, are called hidden units because the values Zm are not directly observed. We can think of the Zm as a basis expansion of the original inputs X; the neural network is then a standard linear model, or linear multilogit model, using these transformations as inputs.''
+``Notice that if σ is the identity function, then the entire model collapses to a linear model in the inputs. Hence a neural network can be thought of as a nonlinear generalization of the linear model, both for regression and classification. By introducing the nonlinear transformation σ, it greatly enlarges the class of linear models.''
+``Finally, we note that the name “neural networks” derives from the fact that they were first developed as models for the human brain. Each unit represents a neuron, and the connections (links in Figure 10.2) represent synapses. In early models, the neurons fired when the total signal passed to that unit exceeded a certain threshold. In the model above, this corresponds to use of a step function for σ(Z) and gm(T). Later the neural network was recognized as a useful tool for nonlinear statistical modeling, and for this purpose the step function is not smooth enough for optimization. Hence the step function was replaced by a smoother threshold function, the sigmoid in Figure 10.3.''
+    % fit neural networks
+``The neural network model has unknown parameters, often called weights,
+and we seek values for them that make the model fit the training data well. For regression, we use sum-of-squared errors as our measure of fit (error function). For classification we use either squared error or cross-entropy (deviance).''
+``With the softmax activation function and the cross-entropy error function, the neural network model is exactly a linear logistic regression model in the hidden units, and all the parameters are estimated by maximum likelihood.''
+``Typically we don’t want the global minimizer of R(θ), as this is likely to be an overfit solution. Instead some regularization is needed: this is achieved directly through a penalty term, or indirectly by early stopping. Details are given in the next section.''
+- BACKPROPAGATION pg 400 do pdf
+``The advantages of back-propagation are its simple, local nature. In the back propagation algorithm, each hidden unit passes and receives information only to and from units that share a connection. Hence it can be implemented efficiently on a parallel architecture computer.''
+``The updates in (10.13) are a kind of batch learning, with the parameter updates being a sum over all of the training cases. Learning can also be carried out online—processing each observation one at a time, updating the gradient after each training case, and cycling through the training cases many times. In this case, the sums in equations (10.13) are replaced by a single summand. A training epoch refers to one sweep through the entire training set. Online training allows the network to handle very large training sets, and also to update the weights as new observations come in.''
+    % number of layers and number of units 
+``Generally speaking it is better to have too many hidden units than too few. With too few hidden units, the model might not have enough flexibility to capture the nonlinearities in the data; with too many hidden units, the extra weights can be shrunk toward zero if appropriate regularization is used. Typically the number of hidden units is somewhere in the range of 5 to 100, with the number increasing with the number of inputs and number of training cases. It is most common to put down a reasonably large number of units and train them with regularization. Some researchers use cross-validation to estimate the optimal number, but this seems unnecessary if cross-validation is used to estimate the regularization parameter. Choice of the number of hidden layers is guided by background knowledge and experimentation. Each layer extracts features of the input for regression or classification. Use of multiple hidden layers allows construction of hierarchical features at different levels of resolution.''
+    % local minima
+``The error function R(θ) is nonconvex, possessing many local minima. As a result, the final solution obtained is quite dependent on the choice of starting weights. One must at least try a number of random starting configurations, and choose the solution giving lowest (penalized) error.''
+    % identificability
+``These tools are especially effective in problems with a high signal-to-noise ratio and settings where prediction without interpretation is the goal. They are less effective for problems where the goal is to describe the physical process that generated the data and the roles of individual inputs. Each input enters into the model in many places, in a nonlinear fashion. This is limited however by the lack of identifiability of the parameter vectors αm, m = 1, . . . , M.''
+
+
+% neural network design (2014)
+    % intro
+``Scientists have only just begun to understand how biological neural networks operate. It is generally understood that all biological neural functions, including memory, are stored in the neurons and in the connections between them. Learning is viewed as the establishment of new connections between neurons or the modification of existing connections. This leads to the following question: Although we have only a rudimentary understanding of biological neural networks, is it possible to construct a small set of simple artificial “neurons” and perhaps train them to serve a useful function? The answer is “yes.” This book, then, is about artificial neural networks. The neurons that we consider here are not biological. They are extremely simple abstractions of biological neurons, realized as elements in a program or perhaps as circuits made of silicon. Networks of these artificial neurons do not have a fraction of the power of the human brain, but they can be trained to perform useful functions. This book is about such neurons, the networks that contain them and their training.''
+    % history
+list of applications e brief history (pg 24 do pdf)
+    % biologic inspiration
+``Artificial neural networks do not approach the complexity of the brain. There are, however, two key similarities between biological and artificial neural networks. First, the building blocks of both networks are simple computational devices (although artificial neurons are much simpler than biological neurons) that are highly interconnected. Second, the connections between neurons determine the function of the network. ''
+    % single-input neuron
+``A single-input neuron is shown in Figure 2.1. The scalar input is multiplied by the scalar weight to form , one of the terms that is sent to the summer. The other input, , is multiplied by a bias and then passed to the summer. The summer output , often referred to as the net input, goes into a transfer function , which produces the scalar neuron output. (Some authors use the term “activation function” rather than transfer function and “offset” rather than bias.)''
+``The bias is much like a weight, except that it has a constant input of 1.''
+``Note that and are both adjustable scalar parameters of the neuron. Typically the transfer function is chosen by the designer and then the parameters and will be adjusted by some learning rule so that the neuron input/output relationship meets some specific goal''
+    % transfer function (activation function)
+pg 41 do pdf contém lista de funções
+    % multiple-input neuron
+``We have adopted a particular convention in assigning the indices of the elements of the weight matrix. The first index indicates the particular neuron destination for that weight. The second index indicates the source of
+the signal fed to the neuron. Thus, the indices $w_{1,2}$ in say that this weight
+represents the connection to the first (and only) neuron from the second
+source.''
+    % network architectures
+``Commonly one neuron, even with many inputs, may not be sufficient. We
+might need five or ten, operating in parallel, in what we will call a “layer.” ''
+``The layer includes the weight matrix, the summers, the bias vector , the transfer function boxes and the output vector . Some authors refer to the inputs as another layer, but we will not do that here. ''
+``It is common for the number of inputs to a layer to be different from the number of neurons''
+``You might ask if all the neurons in a layer must have the same transfer function. The answer is no; you can define a single (composite) layer of neurons having different transfer functions by combining two of the networks shown above in parallel. Both networks would have the same inputs, and each network would create some of the outputs.''
+``We will use superscripts to identify the layers. Specifically, we append the number of the layer as a superscript to the names for each of these variables. Thus, the weight matrix for the first layer is written as $W^{1}$, and the weight matrix for the second layer is written as $W^{2}$. A layer whose output is the network output is called an output layer. The other layers are called hidden layers.''
+    % perceptron learning rule
+``As each input is applied to the network, the network output is compared to the target. The learning rule then adjusts the weights and biases of the network in order to move the network output closer to the target''
+``The perceptron learning rule is guaranteed to converge to a solution in a finite number of steps, so long as a solution exists.''
+    % perceptron limitations
+``Recall that a single-neuron perceptron is able to divide the input space into two regions. This is a linear boundary (hyperplane). The perceptron can be used to classify input vectors that can be separated by a linear boundary. We call such vectors linearly separable.''
+    % backpropagation
+``Let’s summarize the backpropagation algorithm. The first step is to propagate the input forward through the network. The next step is to propagate the sensitivities backward through the network. Finally, the weights and biases are updated using the approximate steepest descent rule.''
+checar equações na pg 370 do pdf
+``Before we begin the backpropagation algorithm we need to choose some initial values for the network weights and biases. Generally these are chosen to be small random values.''
+    % batch vs. incremental learning
+``The algorithm described above is the stochastic gradient descent algorithm, which involves “on-line” or incremental training, in which the network weights and biases are updated after each input is presented. It is also possible to perform batch training, in which the complete gradient is computed (after all inputs are applied to the network) before the weights and biases are updated.''
+checar equações na pg 374 do pdf
+    % generalization
+``In most cases the multilayer network is trained with a finite number of examples of proper network behavior. This training set is normally representative of a much larger class of possible input/output pairs. It is important that the network successfully generalize what it has learned to the total population''
+``For a network to be able to generalize, it should have fewer parameters than there are data points in the training set. In neural networks, as in all modeling problems, we want to use the simplest network that can adequately represent the training set. Don’t use a bigger network when a smaller network will work (a concept often referred to as Ockham’s Razor). An alternative to using the simplest network is to stop the training before
+the network overfits.''
+olhar pg 468 do pdf (cap. 13 - Generalization)
+
+
+
+%%%%%
+\vspace{3cm}
 \pumi{Esta parte achei muito blog-like e pouco TCC. Eu começaria falando algo do tipo ANN são métodos de machine learning muito utilizados blablabla uma rede neural é composta por blablabla entrada, saída, camadas, funções etc... Redes neurais surgiram como um modelo para simular blablabla neuronios, sinapses, etc. }    
 
-Redes neurais artificiais, ou apenas redes neurais, são populares técnicas de \textit{machine learning} que simulam o mecanismo de aprendizagem dos organismos biológicos. Os neurônios são conectados uns aos outros por meio de axônios e dendritos, e as regiões de conexão entre ambos é referida como sinapse. A força das conexões sinápticas usualmente muda em reposta ao estímulo externo. Essa troca é como a aprendizagem acontece em organismos vivos \citep{aggarwal2018DeepLearning}. 
-
-    % itens abaixo retirados de \citet{haykin2001redesneurais}
-De acordo com \citet{haykin2001redesneurais}, o modelo de um neurônio forma a base para o projeto de redes neurais (artificiais). Podemos identificar três elementos básicos do modelo neuronal:
-
-\begin{enumerate}
-    \item Um conjunto de sinapses, cada uma caracterizada por um peso/força própria. Especificamente, um sinal $x_j$ na entrada da sinapse $j$ conectada ao neurônio $k$ é multiplicado por cada peso sináptico $w_{kj}$. O peso sináptico de um neurônio artificial pode estar em um intervalo que inclui valores positivos e negativos.
-    \item Um \textit{somador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
-    \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito). Tipicamente, o intervalo normalizado é escrito\pumi{??} como $[0,1]$ ou $[-1,1]$.
-\end{enumerate}
 
 \pumi{Regra de ouro de um TCC: 100\% proibido parágrafos compostos de apenas uma sentença!! Outra coisa, entre texto e environment não pode ser colocado espaço em branco ou o tex interpretará como parágrafo e adicionará espaço extra.}
 
