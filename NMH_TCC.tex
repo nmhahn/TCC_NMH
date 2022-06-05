@@ -7,7 +7,7 @@
 
 %\makeindex  Opcional (Índice Remissivo)
 
-\newcommand{\pumi}[1]{\textcolor{blue}{#1}}
+\newcommand{\pumi}[1]{\textcolor{red}{#1}}
 \newcommand{\R}{\mathds{R}}
 \begin{document}
 
@@ -120,12 +120,12 @@ In this work ....
 
     % NN
 \section{Deep Learning}
-\textit{Deep Learning} é uma abordagem de \textit{machine learning} embasada fortemente no conhecimento do cérebro humano, estatística e matemática aplicada. Recentemente, houve um tremendo aumento em sua utilidade e popularidade graças ao crescimento do poder computacional, maiores bases de dados e técnicas para treinar redes mais profundas \citep{mit2016deeplearningbook}. Os primeiros algoritmos tinham o intuito de serem modelos computacionais da aprendizagem biológica, i.e. modelos de como a aprendizagem ocorre ou poderia ocorrer no cérebro (humano ou de outro animal). Como resultado, um dos nomes que \textit{deep learning} passou foi redes neurais artificiais \citep{mit2016deeplearningbook}.
+\textit{Deep Learning} é uma abordagem de \textit{machine learning} embasada fortemente no conhecimento do cérebro humano, estatística e matemática aplicada. Recentemente, houve um tremendo aumento em sua utilidade e popularidade graças ao crescimento do poder computacional, maiores bases de dados e técnicas para treinar redes mais profundas \citep{mit2016deeplearningbook}. Os primeiros algoritmos tinham o intuito de serem modelos computacionais da aprendizagem biológica, i.e. modelos de como a aprendizagem ocorre ou poderia ocorrer no cérebro (humano ou de outro animal). Devido a isso, \textit{deep learning} também foi conhecido como redes neurais artificiais \citep{mit2016deeplearningbook}. \pumi{Tecnicamente o que chamamos de deep learning é uma classe de redes neurais cuja característica principal são a presença de arquiteturas complexas compreendendo várias camadas. }
 
 \subsection{Redes Neurais Artificiais - ANN}
-O termo rede neural tem evoluído para abranger uma grande classe de modelos e métodos de aprendizagem. A ideia geral é extrair combinações lineares dos sinais de entrada como características derivadas, e então modelar a a(s) resposta(s) como uma função não linear dessas características. Afinal, redes neurais são apenas modelos estatísticos não lineares \citep{statsLearning2009}.
+O termo rede neural tem evoluído para abranger uma grande classe de modelos e métodos de aprendizagem. A ideia geral é extrair combinações lineares dos sinais de entrada como características derivadas, e então modelar a(s) resposta(s) como uma função não linear dessas características. \sout{Afinal,} \pumi{Em última análise, } redes neurais \sout{são apenas} \pumi{podem ser vistos como} modelos estatísticos não lineares \citep{statsLearning2009}.
 
-\citet{aggarwal2018DeepLearning} comenta que o mecanismo biológico é simulado nas ANN, que contêm unidades computacionais chamadas de \textit{neurônios}. Essas unidades são interconectadas por meio de pesos. Além disso, cada sinal de entrada é escalado com um peso, que afeta a função computada naquela unidade. Ou seja, uma rede neural computa a função dos sinais de entrada, propagando os valores computados para o(s) neurônio(s) de saída, utilizando os pesos como parâmetros intermediários. A aprendizagem ocorre alterando os pesos conectados aos neurônios, sendo necessária uma base de dados de treino contendo pares de \textit{input-output} da função a ser aprendida.
+\pumi{esta frase inicial não está boa. Talvez falar de motivação }\citet{aggarwal2018DeepLearning} comenta que o mecanismo biológico é simulado nas ANN, que contêm unidades computacionais chamadas de \textit{neurônios}. Essas unidades são interconectadas por meio de pesos. Além disso, cada sinal de entrada é escalado com um peso, que afeta a função computada naquela unidade. Ou seja, uma rede neural computa a função dos sinais de entrada, propagando os valores computados para o(s) neurônio(s) de saída, utilizando os pesos como parâmetros intermediários. \sout{A aprendizagem} ocorre alterando os pesos conectados aos neurônios, sendo necessária uma base de dados de treino contendo pares de \textit{input-outputs} da função a ser \sout{aprendida}. \pumi{Vamos tentar falar de ajuste, modelagem, e outros sinônimos e deixar de lado o jargão computacional aprendizado. Para isso em algum lugar poderias dizer que o que em machine learning se chama aprendizagem, em estatística chamamos de ajuste ou modelagem blablabla e então adotar a linguagem da estatística.}
 
 Um neurônio é uma unidade de processamento de informação fundamental para a operação de uma rede neural \citep{haykin2001redesneurais}. Podemos identificar três elementos básicos do modelo neuronal:
 \begin{enumerate}
@@ -135,13 +135,36 @@ Um neurônio é uma unidade de processamento de informação fundamental para a 
 \end{enumerate}
 Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, com o intuito de aumentar ou diminuir a entrada da função de ativação, dependendo do seu sinal.
 
-Matematicamente, podemos descrever um neurônio $k$, $k \in \mathds{N}$, por meio de um par de equações:
+Matematicamente, podemos descrever um neurônio $k \in \mathds{N}$, por meio de um par de equações:
 \begin{align*}
-y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
-u_k &= \displaystyle{\sum_{j=1}^{m} }w_{k,j}x_j;
+    y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
+    u_k &= \displaystyle{\sum_{j=1}^{m} }w_{k,j}x_j;
 \end{align*}
-em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $j,m \in \mathds{N}$, são os sinais de entrada; $w_{k,j} \in \R$, são os pesos sinápticos do neurônio $k$; $v_k$ é a saída da combinação linear entre sinais de entrada e pesos sinápticos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é a função de ativação; e $y_k$ é o sinal de saída.
+em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $m \in \mathds{N}$, são os sinais de entrada \pumi{valores observados}; $w_{k,j} \in \R$, são os pesos \sout{sinápticos do} \pumi{associados ao} neurônio $k$; $u_k$ é a saída da combinação linear entre sinais de entrada e pesos sinápticos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
 
+% abaixo, falta organizar questões de bibliografia, mas quais ideias mais?
+Redes neurais são organizadas em conjuntos de neurônios que operam paralelamente denominados \textit{camadas}. Cada camada \sout{contém} \pumi{pode conter seu próprio conjunto de pesos, acumulador, \textit{bias} e função de ativação.} Alguns autores referem-se aos sinais de entrada como uma camada de entrada, vamos optar por essa abordagem. Posto isso, temos que uma rede neural é composta por três tipos de camada: entrada, oculta e saída. A camada de entrada é composta pelos sinais de entrada $x_j$. Os demais tipos são compostas pelas unidades computacionais que seguem o modelo neuronal comentado anteriormente, sendo que a diferença entre camada(s) oculta(s) e de saída é que a primeira compõe o meio da rede neural não sendo diretamente observados, e a segunda contém o resultado \sout{do modelo} \pumi{da aplicação da função (rede neural) ao sinal de entrada}.
+
+Em termos de notação, vamos denominar as camadas ocultas por $h_k$, \pumi{[esta notação está confusa. O $k$ não era para denotar a camada? então pra quê os sobrescritos?]} e utilizar índices sobrescritos para identificar cada camada oculta, bem como a qual camada se refere o vetor de pesos e de \textit{bias}. Por exemplo, em uma rede cuja arquitetura é constituída da camada de entrada, duas camadas ocultas e a camada de saída, considerando entradas $x_j$, \pumi{pesos $w_{k,j}^{(s)}$, e funções de ativação $\varphi^{(s)}(\cdot)$, $s\in\{1,2,3\}$ temos que:}
+\begin{align*}
+    h_k^{(1)} &= \varphi^{(1)} \biggl(b_k^{(1)} + \displaystyle{\sum_{j=1}^{m} }w_{k,j}^{(1)}x_j \biggl);\\[.2cm]
+    h_k^{(2)} &= \varphi^{(2)} \biggl(b_k^{(2)} + \displaystyle{\sum_{j=1}^{m} }w_{k,j}^{(2)}h_k^{(1)} \biggl);\\[.2cm]
+    y_k &= \varphi^{(3)} \biggl(b_k^{(3)} + \displaystyle{\sum_{j=1}^{m} }w_{k,j}^{(3)}h_k^{(2)} \biggl)
+\end{align*}
+
+
+%Most neural network architectures arrange these layers in a chain structure, with each layer being a function of the layer that preceded it.  \cite{mit2016deeplearningbook}
+
+%Commonly one neuron, even with many inputs, may not be sufficient. We might need five or ten, operating in parallel, in what we will call a “layer.” ''
+%``The layer includes the weight matrix, the summers, the bias vector , the transfer function boxes and the output vector . Some authors refer to the inputs as another layer, but we will not do that here. ''
+%``It is common for the number of inputs to a layer to be different from the number of neurons''
+%``You might ask if all the neurons in a layer must have the same transfer function. The answer is no; you can define a single (composite) layer of neurons having different transfer functions by combining two of the networks shown above in parallel. Both networks would have the same inputs, and each network would create some of the outputs.''
+%``We will use superscripts to identify the layers. Specifically, we append the number of the layer as a superscript to the names for each of these variables.
+%\cite{nnDesign2014}
+
+%The units in the middle of the network, computing the derived features Zm, are called hidden units because the values Zm are not directly observed. We can think of the Zm as a basis expansion of the original inputs X; the neural network is then a standard linear model, or linear multilogit model, using these transformations as inputs.
+%Notice that if σ is the identity function, then the entire model collapses to a linear model in the inputs. Hence a neural network can be thought of as a nonlinear generalization of the linear model, both for regression and classification. By introducing the nonlinear transformation σ, it greatly enlarges the class of linear models.
+%\cite{statsLearning2009}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{3cm}
@@ -250,27 +273,33 @@ em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $j,m \in \mathds{N}$, são os sinais
 %``For a network to be able to generalize, it should have fewer parameters than there are data points in the training set. In neural networks, as in all modeling problems, we want to use the simplest network that can adequately represent the training set. Don’t use a bigger network when a smaller network will work (a concept often referred to as Ockham’s Razor). An alternative to using the simplest network is to stop the training before the network overfits.''
 %olhar pg 468 do pdf (cap. 13 - Generalization)
 
+\pumi{Acho que falta explicar qual o interesse numa rede neural (estimar os pesos) e como fazer isso, sem, porém, entrar em detalhes do algoritmo de backpropagation (apenas citar uma boa referência)}
 
 % função de ativação
-\pumi{Acho que falta explicar qual o interesse numa rede neural (estimar os pesos) e como fazer isso, sem, porém, entrar em detalhes do algoritmo de backpropagation (apenas citar uma boa referência)}
 \subsection{Função de Ativação}
     % funções de ativação coletadas de \citep{dsa2021deeplearningbook}
 O objetivo da função de ativação é determinar se o neurônio de uma rede neural será ativado ou não. Ou seja, se a informação que o neurônio está recebendo é passada adiante ou ignorada \citep{dsa2021deeplearningbook}. Abaixo seguem algumas funções de ativação:
 
+\pumi{primeiro domínio/imagem e depois a definição.}
+
 \begin{itemize}
-    \item linear ou identidade: $f(x) = \alpha x, \; \alpha \in \R; \; f: \R \rightarrow \R$; 
-    \item sinal (\textit{sign}): $f(x)=\begin{cases}
-    +1, & \mbox{ se } x>0 \\
-    -1, & \mbox{ se } x\leq 0.
-    \end{cases}; \; f: \R \rightarrow \{-1,+1\}$;
-    \item sigmóide, \textit{logit} ou \textit{log-sigmoid}: $f(x) = \frac{1}{1 + e^{-x}}; \; f: \R \rightarrow (0,1)$;
-    \item tangente hiperbólica (\textit{tanh}) ou \textit{tanh sigmoid}: $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}; \; \R \rightarrow (-1,1)$
-    \item ReLU (\textit{Rectified Linear Unit}) ou positivo linear: \\ $f(x) = \begin{cases}
-    0, & \mbox{ se } x<0\\
-    x, & \mbox{ se } x\geq 0
-    \end{cases} = \max\{0,x\}; \; f: \R \rightarrow \R^{+} \cup \{0\} $
+    \item linear \sout{ou identidade}: $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$; \pumi{Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado de forma bem simples (multiplicando-se por uma constante). Em particular, quando $\alpha=1$, temos a função identidade.
+    \item sinal (\textit{sign}): $f: \R \rightarrow \{-1,+1\}$ dada por  $f(x)=\begin{cases}
+    +1, & \mbox{ se } x\leq0 \\
+    -1, & \mbox{ se } x< 0.
+    \end{cases}$
+    \item sigmóide ou \textit{logit}: $f: \R \rightarrow (0,1)$ dada por $f(x) = \frac{1}{1 + e^{-x}}$;
+    \item tangente hiperbólica ($\tanh$):  $f:\R \rightarrow (-1,1)$ dada por $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$;
+    \item ReLU (\textit{Rectified Linear Unit}) ou positivo linear: $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$;}
 \end{itemize}
-Listas de funções de ativação podem ser encontradas em \citet{nnDesign2014}, \citet{aggarwal2018DeepLearning} e \citet{dsa2021deeplearningbook}.
+\pumi{Faltou explicar que a função de ativação tem um papel semelhante ao do link em GLM e que a escolha da função de ativação depende muito dos dados de entrada e do que se espera alcançar ao passar os dados pela camada. Acrescenta ainda uma ideia simples do que cada função de ligação faz. Observe ainda que todas as funções de ativação apresentadas apresentam imagem diferente, mas mesmo domínio. qual a razão?}
+
+Listas de funções de ativação \pumi{comumente utilizadas} podem ser encontradas em \citet{nnDesign2014}, \citet{aggarwal2018DeepLearning} e \citet{dsa2021deeplearningbook}.
+
+% feedforward ou mlp
+% backpropagation
+% early stopping and validation dataset
+% optimization for deep learning (batch, for example)
 
     % RNN 
 \subsection{Redes Neurais Recorrentes - RNN}
