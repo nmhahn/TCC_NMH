@@ -1,6 +1,7 @@
 \documentclass{automatextcc}
 \usepackage{ulem}
 \usepackage{dsfont}
+\usepackage{}
 
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
@@ -171,6 +172,36 @@ Matematicamente, podemos descrever um neurônio $k \in \mathds{N}$, por meio de 
     u_k &= \displaystyle{\sum_{j=1}^{m} }w_{k,j}x_j;
 \end{align*}
 em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $m \in \mathds{N}$, são os valores observados; $w_{k,j} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
+
+\subsection{Funções de Ativação ou de Transferência}
+% inteira retirada de hagan_2014 (apenas copiado e traduzido)
+A função de transferência pode ser uma função linear ou não-linear de $n$. Uma função de transferência em particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio está tentando resolver. 
+
+A hard limit transfer function define a saída de um neurônio para 0 se o argumento da função é menor que 0, ou 1 se seu argumento é maior ou igual a 0. Utilizaremso esta função para criar neurônios que classifiquem entradas em duas categorias distintas. 
+
+A saída de uma linear transfer function é igual a sua entrada ($a = n$). Utilizada em redes ADALINE. 
+
+A log-sigmoid transfer function pega a entrada (que pode ser qualquer valor entre mais ou menos infinito) e transforma a saída no intervalo de 0 a 1, de acordo com a expressão $a=\frac{1}{1+e^{-n}}$. Essa função é comumente utilizada em redes multicamadas que são treinadas utilizando o algoritmo de backpropagation (retropropagação), em parte pela função ser diferenciável. 
+
+\subsection{Arquitetura de RNAs}
+Comumente, um neurônio não é suficiente, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada'' \citep{hagan2014}.  
+Em geral, podemos identificar três classes de arquiteturas de rede fundamentalmente diferentes \citep{haykin2001}:
+
+% inteira retirada de haykin_2001 (apenas copiado)
+\subsubsection{Redes Alimentadas Adiante com Camada Única | Perceptron?}
+Em uma rede neural em camadas, os neurônios estão organizados na forma de camadas. Na forma mais simples de uma rede em camadas, temos a camada de entrada de nós de fonte que se projeta sobre uma camada de saída de neurônios (nós computacionais), mas não vice-versa. Em outras palavras, esta rede é estritamente do tipo alimentada adiante ou acíclica. [...]. Esta rede é chamada de camada única sendo que a designação ``camada única'' se refere à camada de saída de nós computacionais (neurônios). Não contamos a camada de entrada de nós de fonte, porque lá não é realizada nenhuma computação.
+
+\subsubsection{Redes Alimentadas Diretamente com Múltiplas Camadas | MLP | Feedforward}
+A segunda classe de uma rede neural alimentada se distingue pela presença de uma ou mais camadas ocultas, cujos nós computacionais são chamados correspondentemente de neurônios ocultos ou unidades ocultas. A função dos neurônios ocultos é intervir entre a camada externa e a saída da rede de uma maneira útil. Adicionando-se uma ou mais camadas ocultas, tornamos a rede capaz de extrair estatísticas de ordem elevada. Em um sentido bastante livre, a rede adquire uma perspectiva global apesar de sua conectividade local, devido ao conjunto extra de conexões sinápticas e da dimensão extra de interações neurais (Churland e Sejnowski, 1992). A habilidade de os neurônios ocultos extraírem estatísticas de ordem elevada é particularmente valiosa quando o tamanho da camada de entrada é grande.
+
+Os nós de fonte da camada de entrada da rede fornecem os respectivos elementos do padrão de ativação (vetor de entrada), que constituem os sinais de entrada aplicados aos neurônios (nós computacionais) na segunda camada (i.e., primeira camada oculta). Os sinais de saída da segunda camada são utilizados como entradas para a terceira camada, e assim por diante para o resto da rede. Tipicamente, os neurônios em cada camada da rede têm como suas entradas apenas os sinais de saída da camada precedente. O conjunto de sinais de saída (final) da rede constitui a resposta global da rede para o padrão de ativação fornecido pelos nós de fonte da camada de entrada (primeiro). [...]. Como um outro exemplo, uma rede alimentada adiante com $m$ nós de fonte, $h_1$ neurônios na primeira camada oculta, $h_2$ neurônios na segunda camada oculta e $q$ neurônios na camada de saída é referida como uma rede $m-h_1-h_2-q$.
+
+A rede neural é dita totalmente conectada, no sentido de que cada um dos nós de uma camada da rede está conectado a todos os nós da camada adjacente seguinte. Entretanto, se alguns dos elos de ligação (conexões sinápticas) estiverem faltando na rede, dizemos que a rede é parcialmente conectada.
+
+\subsubsection{Redes Neurais Recorrentes}
+Uma rede neural recorrente se distingue de uma rede neural alimentada adiante por ter pelo menos um laço de realimentação. Uma rede recorrente pode consistir, por exemplo, de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios. [...]; auto-realimentação se refere a uma situação onde a saída de um neurônio é realimentada para a sua própria entrada. [...].
+
+A presença de laços de realimentação, [...], tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho. Além disso, os laços de realimentação envolvem o uso de ramos particulares compostos de elementos de atraso unitário (representado por $z^{-1}$, o que resulta em um comportamento dinâmico não-linear, admitindo-se que a rede contenha unidades não-lineares.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
