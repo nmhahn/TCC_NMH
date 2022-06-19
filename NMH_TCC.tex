@@ -128,6 +128,14 @@ In this work ....
 % paragrafo
 Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina que simulam o mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018}. Em \citet{goodfellow2016} é comentado que os algoritmos iniciais tinham o intuito de ser um modelo computacional de como a aprendizagem poderia ocorrer no cérebro (seja humano seja de outro animal). O cérebro, expressa \citet{haykin2001}, é um computador (sistema de processamento de informação) altamente complexo, não linear e paralelo. Por fim, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
 
+\subsection{Deep Learning}
+
+\begin{itemize}
+    \item renascimento de redes neurais 
+    \item deep learning são redes neurais profundas (com muuuitas camadas)
+\end{itemize}
+
+
 \subsection{Redes Neurais e a Estatística}
 Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística) entre outros, especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação \citep{sarle1994, cheng1994}.
 
@@ -169,23 +177,38 @@ Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, c
 Matematicamente, podemos descrever um neurônio $k \in \mathds{N}$, por meio de um par de equações:
 \begin{align*}
     y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
-    u_k &= \displaystyle{\sum_{j=1}^{m} }w_{k,j}x_j;
+    u_k &= \displaystyle{\sum_{i=1}^{m} }w_{k,i}x_i;
 \end{align*}
-em que $x_j \in \R$, $j \in \{1,\dots,m\}$, $m \in \mathds{N}$, são os valores observados; $w_{k,j} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
+em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \mathds{N}$, são os valores observados; $w_{k,i} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
 
-\subsection{Funções de Ativação ou de Transferência}
-% inteira retirada de hagan_2014 (apenas copiado e traduzido)
-A função de transferência pode ser uma função linear ou não-linear de $n$. Uma função de transferência em particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio está tentando resolver. 
+\begin{figure}
+    \centering
+    \includegraphics[width=10cm,height=8cm]{figuras/neuron_model.pdf}
+	\caption{Modelo Neuronal (adaptado de \citet{haykin2001,hair2005})}
+\end{figure}
 
-A hard limit transfer function define a saída de um neurônio para 0 se o argumento da função é menor que 0, ou 1 se seu argumento é maior ou igual a 0. Utilizaremso esta função para criar neurônios que classifiquem entradas em duas categorias distintas. 
+\subsection{Função de Ativação}
+O objetivo da função de ativação (ou de transferência) é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
 
-A saída de uma linear transfer function é igual a sua entrada ($a = n$). Utilizada em redes ADALINE. 
+\begin{itemize}
+    \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
+    \item \textbf{sigmóide ou \textit{logit}}: $f: \R \rightarrow (0,1)$ dada por $f(x) = \frac{1}{1 + e^{-x}}$. Quando a rede tem essa função de ativação, o neurônio é um modelo linear generalizado conhecido como regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação: relacionar o preditor linear $v$ a um valor esperado $\mu$ de um dado $y$ \citep{sarle1994,frei2020,mccullagh1989}.
+    \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$. Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
+    \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos linear bons generalizadores. % pq? % quais? 
+\end{itemize}
 
-A log-sigmoid transfer function pega a entrada (que pode ser qualquer valor entre mais ou menos infinito) e transforma a saída no intervalo de 0 a 1, de acordo com a expressão $a=\frac{1}{1+e^{-n}}$. Essa função é comumente utilizada em redes multicamadas que são treinadas utilizando o algoritmo de backpropagation (retropropagação), em parte pela função ser diferenciável. 
+% pq domínio é igual para todos?
+
+Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
+
 
 \subsection{Arquitetura de RNAs}
-Comumente, um neurônio não é suficiente, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada'' \citep{hagan2014}.  
-Em geral, podemos identificar três classes de arquiteturas de rede fundamentalmente diferentes \citep{haykin2001}:
+%Comumente, um neurônio, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada'' \citep{hagan2014}.  
+%Em geral, podemos identificar três classes de arquiteturas de rede fundamentalmente diferentes \citep{haykin2001}.
+
+\citet{hagan2014} afirma que um neurônio, mesmo com muitas entradas, usualmente não é suficiente, sendo necessários cinco ou dez operando paralelamente, em uma estrutura que chamamos de ``camada''. Devido a isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{haykin2001}.
+
+
 
 % inteira retirada de haykin_2001 (apenas copiado)
 \subsubsection{Redes Alimentadas Adiante com Camada Única | Perceptron?}
@@ -202,6 +225,27 @@ A rede neural é dita totalmente conectada, no sentido de que cada um dos nós d
 Uma rede neural recorrente se distingue de uma rede neural alimentada adiante por ter pelo menos um laço de realimentação. Uma rede recorrente pode consistir, por exemplo, de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios. [...]; auto-realimentação se refere a uma situação onde a saída de um neurônio é realimentada para a sua própria entrada. [...].
 
 A presença de laços de realimentação, [...], tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho. Além disso, os laços de realimentação envolvem o uso de ramos particulares compostos de elementos de atraso unitário (representado por $z^{-1}$, o que resulta em um comportamento dinâmico não-linear, admitindo-se que a rede contenha unidades não-lineares.
+
+\section{Composição Algorítmica | Composição Musical}
+
+\begin{itemize}
+    \item composição algorítmica ou automática
+    \item como já foi explorado o processo de composição de forma mais automática
+\end{itemize}
+
+\section{Web Crawler | Web Scrapper}
+
+\begin{itemize}
+    \item coleta de dados online
+    \item o que é um bot
+\end{itemize}
+
+\section{Estatística | Machine Learning}
+
+\begin{itemize}
+    \item modelos estatísticos (glm por exemplo)
+    \item problemas de regressão e classificação (nomenclatura machine learning)
+\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
