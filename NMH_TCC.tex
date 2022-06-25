@@ -270,12 +270,19 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 %A key point here is the presence of the self-loop, which will cause the hidden state of the neural network to change after the input of each $\bs{x}^{(t)}$. In practice, one only works with sequences of finite length, and it makes sense to unfurl the loop in a ``time-layered'' network that looks more like a feed-forward network. Note that in this case, we have a different node for the hidden state at each time-stamp and the self-loop has been unfurled into a feed-forward network. This representation is mathematically equivalent, but is much easier to comprehend because of its similarity to a traditional network.
 %\citep{aggarwal2018}
 
-\section{Composição Algorítmica | Composição Musical}
+\section{Composição Algorítmica}
+
+Composição algorítmitca, ou composição automática, refere-se ao processo de criar música por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções para resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é subtituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
+
+De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
 
 \begin{itemize}
-    \item composição algorítmica ou automática
-    \item como já foi explorado o processo de composição de forma mais automática
+    \item estocástica: abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
+    \item \textit{rule-based}: em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
+    \item inteligência artificial (IA): similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática ou, em essência, a capacidade de ``aprender''.
 \end{itemize}
+Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
+
 
 \section{Web Scraping}
 
