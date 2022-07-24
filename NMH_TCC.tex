@@ -1,7 +1,7 @@
 \documentclass{automatextcc}
 \usepackage{ulem}
 \usepackage{dsfont}
-\usepackage{}
+\usepackage{placeins}
 
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
@@ -128,7 +128,7 @@ In this work ....
 %Redes neurais são uma abordagem totalmente diferente para a análise de dados em relação a qualquer outra técnica multivariada. Em vez de conceitualizar o problema como de caráter matemático, redes neurais usam o cérebro humano e sua estrutura para desenvolver uma estratégia de processamento. Apesar de jamais sermos capazes de construir redes neurais tão complexas quanto o cérebro humano, podemos usar seus princípios básicos de unidades de processamento paralelo múltiplo engajadas no reconhecimento de padrões. 
 
 % paragrafo
-Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina que simulam o mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018}. Em \citet{goodfellow2016} é comentado que os algoritmos iniciais tinham o intuito de ser um modelo computacional de como a aprendizagem poderia ocorrer no cérebro (seja humano seja de outro animal). O cérebro, expressa \citet{haykin2001}, é um computador (sistema de processamento de informação) altamente complexo, não linear e paralelo. Por fim, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
+Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \cite{goodfellow2016}.  Por outro lado, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
 
 \subsection{Deep Learning}
 
@@ -141,11 +141,11 @@ Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina que s
 \subsection{Redes Neurais e a Estatística}
 Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística) entre outros, especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação \citep{sarle1994, cheng1994}.
 
-No contexto de RNAs, dois aspectos de tratamento podem ser definidos a um problema prático: (i) especificar a arquitetura da rede; (ii) treinar a rede para performar bem com o conjunto de treinamento (referencial). Para o estatístico, tais passos são equivalentes a: (i) especificar um modelo de regressão; (ii) estimar os parâmetros do modelo dado um conjunto de dados. Por conseguinte, uma RNA pode ser pensada como uma generaliação não linear de um modelo linear, seja para regressão seja para classificação \citep{cheng1994, hastie2009}. 
+\pumi{Esta sentença está ruim} No contexto de RNAs, dois aspectos de tratamento podem ser definidos a um problema prático: (i) especificar a arquitetura da rede; (ii) treinar a rede para performar bem com o conjunto de treinamento (referencial). Para o estatístico, tais passos são equivalentes a: (i) especificar um modelo de regressão; (ii) estimar os parâmetros do modelo dado um conjunto de dados. Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
 
 
 \subsubsection{Jargões} 
-Apesar de muitos modelos de RNAs serem similares ou idênticos aos modelos estatísticos, os termos na literatura de RNAs são bastante diferentes da estatística:
+Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatísticos, os termos na literatura de RNAs são diferentes da estatística. \pumi{No que segue apresentamos uma lista não exaustiva de termos comumente utilizados na literatura de RNAs e suas equivalências em estatística:}
 
 \begin{itemize}
     \item variables are called features
@@ -164,7 +164,7 @@ Apesar de muitos modelos de RNAs serem similares ou idênticos aos modelos estat
     \item cluster analysis is called competitive learning or adaptative vector quantization
     \item interpolation and extrapolation are called generalization
 \end{itemize}
-Os termos estatísticos amostra e população não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes dividos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
+Os termos estatísticos amostra e população não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
 
 
 \subsection{Neurônio}
@@ -185,7 +185,7 @@ em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observad
 
 \begin{figure}
     \centering
-    \includegraphics[width=10cm,height=8cm]{figuras/neuron_model.pdf}
+    \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
 	\caption{Modelo Neuronal (adaptado de \citet{haykin2001,hair2005})}
 \end{figure}
 
@@ -196,7 +196,7 @@ O objetivo da função de ativação (ou de transferência) é determinar se a i
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
     Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
     \item \textbf{sigmóide ou \textit{logit}}: $f: \R \rightarrow (0,1)$ dada por $f(x) = \frac{1}{1 + e^{-x}}$. \\
-    Quando a rede tem essa função de ativação, o neurônio é um modelo linear generalizado conhecido como regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação: relacionar o preditor linear $v$ a um valor esperado $\mu$ de um dado $y$ \citep{sarle1994,frei2020,mccullagh1989}. % ficou meio jogado?
+    Quando \sout{a rede tem} essa função de ativação \pumi{é associada a uma rede}, o neurônio \pumi{é equivalente a uma} \sout{um modelo linear generalizado conhecido como} regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação \pumi{no contexto de modelos lineares gerais}: relacionar o preditor linear \pumi{ao respectivo valor esperado} \sout{$v$ a um valor esperado $\mu$ de um dado $y$} \citep{sarle1994,frei2020,mccullagh1989}. % ficou meio jogado?
     \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$. \\
     Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. \\
@@ -206,7 +206,7 @@ O objetivo da função de ativação (ou de transferência) é determinar se a i
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
 
 
-\subsection{Arquitetura de RNAs}
+\subsection{Arquiteturas de RNAs}
 %Comumente, um neurônio, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada''. Alguns autores referem-se às entradas como outra camada, mas não faremos isso aqui \citep{hagan2014}. 
 %Em geral, podemos identificar três classes de arquiteturas de rede fundamentalmente diferentes \citep{haykin2001}.
 
@@ -214,12 +214,12 @@ Listas de funções de ativação comumente utilizadas podem ser encontradas em 
 %Um nó de saída recebe entradas e calcula um valor de saída, mas em vez de ir para outro nó, esse é o valor final. Se esse for um modelo preditivo, então esse valor é o resultado da previsão. Se o modelo é utilizado para classificação, então esse é o valor empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada). 
 %\citep{hair2005}.
 
-Um único neurônio (nó computacional), mesmo com muitas entradas, usualmente não é suficiente, sendo necessários cinco ou dez operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
+Um único neurônio (nó computacional), mesmo com muitas entradas, usualmente não é suficiente \pumi{para o quê?}, sendo necessários cinco ou dez operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
 
 \begin{enumerate}
-    \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente $x_i$. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria (mesmo processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência).
-    \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
-    \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
+    \item \textbf{Entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente $x_i$. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
+    \item \textbf{Saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
+    \item \textbf{Intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
 Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{haykin2001,hair2005,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
 
@@ -250,9 +250,9 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 \subsubsection{Redes Neurais Recorrentes}
 %Uma rede neural recorrente se distingue de uma rede neural alimentada adiante por ter pelo menos um laço de realimentação. Uma rede recorrente pode consistir, por exemplo, de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios. [...]; auto-realimentação se refere a uma situação onde a saída de um neurônio é realimentada para a sua própria entrada. [...]. \citep{haykin2001}
 
-%A presença de laços de realimentação, [...], tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho. Além disso, os laços de realimentação envolvem o uso de ramos particulares compostos de elementos de atraso unitário (representado por $z^{-1}$, o que resulta em um comportamento dinâmico não-linear, admitindo-se que a rede contenha unidades não-lineares. \citep{haykin2001}
+%A presença de laços de realimentação, [...], tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho. Além disso, os laços de realimentação envolvem o uso de ramos particulares compostos de elementos de atraso unitário (representado por $z^{-1}$), o que resulta em um comportamento dinâmico não-linear, admitindo-se que a rede contenha unidades não-lineares. \citep{haykin2001}
 
-%One important characteristic is weight sharing that is some model parameters are identicala across time. This is related to the notion of stationarity.
+%One important characteristic is weight sharing that is some model parameters are identical across time. This is related to the notion of stationarity.
 %Recurrent neural nets (RNN) are designed to process time series data or other sequence data. Here, we introduce vanilla RNNs and improved variants such as long short-term memory (LSTM).
 %Recurrent neural nets (RNN) are models designed to process time series data and other sequence data.
 %Note that in different applications, we may have different input/output settings. Examples include one-to-many, many-to-one and many-to-many.
@@ -270,16 +270,52 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 %A key point here is the presence of the self-loop, which will cause the hidden state of the neural network to change after the input of each $\bs{x}^{(t)}$. In practice, one only works with sequences of finite length, and it makes sense to unfurl the loop in a ``time-layered'' network that looks more like a feed-forward network. Note that in this case, we have a different node for the hidden state at each time-stamp and the self-loop has been unfurled into a feed-forward network. This representation is mathematically equivalent, but is much easier to comprehend because of its similarity to a traditional network.
 %\citep{aggarwal2018}
 
+Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2001}. Vamos introduzir as RNNs base, bem como variantes melhoradas como a \textit{long short-term memory} (LSTM).
+
+%\subsubsubsection{}
+
+%puramente copiado e sem polimento de \citep{fan2021}
+\begin{itemize}
+    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modelo o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
+    \begin{equation}
+        \label{recursive_formula}
+        \bs{h}^{(t)} = f_{\bs{\theta}} (\bs{h}^{(t-1)},\bs{x}^{(t)}).
+    \end{equation}
+    Aqui, $f_{\bs{\theta}}$ é geralmente uma função não linear parametrizada por $\bs{\theta}$. Temos que uma RNN base com apenas uma camada oculta tem a seguinte forma
+    \begin{equation}
+        \bs{h}_{t} = \varphi \bigl( \bs{W}_{hh} \bs{h^{(t-1)}} + \bs{W}_{xh} \bs{x^{(t)}} + \bs{b_h} \bigl)
+    \end{equation}
+    \begin{equation}
+        \bs{z}_t = \varphi \bigl( \bs{W_{hy}} + \bs{b_z} \bigl),
+    \end{equation}
+    
+    em que $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. 
+    
+    Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
+    
+    \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
+    \item \textbf{LSTM:} similarmente utiliza \textit{gates} na fórmula recursiva. Além de $\bs{h_t}$, uma LSTM mantém um \textit{cell state}, que pega valores em $\R$ \textit{elementwise} e são análogas a contadores.
+    
+\end{itemize}
+
+
+
+%\begin{itemize}
+%    \item \textbf{LSTM:}
+%\end{itemize}
+
+
+
 \section{Composição Algorítmica}
 
-Composição algorítmitca, ou composição automática, refere-se ao processo de criar música por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções para resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é subtituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
+Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
 
 De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
 
 \begin{itemize}
     \item estocástica: abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
     \item \textit{rule-based}: em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
-    \item inteligência artificial (IA): similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática ou, em essência, a capacidade de ``aprender''.
+    \item inteligência artificial (IA): similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática. \sout{ ou, em essência, a capacidade de ``aprender''.}
 \end{itemize}
 Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
 
@@ -312,6 +348,7 @@ A notação ABC é composta por duas partes: o cabeçalho, que fornece os metada
 %Web scraping or web crawling on the other hand is far faster and more effective, and can be used to gather and compile data from across thousands, or over millions, of pages for processing and drawing information from.
 %For the vast majority of computer users, interaction with the internet comes in the form of accessing websites through a browser, where information and multimedia objects are displayed in a human-friendly fashion for easy understanding. 
 %\citep{khder2021}
+\pumi{web scraping = procedimento, web crawler = ferramenta}
 
 \textit{Web scraping} (ou \textit{web crawling}) é uma ferramenta de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário. \citep{lawson2015,patil2016}
 
@@ -319,6 +356,17 @@ Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para i
 
 Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{crawler} e do \textit{scraper} podemos citar \href{https://cran.r-project.org}{R} e \href{https://python.org/}{Python}. Detalhamentos sobre o assunto podem ser encontrados em \citet{lawson2015}, \citet{sirisuriya2015}, \citet{patil2016}, \citet{farley2017} e \citet{khder2021}.
 
+\subsection{Coisas para Explicar}
+
+\begin{itemize}
+    \item aprendizagem (stochastic gradient descent e backpropagation)
+    \item word embedding (\url{https://www.tensorflow.org/text/guide/word_embeddings}) e (\url{https://machinelearningmastery.com/use-word-embedding-layers-deep-learning-keras/})
+    \item corpus (\url{https://guides.library.uq.edu.au/research-techniques/text-mining-analysis/language-corpora})
+    \item métrica \href{https://thegradient.pub/understanding-evaluation-metrics-for-language-models/}{PERPLEXITY}
+    \item tf.keras.losses.sparse_categorical_crossentropy (entropia cruzada categórica)
+    \item optimizer \href{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/}{ADAM}
+    \item avaliação intrínseca e extrínseca (\url{https://www.scirp.org/journal/paperinformation.aspx?paperid=98203#:~:text=In\%20an\%20intrinsic\%20evaluation\%2C\%20quality,performance\%20of\%20other\%20NLP\%20systems.}) e (\url{https://cs224d.stanford.edu/lecture_notes/notes2.pdf})
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Metodologia
