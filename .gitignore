@@ -1,6 +1,10 @@
 # Folders
 bibliografia/
 material_complementar/
+abcnotation/
+geradas/
+# Files
+tmp.abc
 # Extensions
 *.mp3
 *.ini
@@ -10,5 +14,4 @@ material_complementar/
 *.fdb*
 *.fls
 *.txt
-*.abc
 *.mid
