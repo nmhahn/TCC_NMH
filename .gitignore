@@ -5,6 +5,8 @@ abcnotation/
 geradas/
 # Files
 tmp.abc
+checkpoint*
+my_ckpt*
 # Extensions
 *.mp3
 *.ini
