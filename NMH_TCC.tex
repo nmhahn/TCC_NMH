@@ -135,36 +135,37 @@ Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspi
 \begin{itemize}
     \item renascimento de redes neurais 
     \item deep learning são redes neurais profundas (com muuuitas camadas)
+    \item obs.: será que mantenho esta subseção??
 \end{itemize}
 
 
 \subsection{Redes Neurais e a Estatística}
 Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística) entre outros, especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação \citep{sarle1994, cheng1994}.
 
-\pumi{Esta sentença está ruim} No contexto de RNAs, dois aspectos de tratamento podem ser definidos a um problema prático: (i) especificar a arquitetura da rede; (ii) treinar a rede para performar bem com o conjunto de treinamento (referencial). Para o estatístico, tais passos são equivalentes a: (i) especificar um modelo de regressão; (ii) estimar os parâmetros do modelo dado um conjunto de dados. Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
+No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): (i) especificar a arquitetura da rede; (ii) treinar a rede para performar bem com o conjunto de treinamento (referencial). Para um estatístico, tais passos são equivalentes a: (i) especificar um modelo de regressão; (ii) estimar os parâmetros do modelo dado um conjunto de dados. Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
 
 
 \subsubsection{Jargões} 
-Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatísticos, os termos na literatura de RNAs são diferentes da estatística. \pumi{No que segue apresentamos uma lista não exaustiva de termos comumente utilizados na literatura de RNAs e suas equivalências em estatística:}
+Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatísticos, os termos na literatura de RNAs são diferentes da estatística. No que segue, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e suas equivalências em estatística:
 
 \begin{itemize}
-    \item variables are called features
-    \item independent variables are called input
-    \item predicted values are called output
-    \item dependent variables are called targets or training values
-    \item residuals are called errors
-    \item estimation is called training, learning, adaptation, or selforganization
-    \item an estimation criterion is called an error function, cost function, or Lyapunov function
-    \item observations are called patterns or training pairs
-    \item parameter estimates are called (synaptic) weights
-    \item interactions are called higher-order neurons
-    \item transformations are called functional links
-    \item regression and discriminant analysis are called supervised learning or heteroassociation
-    \item data reduction is called unsupervised learning, encoding, or autoassociation
-    \item cluster analysis is called competitive learning or adaptative vector quantization
-    \item interpolation and extrapolation are called generalization
+    \item variáveis são chamadas de atributos;
+    \item variáveis independentes são chamadas de entrada (\textit{input});
+    \item valores preditos são chamados de saída (\textit{output});
+    \item variáveis dependentes são chamadas de variáveis alvo (\textit{target}) ou valores de treinamento;
+    \item resíduos são chamados de erros;
+    \item estimação é chamada de treinamento, aprendizagem, adaptação ou auto-organização (\textit{self-organization});
+    \item um critério de estimação é chamado de função erro ou de função custo;
+    \item observações são chamadas de padrões (\textit{patterns}) ou de pares de treinamento (\textit{training pairs});
+    \item parâmetros estimados são chamados de pesos (sinápticos);
+    \item interações são chamadas de neurônios de alta ordem (\textit{higher-order neurons});
+    \item transformações são chamadas de links funcionais (\textit{functional links});
+    \item regressão e análise discriminante são chamados de aprendizagem supervisionada ou heteroassociação;
+    \item redução de dimensionalidade (\textit{data reduction}) é chamada de aprendizagem não supervisionada, codificação (\textit{encoding}) ou autoassociação;
+    \item análise de agrupamento (\textit{cluster analysis}) é chamada de aprendizagem competitiva ou quantização adaptativa de vetor  (\textit{adaptative vector quantization});
+    \item interpolação e extrapolação são chamadas de generalização.
 \end{itemize}
-Os termos estatísticos amostra e população não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
+Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
 
 
 \subsection{Neurônio}
@@ -201,6 +202,7 @@ O objetivo da função de ativação (ou de transferência) é determinar se a i
     Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. \\
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. % pq? % quais? 
+    \item \textbf{\textit{Softmax}}:
 \end{itemize}
 % pq domínio é igual para todos?
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
@@ -305,6 +307,13 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 %\end{itemize}
 
 
+\section{Aprendizagem | Ajuste de uma RNA}
+
+\begin{itemize}
+    \item stochastic gradient descent
+    \item backpropagation e BPTT
+    \item optimizer ADAM
+\end{itemize}
 
 \section{Composição Algorítmica}
 
@@ -356,17 +365,190 @@ Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para i
 
 Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{crawler} e do \textit{scraper} podemos citar \href{https://cran.r-project.org}{R} e \href{https://python.org/}{Python}. Detalhamentos sobre o assunto podem ser encontrados em \citet{lawson2015}, \citet{sirisuriya2015}, \citet{patil2016}, \citet{farley2017} e \citet{khder2021}.
 
-\subsection{Coisas para Explicar}
+\section{Processamento de Linguagem Natural}
+
+% CHAPTER 1
+%THE AIM of a linguistic science is to be able to characterize and explain the multitude of linguistic observations circling around us, in conversations, writing, and other media. Part of that has to do with the cognitive side of how humans acquire, produce, and understand language, part of it has to do with understanding the relationship between linguistic utterances and the world, and part of it has to do with understanding the linguistic structures by which language communicates. In order to approach the last problem, people have proposed that there are rules which are used to structure linguistic expressions.
+%This basic approach has a long history that extends back at least 2000 years, but in this century the approach became increasingly formal and rigorous as linguists explored detailed grammars that attempted to describe what were wellformed versus ill-formed utterances of a language.
+%Rather than starting off by dividing sentences into grammatical and ungrammatical ones, we instead ask, “What are the common patterns that occur in language use?” The major tool which we use to identify these patterns is counting things, otherwise known as statistics, and so the scientific foundation of the book is found in probability theory. Moreover, we are not merely going to approach this issue as a scientific question, but rather we wish to show how statistical models of language are built and successfully used for many natural language processing (NLP) tasks. While practical utility is something different from the validity of a theory, the usefulness of statistical models of language tends to confirm that there is something right about the basic approach.
+%A rationalist approach is characterized by the belief that a significant part of the knowledge in the human mind is not derived by the senses but is fixed in advance, presumably by genetic inheritance. Within linguistics, this rationalist position has come to dominate the field due to the widespread acceptance of arguments by Noam Chomsky for an innate language faculty. Within artificial intelligence, rationalist beliefs can be seen as supporting the attempt to create intelligent systems by handcoding into them a lot of starting knowledge and reasoning mechanisms, so as to duplicate what the human brain begins with.
+%An empiricist approach also begins by postulating some cognitive abilities as present in the brain. The difference between the approaches is therefore not absolute but one of degree. One has to assume some initial structure in the brain which causes it to prefer certain ways of organizing and generalizing from sensory inputs to others, as no learning is possible from a completely blank slate, a tub& rum. But the thrust of empiricist approaches is to assume that the mind does not begin with detailed sets of principles and procedures specific to the various components of language and other cognitive domains (for instance, theories of morphological structure, case marking, and the like). Rather, it is assumed that a baby’s brain begins with general operations for association, pattern recognition, and generalization, and that these can be applied to the rich sensory input available to the child to learn the detailed structure of natural language. Empiricism was dominant in most of the fields mentioned above (at least the ones then existing!) between 1920 and 1960, and is now seeing a resurgence. An empiricist approach to NLIJ suggests that we can learn the complicated and extensive structure of language by specifying an appropriate general language model, and then inducing the values of parameters by applying statistical, pattern recognition, and machine learning methods to a large amount of language use.
+%Generally in Statistical NLP, people cannot actually work from observing a large amount of language use situated within its context in the world. So, instead, people simply use texts, and regard the textual context as a surrogate for situating language in a real world context. A body of texts is called a corpus - corpus is simply Latin for ‘body,’ and when you have several such collections of texts, you have corpora. Adopting such a corpus-based approach, people have pointed to the earlier advocacy of empiricist ideas by the British linguist J.R. Firth, who coined the slogan “You shall know a word by the company it keeps” (Firth 1957: 11). However an empiricist corpus-based approach is perhaps even more clearly seen in the work of American structuralists (the ‘post-Bloomfieldians’), particularly Zellig Harris. For example, (Harris 1951) is an attempt to find discovery procedures by which a language’s structure can be discovered automatically. While this work had no thoughts to computer implementation, and is perhaps somewhat computationally naive, we find here also the idea that a good grammatical description is one that provides a compact representation of a corpus of texts.
+%Rationalists and empiricists are attempting to describe different things. Chomskyan (or generative) linguistics seeks to describe the language module of the human mind (the I-language) for which data such as texts (the E-language) provide only indirect evidence, which can be supplemented by native speaker intuitions. Empiricist approaches are interested in describing the E-language as it actually occurs. Chomsky (1965: 3-4) thus makes a crucial distinction between linguistic competence, which reflects the knowledge of language structure that is assumed to be in the mind of a native speaker, and linguistic performance in the world, which is affected by all sorts of things such as memory limitations and distracting noises in the environment. Generative linguistics has argued that one can isolate linguistic competence and describe it in isolation, while empiricist approaches generally reject this notion and want to describe actual use of language.
+%Finally, Chomskyan linguistics, while recognizing certain notions of CATEGORICAL competition between principles, depends on categoricd principles, which sentences either do or do not satisfy. In general, the same was true of American structuralism. But the approach we will pursue in Statistical NLP draws from the work of Shannon, where the aim is to assign probabilities to linguistic events, so that we can say which sentences are ‘usual’ and ‘unusual’. An upshot of this is that while Chomskyan linguists tend to concentrate on categorical judgements about very rare types of sentences, Statistical NLP practitioners are interested in good descriptions of the associations and preferences that occur in the totality of language use. Indeed, they often find that one can get good real world performance by concentrating on common types of sentences.
+
+% CHAPTER 2
+%The field of information theory was developed in the 1940s by Claude Shannon, with the initial exposition reported in (Shannon 1948). Shannon was interested in the problem of maximizing the amount of information that you can transmit over an imperfect communication channel such as a noisy phone line (though actually many of his concerns stemmed from codebreaking in World War II). For any source of ‘information’ and any ‘communication channel,’ Shannon wanted to be able to determine theoretical maxima for (i) data compression - which turns out to be given by the Entropy H (or more fundamentally, by the Kolmogorov complexity K), and (ii) the transmission rate - which is given by the Channel Capacity C. Until Shannon, people had assumed that necessarily, if you send your message at a higher speed, then more errors must occur during the transmission. But Shannon showed that providing that you transmit the information in your message at a slower rate than the Channel Capacity, then you can make the probability of errors in the transmission of your message as small as you would like.
+
+%Entropy: Let p(x) be the probability mass function of a random variable X, over a discrete set of symbols (or alphabet) X:
+%p(x) = P(X = x), x E x
+%For example, if we toss two coins and count the number of
+%have a random variable: p(0) = l/4, p(1) = l/2, p(2) = l/4.
+%heads, we The entrqy (or self-information) is the average uncertainty of a single
+%random variable: Entropy H(p) = H(X) = - 1 p(x)log,p(x)
+%Entropy measures the amount of information in a random variable. It is normally measured in bits (hence the log to the base 2), but using any other base yields only a linear scaling of results. For the rest of this book, an unadorned log should be read as log to the base 2. Also, for this definition to make sense, we define 0 log 0 = 0.
+
+%Joint entropy and conditional entropy: The joint entropy of a pair of discrete random variables X, Y - p(x, y) is the amount of information needed on average to specify both their values. It is defined as:
+%H(X, Y) = - 1 1 p(x,y)logp(x,y)
+%The conditional entropy of a discrete random variable Y given another X, for X, Y - p(x, y), expresses how much extra information you still need to supply on average to communicate Y given that the other party knows X:
+%H(YIX) = 1 p(x)H(YIX = x)
+%xtx
+%= c P(X) - 1 P(YIx)logpW)
+%xtx [ YEY 1
+%= - 1 1 P(x,Y)h?!Pw)
+%There is also a Chain rule for entropy:
+%H(X,Y) = H(X) +H(YIX)
+%H(Xl,. . . ,X,) = H(X1) +H(X2IX1) + . ..+H(X.IX1,..., X,-l)
+%The products in the chain rules for probabilities here become sums because of the log:
+%fJ(X, Y) = Ep(x,y) (logp(x, y,)
+%= -Jx,y) bg(P(x) P(YlX)))
+%= -EPk,) (logp(x) + lWPW))
+%= -E,~x,&p(x)) - Ep(x,,~) (logpblx))
+%= H(X) + H(YIX)
+
+%The relation to language: Cross entropy:
+%So far we have examined the notion of entropy, and seen roughly how it is a guide to determining efficient codes for sending messages, but how does this relate to understanding language? The secret to this is to return to the idea that entropy is a measure of our uncertainty. The more we know about something, the lower the entropy will be because we are less surprised by the outcome of a trial. 
+%The essential point here is that if a model captures more of the structure of a language, then the entropy of the model should be lower. In other words, we can use entropy as a measure of the quality of our models.
+
+%Perplexity: In the speech recognition community, people tend to refer to perplexity rather than cross entropy. The relationship between the two is simple:
+% perplexity(xi,, m) = 2H(xln,m)
+%= m(xi,) n
+
+%We suspect that speech recognition people prefer to report the larger non-logarithmic numbers given by perplexity mainly because it is much easier to impress funding bodies by saying that “we’ve managed to reduce perplexity from 950 to only 540” than by saying that “we’ve reduced cross entropy from 9.9 to 9.1 bits.” However, perplexity does also have an intuitive reading: a perplexity of k means that you are as surprised on average as you would have been if you had had to guess between k equiprobable choices at each step.
+
+% CHAPTER 4
+%When working with a corpus, we have to be careful about the validity of estimates or other results of statistical analysis that we produce. A corpus is a special collection of textual material collected according to a certain set of criteria.
+%The general issue is whether the corpus is a represenrutive sample of the population of interest. A sample is representative if what we find for the sample also holds for the general population. We will not discuss methods for determining representativeness here since this issue is dealt with at length in the corpus linguistics literature. In Statistical NLP, one commonly receives as a corpus a certain amount of data from a certain domain of interest, without having any say in how it is constructed. In such cases, having more training text is normally more useful than any concerns of balance, and one should simply use all the text that is available. 
+%In summary, there is no easy way of determining whether a corpus is representative, but it is an important issue to keep in mind when doing Statistical NLP work. The minimal questions we should attempt to answer when we select a corpus or report results are what type of text the corpus is representative of and whether the results obtained will transfer to the domain of interest.
+
+%In many places and in many programs, editors, etc., one wishes to find certain patterns in text, that are often more complex than a simple match against a sequence of characters. The most general widespread notation for such matches are regular expressions which can describe patterns that are a regular language, the kind that can be recognized by a finite state machine. If you are not already familiar with regular expressions, you will want to become familiar with them. Regular expressions can be used in many plain text editors (Emacs, TextPad, Nisus, BBEdit, . . .), with many tools (such as grep and sed), and as built-ins or libraries in many programming languages (such as Pet-l, C, . . .). Introductions to regular expressions can be found in (Hopcroft and Ullman 1979; Sipser 1996; Fried1 1997).
+
+%Coding words. Normally Statistical NLP systems deal with a large number of words, and programming languages like C(++) provide only quite limited facilities for dealing with words. A method that is commonly used in Statistical NLP and Information Retrieval is to map words to numbers on input (and only back to words when needed for output). This gives a lot of advantages because things like equality can be checked more easily and quickly on numbers. It also maps all tokens of a word to its type, which has a single number. There are various ways to do this. One good way is to maintain a large hash table (a hash function maps a set of objects into a specificed range of integers, for example, [0, . . . ,127]). A hash table allows one to see efficiently whether a word has been seen before, and if so return its number, or else add it and assign a new number. The numbers used might be indices into an array of words (especially effective if one limits the application to 65,000 or fewer words, so they can be stored as 16 bit numbers) or they might just be the address of the canonical form of the string as stored in the hashtable. This is especially convenient on output, as then no conversion back to a word has to be done: the string can just be printed.
+
+%Normally, an early step of processing is to divide the input text into units called tokens where each is either a word or something else like a number or a punctuation mark. This process is referred to as tokenization. The treatment of punctuation varies. While normally people want to keep sentence boundaries (see section 4.2.4 below), often sentence-internal punctuation has just been stripped out. This is probably unwise. Recent work has emphasized the information contained in all punctuation. No matter how imperfect a representation, punctuation marks like commas and dashes give some clues about the macro structure of the text and what is likely to modify what.
+
+% CHAPTER 15 (pg 545)
+%An alternative to tf.idf weighting is to develop a model for the distribution of a word and to use this model to characterize its importance for retrieval. That is, we wish to estimate Pi(k), the proportion of times that word Wi appears k times in a document. In the simplest case, the distribution model is used for deriving a probabilistically motivated term weighting scheme for the vector space model. But models of term distribution can also be embedded in other information retrieval frameworks. Apart from its importance for term weighting, a precise characterization of the occurrence patterns of words in text is arguably at least as important a topic in Statistical NLP as Zipf law. Zipf law describes word behavior in an entire corpus. In contrast, term distribution models capture regularities of word occurrence in subunits of a corpus (e.g., documents or chapters of a book). In addition to information retrieval, a good understanding of distribution patterns is useful wherever we want to assess the likelihood of a certain number of occurrences of a specific word in a unit of text. For example, it is also important for author identification where one compares the likelihood that different writers produced a text of unknown authorship. Most term distribution models try to characterize how informative a word is, which is also the information that inverse document frequency is getting at. One could cast the problem as one of distinguishing content words from non-content (or function) words, but most models have a graded notion of how informative a word is. In this section, we introduce several models that formalize notions of informativeness. Three are based on the Poisson distribution, one motivates inverse document frequency as a weight optimal for Bayesian classification and the final one, residual inverse document frequency, can be interpreted as a combination of idf and the Poisson distribution.
+%\citep{manning1999}
+
+
+
+
+% CHAPTER 2
+%One of the unsung successes in standardization in computer science has been the regular expression (RE), a language for specifying text search strings. This prac- regular expression tical language is used in every computer language, word processor, and text processing tools like the Unix tools grep or Emacs. Formally, a regular expression is an algebraic notation for characterizing a set of strings. They are particularly usecorpus ful for searching in texts, when we have a pattern to search for and a corpus of texts to search through. A regular expression search function will search through the corpus, returning all texts that match the pattern. The corpus can be a single document or a collection. For example, the Unix command-line tool grep takes a regular expression and returns every line of the input document that matches the expression. A search can be designed to return every match on a line, if there are more than one, or just the first match. In the following examples we generally underline the exact part of the pattern that matches the regular expression and show only the first match. We’ll show regular expressions delimited by slashes but note that slashes are not part of the regular expressions. Regular expressions come in many variants. We’ll be describing extended regular expressions; different regular expression parsers may only recognize subsets of these, or treat some expressions slightly differently. Using an online regular expression tester is a handy way to test out your expressions and explore these variations.
+%PS.: na parte de expressões regulares, fazer uma lista de alguns padrões e referenciar o livro para maiores detalhes
+
+
+%Let’s start by looking at one particular corpus (plural corpora), a computer-readable corpora collection of text or speech.
+%Whether we treat period (“.”), comma (“,”), and so on as words depends on the task. Punctuation is critical for finding boundaries of things (commas, periods, colons) and for identifying some aspects of meaning (question marks, exclamation marks, quotation marks). For some tasks, like part-of-speech tagging or parsing or speech synthesis, we sometimes treat punctuation marks as if they were separate words.
+%Are capitalized tokens like They and uncapitalized tokens like they the same word? These are lumped together in some tasks (speech recognition), while for partof-speech or named-entity tagging, capitalization is a useful feature and is retained.
+%Types are the number of distinct words in a corpus; if the set of words in the vocabulary is V, the number of types is the word token vocabulary size |V|. Tokens are the total number N of running words. When we speak about the number of words in the language, we are generally referring to word types.
+%Words don’t appear out of nowhere. Any particular piece of text that we study is produced by one or more specific speakers or writers, in a specific dialect of a specific language, at a specific time, in a specific place, for a specific function. Perhaps the most important dimension of variation is the language.
+%It is important to test algorithms on more than one language, and particularly on languages with different properties; by contrast there is an unfortunate current tendency for NLP algorithms to be developed or tested just on English (Bender, 2019). Even when algorithms are developed beyond English, they tend to be developed for the official languages of large industrialized nations (Chinese, Spanish, Japanese, German etc.), but we don’t want to limit tools to just these few languages. %Bender, E. M. 2019. The #BenderRule: On naming the languages we study and why it matters.
+%Another dimension of variation is the genre. The text that our algorithms must process might come from newswire, fiction or non-fiction books, scientific articles, Wikipedia, or religious texts. It might come from spoken genres like telephone conversations, business meetings, police body-worn cameras, medical interviews, or transcripts of television shows or movies. It might come from work situations like doctors’ notes, legal text, or parliamentary or congressional proceedings.
+%Because language is so situated, when developing computational models for language processing from a corpus, it’s important to consider who produced the language, in what context, for what purpose.
+
+
+%Let’s begin with an easy, if somewhat naive version of word tokenization and normalization (and frequency computation) that can be accomplished for English solely in a single UNIX command-line, inspired by Church (1994). We’ll make use of some Unix commands: tr, used to systematically change particular characters in the input; sort, which sorts input lines in alphabetical order; and uniq, which collapses and counts adjacent identical lines
+%tokenization, the task of segmenting running text into words
+%We often want to break off punctuation as a separate token; commas are a useful piece of information for parsers, periods help indicate sentence boundaries.
+%Depending on the application, tokenization algorithms may also tokenize multiword expressions like New York or rock ’n’ roll as a single token, which requires a multiword expression dictionary of some sort.
+%In practice, since tokenization needs to be run before any other language processing, it needs to be very fast. The standard method for tokenization is therefore to use deterministic algorithms based on regular expressions compiled into very efficient finite state automata.
+%There is a third option to tokenizing text. Instead of defining tokens as words (whether delimited by spaces or more complex algorithms), or as characters (as in Chinese), we can use our data to automatically tell us what the tokens should be. This is especially useful in dealing with unknown words, an important problem in language processing. As we will see in the next chapter, NLP algorithms often learn some facts about language from one corpus (a training corpus) and then use these facts to make decisions about a separate test corpus and its language. Thus if our training corpus contains, say the words low, new, newer, but not lower, then if the word lower appears in our test corpus, our system will not know what to do with it.
+%Most tokenization schemes have two parts: a token learner, and a token segmenter. The token learner takes a raw training corpus (sometimes roughly preseparated into words, for example by whitespace) and induces a vocabulary, a set of tokens. The token segmenter takes a raw test sentence and segments it into the tokens in the vocabulary. 
+%Once we’ve learned our vocabulary, the token parser is used to tokenize a test sentence. The token parser just runs on the test data the merges we have learned from the training data, greedily, in the order we learned them. (Thus the frequencies in the test data don’t play a role, just the frequencies in the training data). So first we segment each test sentence word into characters. Then we apply the first rule: replace every instance of e r in the test corpus with er, and then the second rule: replace every instance of er in the test corpus with er , and so on. By the end, if the test corpus contained the word n e w e r , it would be tokenized as a full word. But a new (unknown) word like l o w e r would be merged into the two tokens low er . Of course in real algorithms BPE is run with many thousands of merges on a very large input corpus. The result is that most words will be represented as full symbols, and only the very rare words (and unknown words) will have to be represented by their parts.
+
+
+%Word normalization is the task of putting words/tokens in a standard format, choosing a single normal form for words with multiple forms like USA and US or uh-huh and uhhuh. This standardization may be valuable, despite the spelling information that is lost in the normalization process. For information retrieval or information extraction about the US, we might want to see information from documents whether they mention the US or the USA.
+%\citep{jurafsky2021}
+
+
+
+
+% CHAPTER 3
+%Computational linguistics focuses on applying quantitative and statistical methods to understand how humans model language, as well as computational approaches to answer linguistic questions. Its beginning in the 1950s coincided with the advent of computers. Natural language processing (NLP) is the application of computational methods to model and extract information from human language. While the difference between the two concepts relates to underlying motivation, they are often used interchangeably.
+%Computational linguistics can refer to written or spoken natural language. A written language is the symbol representation of a spoken or gestural language. There are plenty of spoken natural languages without a writing system, whereas there are no written natural languages that have developed on their own without a spoken aspect. Natural language processing of written language is often called text analytics and of spoken language is called speech analytics.
+%Computational linguistics was considered in the past as a field within computer science. This has evolved considerably as computational linguistics became an interdisciplinary field of theoretical and applied science joining linguistics, psychology, neuroscience, philosophy, computer science, mathematics, and others. With the rise of social media, conversational agents, and personal assistants, computational linguistics is increasingly relevant in creating practical solutions to modeling and understanding human language.
+
+%Words are the elementary symbols of natural language. They are not the most elementary, as words can consist of one or more morphemes. In natural language processing, often the first task is to segment text into separate words. Note that we say “often” and not “always.” As we will see later, sentence segmentation as a first step may provide some benefits, especially in the presence of “noisy” or ill-formed speech.
+%The computational task of segmenting text into relevant words or units of meaning is called tokenization. Tokens may be words, numbers, or punctuation marks. In simplest form, tokenization can be achieved by splitting text using whitespace To compound problems, tokens can sometimes consist of multiple words (e.g., “he who cannot be named”) Tokenization serves also to segment sentences by delineating the end of one sentence and beginning of another. Punctuation plays an important role in this task, but unfortunately punctuation is often ambiguous. Punctuation like apostrophes, hyphens, and periods can create problems.
+%\citep{kamath2019}
+
+\begin{itemize}
+    \item corpus | corpora \textbf{OK}
+    \item expressões regulares \textbf{OK}
+    \item vocabulary | tokenization
+    \item embedding
+    \item language models
+    \item cross-entropy
+    \item perplexity
+\end{itemize}
+
+O objetivo da ciência linguística é ser capaz de caracterizar e de explicar as diversas observações linguísticas ao nosso redor, presentes em conversações, na escrita e em outras mídias. Parte disso está relacionado à compreensão das estruturas linguísticas pelas quais a linguagem se comunica e, devido a isso, foram propostas regras para a estruturação das expressões linguísticas. Tal abordagem tornou-se cada vez mais formal e rigorosa à medida que os linguistas exploravam gramáticas detalhadas que tentavam descrever o que seria um texto bom ou mau escrito \citep{manning1999}.
+
+Processamento de Linguagem Natural (PLN), também conhecida como Linguística Computacional, foca na aplicação de métodos quantitativos e estatísticos para entender como seres humanos modelam linguagem, bem como abordagens computacionais para responder perguntas linguísticas. Ou seja, é a aplicação de métodos computacionais para modelar e extrair informação da linguagem humana \citep{kamath2019}. 
+
+
+
+\subsection{Corpus | Corpora}
+Um corpus (plural corpora) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um corpus com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um corpus ou ao relatar os resultados obtidos nas análises são se o tipo de texto do corpus é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
+
+
+\subsection{Expressões Regulares}
+Formalmente, uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de strings. Elas são particularmente úteis para pesquisar em textos, localizando determinados padrões em um corpus. Uma função de busca utilizando expressões regulares pode ser projetada para retornar todas as correspondências ao padrão, bem como apenas a primeira. Detalhamentos e demais definições referentes a expressões regulares estão disponíveis em \citet{jurafsky2021}.
+
+
+\subsection{Vocabulário | Tokenization | Coding Words | Texto...?}
+Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário \citep{kamath2019, jurafsky2021}.
+
+Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão para do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros, por exemplo [0,...,127]), que conterá um conjuntos de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
+
+Palavras não surgem do nada. Qualquer pedaço de texto que estudamos é produzido por um ou mais falantes ou escritores, em um específico dialeto de um idioma determinado, em um tempo específico, local específico, para um objetivo específico. Talvez a dimensão mais importante de variabilidade é a linguagem.
+
+É importante testar algoritmos em mais de uma linguagem, e particularmente em linguagem com diferentes propriedade. Em contraste, infelizmente, de acordo com \citet{bender2019}, há uma tendência atual para algoritmos de PLN serem desenvolvidos e testados apenas em inglês. Até quando algoritmos são desenvolvidos em idiomas além do inglês, eles tendem a ser desenvolvidos para idiomas oficiais de grandes nações industrializadas (Chinês, Espanhol, Alemão, etc.), mas nós não queremos limitar essas ferramentas apenas para algumas linguagens.
+
+Outra dimenção de variação é o gênero. O texto que nossos algoritmos devem processar podem vir de notícias, livros de ficção e de não ficção, artigos científicos, Wikipedia ou textos religiosos. Podem ser oriundos de gêneros falados como conversas de telefone, reuniões de negócios, ``police body-worn cameras'', entrevistas médicas, ou transcrições de programas televisivos ou filmes. Podem vir de situações de trabalho como anotações de médicos, textos legais (jurídicos) ou procedimentos parlamentares ou congressionais.
+
+Devido a linguagem ser situada, ao desenvolver modelos computacionais para processar linguagem de um corpus, é importante considerar quem produziu a linguagem, em qual contexto e para qual propósito.
+%\citep{jurafsky2021}
+
+
+\subsection{Language Models}
+Um modelo estatístico de linguagem é uma distribuição de probabilidade sobre uma sequência de palavras ou tokens. Dado um conjunto de $L$ tokens $w_1,\cdots,w_L$, um modelo de linguagem vai predizer a probabilidade $P(W)$:
+\begin{equation}
+    P(W) = P(w_1,\cdots,w_L).
+\end{equation}
+Um modelo de linguagem é aquele que tenta predizer a frequência que uma frase pode ocorrer no uso natural de uma linguagem. Por exemplo, modelos de linguagem podem prever uma palavra $w_L$ dadas todas as palavras anteriores a ela:
+\begin{equation}
+    P(w_L | w_{L-1},w_{L-2},\cdots,w_1).
+\end{equation}
+Modelagem de linguagem é utilizada em reconheciento de fala, tradução automática, marcação de parte da fala (part-ofspeech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
+\citep{kamath2019, jurafsky2021}
+
+\subsection{Entropy | Cross-entropy | Perplexity}
+Em teoria da informação, perplexidade mede o quão bem uma distribuição probabilística prediz uma amostra. Perplexidade é comumente utilizada para medir a performance de um modelo de linguagem. Ela mede a qualidade intríseca do modelo como uma função de probabilidade $P(W)$ que o modelo prediz uma sequência de teste $W = \{w_1,\cdots,w_N\}$ que pode ocorrer, dada por:
+\begin{equation}
+    P(W) = P(w_1, w_2, \dots, w_N)^{-\frac{1}{N}}.
+\end{equation}
+Medidas menores de perplexidade implicam que o modelo prediz dados de teste melhor, enquanto uma perplexidade maior implica em uma qualidade de predição mais baixa.
+\citep{kamath2019}
+
+
+
+Models that assign probabilities to sequences of words are called language models or LMs.
+
+The best way to evaluate the performance of a language model is to embed it in an application and measure how much the application improves. Such end-to-end evaluation is called extrinsic evaluation. Extrinsic evaluation is the only way to extrinsic evaluation know if a particular improvement in a component is really going to help the task at hand. Thus, for speech recognition, we can compare the performance of two language models by running the speech recognizer twice, once with each language model, and seeing which gives the more accurate transcription. Unfortunately, running big NLP systems end-to-end is often very expensive. Instead, it would be nice to have a metric that can be used to quickly evaluate potential improvements in a language model. An intrinsic evaluation metric is one that measures the quality of a model independent of any application. For an intrinsic evaluation of a language model we need a test set. As with many of the statistical models in our field, the probabilities of an n-gram model come from training set the corpus it is trained on, the training set or training corpus. We can then measure the quality of an n-gram model by its performance on some unseen data called the test set test set or test corpus. So if we are given a corpus of text and want to compare two different n-gram models, we divide the data into training and test sets, train the parameters of both models on the training set, and then compare how well the two trained models fit the test set. But what does it mean to “fit the test set”? The answer is simple: whichever model assigns a higher probability to the test set—meaning it more accurately predicts the test set—is a better model. Given two probabilistic models, the better model is the one that has a tighter fit to the test data or that better predicts the details of the test data, and hence will assign a higher probability to the test data. Since our evaluation metric is based on test set probability, it’s important not to let the test sentences into the training set. Suppose we are trying to compute the probability of a particular “test” sentence. If our test sentence is part of the training corpus, we will mistakenly assign it an artificially high probability when it occurs in the test set. We call this situation training on the test set. Training on the test set introduces a bias that makes the probabilities all look too high, and causes huge inaccuracies in perplexity, the probability-based metric we introduce below. Sometimes we use a particular test set so often that we implicitly tune to its characteristics. We then need a fresh test set that is truly unseen. In such cases, we call the initial test set the development test set or, devset. How do we divide our development test data into training, development, and test sets? We want our test set to be as large as possible, since a small test set may be accidentally unrepresentative, but we also want as much training data as possible. At the minimum, we would want to pick the smallest test set that gives us enough statistical power to measure a statistically significant difference between two potential models. In practice, we often just divide our data into 80\% training, 10\% development, and 10\% test. Given a large corpus that we want to divide into training and test, test data can either be taken from some continuous sequence of text inside the corpus, or we can remove smaller “stripes” of text from randomly selected parts of our corpus and combine them into a test set.
+
+\citep{jurafsky2021}
+
+\section{Coisas para Explicar}
 
 \begin{itemize}
     \item aprendizagem (stochastic gradient descent e backpropagation)
     \item word embedding (\url{https://www.tensorflow.org/text/guide/word_embeddings}) e (\url{https://machinelearningmastery.com/use-word-embedding-layers-deep-learning-keras/})
-    \item corpus (\url{https://guides.library.uq.edu.au/research-techniques/text-mining-analysis/language-corpora})
-    \item métrica \href{https://thegradient.pub/understanding-evaluation-metrics-for-language-models/}{PERPLEXITY}
-    \item tf.keras.losses.sparse_categorical_crossentropy (entropia cruzada categórica)
+    \item métrica \href{https://thegradient.pub/understanding-evaluation-metrics-for-language-models/}{PERPLEXITY} e \href{https://huggingface.co/docs/transformers/perplexity}{PERPLEXITY}
     \item optimizer \href{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/}{ADAM}
     \item avaliação intrínseca e extrínseca (\url{https://www.scirp.org/journal/paperinformation.aspx?paperid=98203#:~:text=In\%20an\%20intrinsic\%20evaluation\%2C\%20quality,performance\%20of\%20other\%20NLP\%20systems.}) e (\url{https://cs224d.stanford.edu/lecture_notes/notes2.pdf})
-    \item processamento de liguagem natural?
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -375,11 +557,20 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 \chapter{Metodologia}
 
 % coleta de dados
-\section{Coleta de Dados}
+\section{Bases de Dados}
 
 % resumo como foram coletados os dados (fonte também) e que isso resultou em error 403 (acesso negado) no site hehe
 
-A coleta de dados foi realizada por meio de um \textit{crawler/bot}, desenvolvido na linguagem \href{https://python.org/}{Python}, para extrair músicas em formato \textit{.abc} do site \href{https://abcnotation.com/}{``abcnotation.com''}. Após uma semana de execução, foram obtidos 184.900 arquivos contendo diversas informações sobre as peças musicais (como título, autor, tonalidade, entre outras).
+
+O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC Notation}. Abaixo, seguem algumas explicações sobre cada uma:
+
+\begin{itemize}
+    \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada no \href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{GitHub do MIT}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto \href{https://www.norbeck.nu/abc/links.asp}{nesta página}. 
+    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{``abcnotation.com''}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um ``crawler'' e um ``scrapper'' para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
+\end{itemize}
+
+
+
 
 % tratamento de dados
 \section{Tratamento de Dados}
@@ -390,21 +581,52 @@ A coleta de dados foi realizada por meio de um \textit{crawler/bot}, desenvolvid
 %   - removi caracteres de comentários
 %   - codifiquei/vetorizei as strings para que fosse possível ir e vir (caractere --> index e vice-versa)
 
+
+Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento e tokenização. Abaixo, alguns detalhes sobre cada uma:
+
+\begin{itemize}
+    \item \textbf{tratamento}: um arquivo no formato \textit{.abc} contém diversas \textit{tags} com informações como título, subtítulo, autor, entre outras. Além disso, no arquivo também estão contidos caracteres representando letra de música, bem como caracteres de comentário. Como nenhuma desses itens afetam diretamente a música, considerando que as notas musicais serão as mesmas, o autor resolveu, por meio de expressões regulares, remover esses caracteres, com o intuito de diminuir o ruído nos arquivos. Após os tratamentos, o arquivo final contém dados como índice (representando o início da música), tonalidade, andamento, vozes da música (no caso de músicas com múltiplos instrumentos) e as notas musicais (mantendo a estrutura da peça musical).
+    \item \textbf{união}: todas as músicas foram ``coladas'', como se fizessem parte de um único texto. Esse processo é possibilita que uma música inicie após o término da outra, pois temos, de certa forma, uma ordem de músicas (no caso, foi a ordem presente na base, sem aleatorização).
+    \item \textbf{tokenização}: para cada caractere (\textit{token}) presente, foi criado um único índice. Consequentemente, é possível que uma sequência de caracteres seja convertido para uma sequência única de índices, possibilitando a conversão de texto para número e vice-versa.
+\end{itemize}
+
 % rede neural
-\section{Rede Neural}
+\section{Modelo de Rede Neural Recorrente LSTM}
+Desenvolveu-se um modelo de RNN-LSTM. % o que mais colocar...? 
+
     % arquitetura
 \subsection{Arquitetura}
+
+\begin{itemize}
+    \item entrada 
+    \item \textit{word embedding} 
+    \item LSTM 
+    \item saída   
+\end{itemize}
+
     % parâmetros de treinamento
-\subsection{Parâmetros de Treinamento}
+\subsection{Parâmetros da Rede | Treinamento | Ajuste}
+
+\begin{itemize}
+    \item epochs: 2000
+    \item batch\_size: $\{4,16\}$
+    \item seq\_length: $\{50,200\}$
+    \item learning\_rate: $\{1e-3,1e-5\}$
+    \item vocab\_size: depende da base
+    \item embedding\_dim: $\{256,512\}$
+    \item lstm\_units: $\{256,1024\}$
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Resultados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Resultados}
 
-% trocar função de ativação (mesma semente)
-% treinar rede apenas com mesma tonalidade (ou algo assim)
-% retirar músicas no treino, o quanto que muda o resultado final
+\begin{itemize}
+    \item comentários
+    \item principais resultados
+    \item tabelas | gráficos
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão
