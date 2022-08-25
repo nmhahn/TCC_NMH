@@ -3,6 +3,8 @@
 \usepackage{dsfont}
 \usepackage{placeins}
 
+\usepackage{enumitem}
+
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
 
@@ -128,21 +130,24 @@ In this work ....
 %Redes neurais são uma abordagem totalmente diferente para a análise de dados em relação a qualquer outra técnica multivariada. Em vez de conceitualizar o problema como de caráter matemático, redes neurais usam o cérebro humano e sua estrutura para desenvolver uma estratégia de processamento. Apesar de jamais sermos capazes de construir redes neurais tão complexas quanto o cérebro humano, podemos usar seus princípios básicos de unidades de processamento paralelo múltiplo engajadas no reconhecimento de padrões. 
 
 % paragrafo
-Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \cite{goodfellow2016}.  Por outro lado, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
-
-\subsection{Deep Learning}
-
-\begin{itemize}
-    \item renascimento de redes neurais 
-    \item deep learning são redes neurais profundas (com muuuitas camadas)
-    \item obs.: será que mantenho esta subseção??
-\end{itemize}
+Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.  Por outro lado, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
 
 
 \subsection{Redes Neurais e a Estatística}
 Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística) entre outros, especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação \citep{sarle1994, cheng1994}.
 
-No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): (i) especificar a arquitetura da rede; (ii) treinar a rede para performar bem com o conjunto de treinamento (referencial). Para um estatístico, tais passos são equivalentes a: (i) especificar um modelo de regressão; (ii) estimar os parâmetros do modelo dado um conjunto de dados. Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
+No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado):
+\begin{enumerate}[label=(\roman*)]
+  \item especificar a arquitetura da rede;
+  \item treinar a rede para performar bem com o conjunto de treinamento (referencial).
+\end{enumerate}
+Para um estatístico, tais passos são equivalentes a: 
+\begin{enumerate}[label=(\roman*)]
+  \item especificar um modelo de regressão;
+  \item estimar os parâmetros do modelo dado um conjunto de dados.
+\end{enumerate}  
+Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
+
 
 
 \subsubsection{Jargões} 
@@ -158,18 +163,18 @@ Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatí
     \item um critério de estimação é chamado de função erro ou de função custo;
     \item observações são chamadas de padrões (\textit{patterns}) ou de pares de treinamento (\textit{training pairs});
     \item parâmetros estimados são chamados de pesos (sinápticos);
-    \item interações são chamadas de neurônios de alta ordem (\textit{higher-order neurons});
+    %\item interações são chamadas de neurônios de alta ordem (\textit{higher-order neurons});
     \item transformações são chamadas de links funcionais (\textit{functional links});
-    \item regressão e análise discriminante são chamados de aprendizagem supervisionada ou heteroassociação;
-    \item redução de dimensionalidade (\textit{data reduction}) é chamada de aprendizagem não supervisionada, codificação (\textit{encoding}) ou autoassociação;
-    \item análise de agrupamento (\textit{cluster analysis}) é chamada de aprendizagem competitiva ou quantização adaptativa de vetor  (\textit{adaptative vector quantization});
+    %\item regressão e análise discriminante são chamados de aprendizagem supervisionada ou heteroassociação; \pumi{Aprendizagem supervisionada é um conceito mais geral que isso}
+    %\item redução de dimensionalidade (\textit{data reduction}) é chamada de aprendizagem não supervisionada, codificação (\textit{encoding}) ou autoassociação;
+    %\item análise de agrupamento (\textit{cluster analysis}) é chamada de aprendizagem competitiva ou quantização adaptativa de vetor  (\textit{adaptative vector quantization}); \pumi{esta erminologia nunca tinha visto}
     \item interpolação e extrapolação são chamadas de generalização.
 \end{itemize}
 Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
 
 
 \subsection{Neurônio}
-Um neurônio (ou nó computacional) é uma unidade de processamento de informação fundamental para a operação de uma rede neural \citep{haykin2001}. Podemos identificar três elementos básicos do modelo neuronal:
+Um neurônio (ou nó computacional) é uma unidade de processamento de informação fundamental para a operação de uma rede neural \citep{haykin2008}. Podemos identificar três elementos básicos do modelo neuronal:
 \begin{enumerate}
     \item Um conjunto de sinapses, cada uma caracterizada por um peso ou força própria. O peso sináptico de um neurônio artificial pode estar em um intervalo que inclui valores positivos e negativos.
     \item Um \textit{somador} ou \textit{acumulador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
@@ -197,12 +202,12 @@ O objetivo da função de ativação (ou de transferência) é determinar se a i
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
     Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
     \item \textbf{sigmóide ou \textit{logit}}: $f: \R \rightarrow (0,1)$ dada por $f(x) = \frac{1}{1 + e^{-x}}$. \\
-    Quando \sout{a rede tem} essa função de ativação \pumi{é associada a uma rede}, o neurônio \pumi{é equivalente a uma} \sout{um modelo linear generalizado conhecido como} regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação \pumi{no contexto de modelos lineares gerais}: relacionar o preditor linear \pumi{ao respectivo valor esperado} \sout{$v$ a um valor esperado $\mu$ de um dado $y$} \citep{sarle1994,frei2020,mccullagh1989}. % ficou meio jogado?
+    Quando essa função de ativação é associada a uma rede, o neurônio é equivalente a uma regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação no contexto de modelos lineares generalizados: relacionar o preditor linear ao respectivo valor esperado \citep{sarle1994,frei2020,mccullagh1989}.
     \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$. \\
     Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. \\
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. % pq? % quais? 
-    \item \textbf{\textit{Softmax}}:
+    \item \textbf{\textit{softmax}}:
 \end{itemize}
 % pq domínio é igual para todos?
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
@@ -216,14 +221,14 @@ Listas de funções de ativação comumente utilizadas podem ser encontradas em 
 %Um nó de saída recebe entradas e calcula um valor de saída, mas em vez de ir para outro nó, esse é o valor final. Se esse for um modelo preditivo, então esse valor é o resultado da previsão. Se o modelo é utilizado para classificação, então esse é o valor empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada). 
 %\citep{hair2005}.
 
-Um único neurônio (nó computacional), mesmo com muitas entradas, usualmente não é suficiente \pumi{para o quê?}, sendo necessários cinco ou dez operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
+Um único neurônio (nó computacional), mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários cinco ou dez operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
 
 \begin{enumerate}
-    \item \textbf{Entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente $x_i$. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
-    \item \textbf{Saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
-    \item \textbf{Intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
+    \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente $x_i$. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
+    \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
+    \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
-Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{haykin2001,hair2005,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
+Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2008,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
 
 
 \subsubsection{Redes Alimentadas Adiante}
@@ -241,7 +246,7 @@ Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferent
 
 %A rede neural é dita totalmente conectada, no sentido de que cada um dos nós de uma camada da rede está conectado a todos os nós da camada adjacente seguinte. Entretanto, se alguns dos elos de ligação (conexões sinápticas) estiverem faltando na rede, dizemos que a rede é parcialmente conectada  \citep{haykin2001}.
 
-A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios ou nós computacionais. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente \citep{haykin2001}. 
+A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios ou nós computacionais. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente \citep{haykin2008}. 
 % vanilla == padrão (não encontrei sinônimo bom, talvez trocar para "básica")
 
 \begin{itemize}
@@ -272,30 +277,27 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 %A key point here is the presence of the self-loop, which will cause the hidden state of the neural network to change after the input of each $\bs{x}^{(t)}$. In practice, one only works with sequences of finite length, and it makes sense to unfurl the loop in a ``time-layered'' network that looks more like a feed-forward network. Note that in this case, we have a different node for the hidden state at each time-stamp and the self-loop has been unfurled into a feed-forward network. This representation is mathematically equivalent, but is much easier to comprehend because of its similarity to a traditional network.
 %\citep{aggarwal2018}
 
-Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2001}. Vamos introduzir as RNNs base, bem como variantes melhoradas como a \textit{long short-term memory} (LSTM).
+Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2008}. Vamos introduzir as RNNs base, bem como variantes melhoradas como a \textit{long short-term memory} (LSTM).
 
 %\subsubsubsection{}
 
 %puramente copiado e sem polimento de \citep{fan2021}
 \begin{itemize}
-    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modelo o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
+    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modela o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
     \begin{equation}
         \label{recursive_formula}
         \bs{h}^{(t)} = f_{\bs{\theta}} (\bs{h}^{(t-1)},\bs{x}^{(t)}).
     \end{equation}
     Aqui, $f_{\bs{\theta}}$ é geralmente uma função não linear parametrizada por $\bs{\theta}$. Temos que uma RNN base com apenas uma camada oculta tem a seguinte forma
-    \begin{equation}
+    \begin{equation*}
         \bs{h}_{t} = \varphi \bigl( \bs{W}_{hh} \bs{h^{(t-1)}} + \bs{W}_{xh} \bs{x^{(t)}} + \bs{b_h} \bigl)
-    \end{equation}
-    \begin{equation}
-        \bs{z}_t = \varphi \bigl( \bs{W_{hy}} + \bs{b_z} \bigl),
-    \end{equation}
+    \end{equation*}
+    \begin{equation*}
+        \bs{z}_t = \varphi \bigl( \bs{W}_{hy} + \bs{b_z} \bigl),
+    \end{equation*}
+    onde $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
     
-    em que $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. 
-    
-    Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
-    
-    \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
+    \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $\bs h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
     \item \textbf{LSTM:} similarmente utiliza \textit{gates} na fórmula recursiva. Além de $\bs{h_t}$, uma LSTM mantém um \textit{cell state}, que pega valores em $\R$ \textit{elementwise} e são análogas a contadores.
     
 \end{itemize}
@@ -307,7 +309,7 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 %\end{itemize}
 
 
-\section{Aprendizagem | Ajuste de uma RNA}
+\subsection{Aprendizagem | Ajuste de uma RNA}
 
 \begin{itemize}
     \item stochastic gradient descent
@@ -322,9 +324,9 @@ Composição algorítmica, ou composição automática, refere-se ao processo de
 De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
 
 \begin{itemize}
-    \item estocástica: abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
-    \item \textit{rule-based}: em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
-    \item inteligência artificial (IA): similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática. \sout{ ou, em essência, a capacidade de ``aprender''.}
+    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
+    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
+    \item \textbf{inteligência artificial (IA):} similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática.
 \end{itemize}
 Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
 
@@ -357,9 +359,8 @@ A notação ABC é composta por duas partes: o cabeçalho, que fornece os metada
 %Web scraping or web crawling on the other hand is far faster and more effective, and can be used to gather and compile data from across thousands, or over millions, of pages for processing and drawing information from.
 %For the vast majority of computer users, interaction with the internet comes in the form of accessing websites through a browser, where information and multimedia objects are displayed in a human-friendly fashion for easy understanding. 
 %\citep{khder2021}
-\pumi{web scraping = procedimento, web crawler = ferramenta}
 
-\textit{Web scraping} (ou \textit{web crawling}) é uma ferramenta de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário. \citep{lawson2015,patil2016}
+\textit{Web scraping} é uma técnica de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário. \citep{lawson2015,patil2016}
 
 Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para informar sobre quaisquer restrições sobre o uso da técnica em seus domínios. Essas restrições são apenas sugestões, mas é recomendado que sejam seguidas, pois além de poderem conter informações sobre a estrutura do \textit{website}, minimiza a chance do \textit{crawler} ser bloqueado. Mais informações sobre o arquivo \textit{robots.txt} estão disponíveis em \url{robotstxt.org} \citep{lawson2015}.
 
@@ -474,43 +475,36 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 %The computational task of segmenting text into relevant words or units of meaning is called tokenization. Tokens may be words, numbers, or punctuation marks. In simplest form, tokenization can be achieved by splitting text using whitespace To compound problems, tokens can sometimes consist of multiple words (e.g., “he who cannot be named”) Tokenization serves also to segment sentences by delineating the end of one sentence and beginning of another. Punctuation plays an important role in this task, but unfortunately punctuation is often ambiguous. Punctuation like apostrophes, hyphens, and periods can create problems.
 %\citep{kamath2019}
 
-\begin{itemize}
-    \item corpus | corpora \textbf{OK}
-    \item expressões regulares \textbf{OK}
-    \item vocabulary | tokenization
-    \item embedding
-    \item language models
-    \item cross-entropy
-    \item perplexity
-\end{itemize}
-
 O objetivo da ciência linguística é ser capaz de caracterizar e de explicar as diversas observações linguísticas ao nosso redor, presentes em conversações, na escrita e em outras mídias. Parte disso está relacionado à compreensão das estruturas linguísticas pelas quais a linguagem se comunica e, devido a isso, foram propostas regras para a estruturação das expressões linguísticas. Tal abordagem tornou-se cada vez mais formal e rigorosa à medida que os linguistas exploravam gramáticas detalhadas que tentavam descrever o que seria um texto bom ou mau escrito \citep{manning1999}.
 
-Processamento de Linguagem Natural (PLN), também conhecida como Linguística Computacional, foca na aplicação de métodos quantitativos e estatísticos para entender como seres humanos modelam linguagem, bem como abordagens computacionais para responder perguntas linguísticas. Ou seja, é a aplicação de métodos computacionais para modelar e extrair informação da linguagem humana \citep{kamath2019}. 
+Processamento de Linguagem Natural (PLN), também conhecida como Linguística Computacional, foca na aplicação de métodos quantitativos e estatísticos para entender como seres humanos modelam linguagem, bem como abordagens computacionais para responder perguntas linguísticas. Ou seja, é a aplicação de métodos computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019}. 
+
+De acordo com \citet{jurafsky2021}, é importante testar algoritmos em mais de uma linguagem, especialmente em linguagens com diferentes propriedades. Em contraste, segundo \citet{bender2019}, há uma infeliz tendência atual: algoritmos de PLN serem desenvolvidos apenas em inglês. Mesmo quando algoritmos são desenvolvidos para outras linguagens, eles tendem a serem desenvolvidos para idiomas oficiais de grandes nações industrializadas (chinês, espanhol, alemão, etc.), limitando essas ferramentas. Vale também destacar que o texto em que essas ferramentas serão aplicadas podem ser oriundos de fontes como notícias, livros, artigos científicos, reuniões de negócios, transcrições de programas televisivos ou filmes, textos jurídicos, entre outros. Em sumo, ainda segundo \citet{jurafsky2021}, é importante considerar quem produziu a linguagem, em qual contexto e para qual propósito.
 
 
+%Palavras não surgem do nada. Qualquer pedaço de texto que estudamos é produzido por um ou mais falantes ou escritores, em um específico dialeto de um idioma determinado, em um tempo específico, local específico, para um objetivo específico. Talvez a dimensão mais importante de variabilidade é a linguagem.
+%É importante testar algoritmos em mais de uma linguagem, e particularmente em linguagem com diferentes propriedade. Em contraste, infelizmente, de acordo com \citet{bender2019}, há uma tendência atual para algoritmos de PLN serem desenvolvidos e testados apenas em inglês. Até quando algoritmos são desenvolvidos em idiomas além do inglês, eles tendem a ser desenvolvidos para idiomas oficiais de grandes nações industrializadas (Chinês, Espanhol, Alemão, etc.), mas nós não queremos limitar essas ferramentas apenas para algumas linguagens.
+%Outra dimensão de variação é o gênero. O texto que nossos algoritmos devem processar podem vir de notícias, livros de ficção e de não ficção, artigos científicos, Wikipedia ou textos religiosos. Podem ser oriundos de gêneros falados como conversas de telefone, reuniões de negócios, ``police body-worn cameras'', entrevistas médicas, ou transcrições de programas televisivos ou filmes. Podem vir de situações de trabalho como anotações de médicos, textos legais (jurídicos) ou procedimentos parlamentares ou congressionais.
+%Devido a linguagem ser situada, ao desenvolver modelos computacionais para processar linguagem de um corpus, é importante considerar quem produziu a linguagem, em qual contexto e para qual propósito.
+% \citep{jurafsky2021}
 
-\subsection{Corpus | Corpora}
+
+\subsection{Corpus/Corpora}
 Um corpus (plural corpora) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um corpus com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um corpus ou ao relatar os resultados obtidos nas análises são se o tipo de texto do corpus é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
 
 
 \subsection{Expressões Regulares}
-Formalmente, uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de strings. Elas são particularmente úteis para pesquisar em textos, localizando determinados padrões em um corpus. Uma função de busca utilizando expressões regulares pode ser projetada para retornar todas as correspondências ao padrão, bem como apenas a primeira. Detalhamentos e demais definições referentes a expressões regulares estão disponíveis em \citet{jurafsky2021}.
+Expressões Regulares são particularmente úteis para pesquisar em textos, localizando determinados padrões em um corpus. \citet{jurafsky2021} comentam que, formalmente, uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de strings. Além disso, uma função de busca com expressões regulares pode ser projetada para retornar todas as correspondências ao padrão definido, bem como apenas a primeira. Por fim, detalhamentos e demais definições referentes a expressões regulares estão disponíveis em \citet{jurafsky2021}.
 
 
-\subsection{Vocabulário | Tokenization | Coding Words | Texto...?}
-Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário \citep{kamath2019, jurafsky2021}.
+\subsection{Vocabulário | Tokenization | Coding Words}
 
-Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão para do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros, por exemplo [0,...,127]), que conterá um conjuntos de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
+Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
 
-Palavras não surgem do nada. Qualquer pedaço de texto que estudamos é produzido por um ou mais falantes ou escritores, em um específico dialeto de um idioma determinado, em um tempo específico, local específico, para um objetivo específico. Talvez a dimensão mais importante de variabilidade é a linguagem.
+Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros), que conterá um conjunto de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
 
-É importante testar algoritmos em mais de uma linguagem, e particularmente em linguagem com diferentes propriedade. Em contraste, infelizmente, de acordo com \citet{bender2019}, há uma tendência atual para algoritmos de PLN serem desenvolvidos e testados apenas em inglês. Até quando algoritmos são desenvolvidos em idiomas além do inglês, eles tendem a ser desenvolvidos para idiomas oficiais de grandes nações industrializadas (Chinês, Espanhol, Alemão, etc.), mas nós não queremos limitar essas ferramentas apenas para algumas linguagens.
 
-Outra dimenção de variação é o gênero. O texto que nossos algoritmos devem processar podem vir de notícias, livros de ficção e de não ficção, artigos científicos, Wikipedia ou textos religiosos. Podem ser oriundos de gêneros falados como conversas de telefone, reuniões de negócios, ``police body-worn cameras'', entrevistas médicas, ou transcrições de programas televisivos ou filmes. Podem vir de situações de trabalho como anotações de médicos, textos legais (jurídicos) ou procedimentos parlamentares ou congressionais.
 
-Devido a linguagem ser situada, ao desenvolver modelos computacionais para processar linguagem de um corpus, é importante considerar quem produziu a linguagem, em qual contexto e para qual propósito.
-%\citep{jurafsky2021}
 
 
 \subsection{Language Models}
@@ -522,10 +516,17 @@ Um modelo de linguagem é aquele que tenta predizer a frequência que uma frase 
 \begin{equation}
     P(w_L | w_{L-1},w_{L-2},\cdots,w_1).
 \end{equation}
-Modelagem de linguagem é utilizada em reconheciento de fala, tradução automática, marcação de parte da fala (part-ofspeech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
+Modelagem de linguagem é utilizada em reconheciento de fala, tradução automática, marcação de parte da fala (part-of-speech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
 \citep{kamath2019, jurafsky2021}
 
-\subsection{Entropy | Cross-entropy | Perplexity}
+
+\subsection{Avaliação Intrínseca e Extrínseca}
+Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo (\textit{end-to-end}) para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação.
+
+No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Detalhamentos referentes às avaliações podem ser encontrados em \citet{jurafsky2021}.
+
+
+\subsection{Entropy | Cross-entropy | Perplexity (WIP)}
 Em teoria da informação, perplexidade mede o quão bem uma distribuição probabilística prediz uma amostra. Perplexidade é comumente utilizada para medir a performance de um modelo de linguagem. Ela mede a qualidade intríseca do modelo como uma função de probabilidade $P(W)$ que o modelo prediz uma sequência de teste $W = \{w_1,\cdots,w_N\}$ que pode ocorrer, dada por:
 \begin{equation}
     P(W) = P(w_1, w_2, \dots, w_N)^{-\frac{1}{N}}.
@@ -534,12 +535,16 @@ Medidas menores de perplexidade implicam que o modelo prediz dados de teste melh
 \citep{kamath2019}
 
 
+\citet{manning1999} comentam sobre a relação entre perplexidade e entropia cruzada. Matematicamente, dado um modelo $m$:
+\begin{align*}
+    P(W, m) & = P(w_1,\cdots,w_N)^{-\frac{1}{N}} \\
+            & = 2^{H(W,m)},
+\end{align*}
+em que $H(W,m)$ é a entropia cruzada do modelo $m$ para uma sequência de tokens $W$.
 
-Models that assign probabilities to sequences of words are called language models or LMs.
 
-The best way to evaluate the performance of a language model is to embed it in an application and measure how much the application improves. Such end-to-end evaluation is called extrinsic evaluation. Extrinsic evaluation is the only way to extrinsic evaluation know if a particular improvement in a component is really going to help the task at hand. Thus, for speech recognition, we can compare the performance of two language models by running the speech recognizer twice, once with each language model, and seeing which gives the more accurate transcription. Unfortunately, running big NLP systems end-to-end is often very expensive. Instead, it would be nice to have a metric that can be used to quickly evaluate potential improvements in a language model. An intrinsic evaluation metric is one that measures the quality of a model independent of any application. For an intrinsic evaluation of a language model we need a test set. As with many of the statistical models in our field, the probabilities of an n-gram model come from training set the corpus it is trained on, the training set or training corpus. We can then measure the quality of an n-gram model by its performance on some unseen data called the test set test set or test corpus. So if we are given a corpus of text and want to compare two different n-gram models, we divide the data into training and test sets, train the parameters of both models on the training set, and then compare how well the two trained models fit the test set. But what does it mean to “fit the test set”? The answer is simple: whichever model assigns a higher probability to the test set—meaning it more accurately predicts the test set—is a better model. Given two probabilistic models, the better model is the one that has a tighter fit to the test data or that better predicts the details of the test data, and hence will assign a higher probability to the test data. Since our evaluation metric is based on test set probability, it’s important not to let the test sentences into the training set. Suppose we are trying to compute the probability of a particular “test” sentence. If our test sentence is part of the training corpus, we will mistakenly assign it an artificially high probability when it occurs in the test set. We call this situation training on the test set. Training on the test set introduces a bias that makes the probabilities all look too high, and causes huge inaccuracies in perplexity, the probability-based metric we introduce below. Sometimes we use a particular test set so often that we implicitly tune to its characteristics. We then need a fresh test set that is truly unseen. In such cases, we call the initial test set the development test set or, devset. How do we divide our development test data into training, development, and test sets? We want our test set to be as large as possible, since a small test set may be accidentally unrepresentative, but we also want as much training data as possible. At the minimum, we would want to pick the smallest test set that gives us enough statistical power to measure a statistically significant difference between two potential models. In practice, we often just divide our data into 80\% training, 10\% development, and 10\% test. Given a large corpus that we want to divide into training and test, test data can either be taken from some continuous sequence of text inside the corpus, or we can remove smaller “stripes” of text from randomly selected parts of our corpus and combine them into a test set.
+\subsection{Word Embedding (WIP)}
 
-\citep{jurafsky2021}
 
 \section{Coisas para Explicar}
 

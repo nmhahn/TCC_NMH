@@ -51,9 +51,6 @@
   linkcolor=blue,   % color of internal links
   citecolor=blue,   % color of links to bibliography
   urlcolor=blue,    % color of external links
-  pagebackref=true,
-  implicit=false,
-  bookmarks=true,
   bookmarksopen=true,
   pdfdisplaydoctitle=true
 }
