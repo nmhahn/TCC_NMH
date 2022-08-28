@@ -317,54 +317,6 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
     \item optimizer ADAM
 \end{itemize}
 
-\section{Composição Algorítmica}
-
-Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
-
-De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
-
-\begin{itemize}
-    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
-    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
-    \item \textbf{inteligência artificial (IA):} similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática.
-\end{itemize}
-Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
-
-
-\section{Notação ABC}
-Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas folclóricas, particularmente de forma \textit{online}. Criada e formalizada por \citet{walshaw1993}, o autor mantém um website, \url{abcnotation.com}, com recursos como tutoriais, programas e coleções de músicas no formato \citep{walshaw2014}.
-
-A notação ABC é composta por duas partes: o cabeçalho, que fornece os metadados da música como o título e características da música, e o corpo, que detalha as notas musicais. Existem \textit{tags} no cabeçalho como ``T'' (título) e ``X'' (número da música) que não afetam a síntese musical de nenhuma forma. Vale notar que a notação ABC define um mapeamento entre seus caracteres e símbolos específicos de uma partitura musical, o que permite a conversão de um formato para outro \citep{agarwala2017}. 
-
-\begin{itemize}
-    \item imagem de notação ABC e partitura
-\end{itemize}
-
-
-\section{Web Scraping}
-
-%Web scraping is an automated tool for finding and extracting data from on-line sources. It utilizes computer programming software and customized software code to mine data or other information from on-line sources in order to remove a copy of the data and store it in an external database for analysis.
-%Web scraping is also referred to as automated data collection, web extracting, web crawling, or web content mining.
-%Web scraping involves the development and use of two customized software programs – a crawler and a scraper. The crawler systematically downloads data from the Internet; then the scraper systematically pulls the relevant information (unstructured, semi-structured, or structured) from the downloadeddata, codes it, and relocates it ina database or file based on a pre-determined structure and format defined by the user. This new external database or file – populated with data originally presented on-line – is subsequently analyzed in ways the original on-line presentation of data did not support. Common software programming languages like R and Python are typically used to write the software code for both the crawler and the scraper.
-%\citep{farley2017}
-
-%Most websites define a \textit{robots.txt} file to let crawlers know of any restrictions about crawling their website. These restrictions are just a suggestion but good web citizens will follow them. The \textit{robots.txt} file is a valuable resource to check before crawling to minimize the chance of being blocked, and also to discover hints about a website's structure. More information about the \textit{robots.txt} protocol is available at \url{http://www.robotstxt.org}.
-%\citep{lawson2015}
-
-%Web crawlers are designed to retrieve web content and insert them to local repository. Crawlers are primarily used to produce a replica of all the visited pages that are later processed by a search engine that will index downloaded pages that facilitate in fast searches. 
-%Web crawler is an internet service that assists users in their web navigation by automating the task of link traversal, making a searchable index of the web, and fulfilling searchers’ queries from the index. That is, a web crawler automatically discovers and collects different resources in an orderly fashion from the internet according to the user requirements
-%\citep{patil2016}
-
-%Web scraping or web crawling refers to the procedure of automatic extraction of data from websites using software.
-%Web scraping or web crawling on the other hand is far faster and more effective, and can be used to gather and compile data from across thousands, or over millions, of pages for processing and drawing information from.
-%For the vast majority of computer users, interaction with the internet comes in the form of accessing websites through a browser, where information and multimedia objects are displayed in a human-friendly fashion for easy understanding. 
-%\citep{khder2021}
-
-\textit{Web scraping} é uma técnica de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário. \citep{lawson2015,patil2016}
-
-Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para informar sobre quaisquer restrições sobre o uso da técnica em seus domínios. Essas restrições são apenas sugestões, mas é recomendado que sejam seguidas, pois além de poderem conter informações sobre a estrutura do \textit{website}, minimiza a chance do \textit{crawler} ser bloqueado. Mais informações sobre o arquivo \textit{robots.txt} estão disponíveis em \url{robotstxt.org} \citep{lawson2015}.
-
-Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{crawler} e do \textit{scraper} podemos citar \href{https://cran.r-project.org}{R} e \href{https://python.org/}{Python}. Detalhamentos sobre o assunto podem ser encontrados em \citet{lawson2015}, \citet{sirisuriya2015}, \citet{patil2016}, \citet{farley2017} e \citet{khder2021}.
 
 \section{Processamento de Linguagem Natural}
 
@@ -528,7 +480,7 @@ Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intr�
 No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Detalhamentos referentes às avaliações podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
 
 
-\subsection{Entropy | Cross-entropy | Perplexity (WIP)}
+\subsection{Entropy | Cross-entropy | Perplexity}
 %In information theory, perplexity measures how well a probability distribution predicts a sample. Perplexity is a commonly used measure to evaluate the performance of a language model. It measures the intrinsic quality of an n-gram model as a function of the probability P(W) that the model predicts a test sequence W = w1w2 ...wN can occur, given by:
 %$P(W) = P(w1w2 ...wN)^{−1/N}$
 %Lower measures of perplexity imply that the model predicts the test data better, while higher perplexity values imply lower prediction quality.
@@ -545,7 +497,7 @@ No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em 
 %\citep{jurafsky2021}
 
 
-\textbf{Entropia} é uma medida de informação. Dada uma variável aleatória $X$ que abrange tudo o que estivermos prevendo (palavras, letras, tokens... um conjunto $\chi$) e uma particular função de probabilidade $p(x)$, a entropia da variável aleatória $X$ é:
+\textbf{Entropia} é uma medida de informação. Considerando um conjunto de tokens $\chi$ e uma particular função de probabilidade $p(x)$, define-se a entropia da variável aleatória $X$ como
 \begin{equation}
     \label{entropia}
     H(X) = - \sum_{x \in \chi} \biggl(p(x) \; log_2 (p(x)) \biggl)
@@ -580,9 +532,9 @@ A intuição é que uma sequência de palavras suficientemente longa conterá ou
 \begin{equation}
     H(p) \leq H(p,m).
 \end{equation}
-Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo de $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
+Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
 
-\textbf{Perplexidade} é uma medida oriunda da teoria da informação comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $log$ com base 2)
+\textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $log$ com base 2)
 \begin{align}
     Perplexidade(W) & = 2^{H(W)} \\
                     & = p(w_1,\cdots,w_n)^{-\frac{1}{n}}.
@@ -650,6 +602,59 @@ No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}
 \end{equation}
 em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso.
 \citep{goldberg2017}
+
+
+
+\section{Composição Algorítmica}
+Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
+
+De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
+
+\begin{itemize}
+    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
+    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
+    \item \textbf{inteligência artificial (IA):} similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática.
+\end{itemize}
+Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
+
+
+\section{Notação ABC}
+Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas folclóricas, particularmente de forma \textit{online}. Criada e formalizada por \citet{walshaw1993}, o autor mantém um website, \url{abcnotation.com}, com recursos como tutoriais, programas e coleções de músicas no formato \citep{walshaw2014}.
+
+A notação ABC é composta por duas partes: o cabeçalho, que fornece os metadados da música como o título e características da música, e o corpo, que detalha as notas musicais. Existem \textit{tags} no cabeçalho como ``T'' (título) e ``X'' (número da música) que não afetam a síntese musical de nenhuma forma. Vale notar que a notação ABC define um mapeamento entre seus caracteres e símbolos específicos de uma partitura musical, o que permite a conversão de um formato para outro \citep{agarwala2017}. 
+
+\begin{itemize}
+    \item imagem de notação ABC e partitura
+\end{itemize}
+
+
+\section{Web Scraping}
+
+%Web scraping is an automated tool for finding and extracting data from on-line sources. It utilizes computer programming software and customized software code to mine data or other information from on-line sources in order to remove a copy of the data and store it in an external database for analysis.
+%Web scraping is also referred to as automated data collection, web extracting, web crawling, or web content mining.
+%Web scraping involves the development and use of two customized software programs – a crawler and a scraper. The crawler systematically downloads data from the Internet; then the scraper systematically pulls the relevant information (unstructured, semi-structured, or structured) from the downloadeddata, codes it, and relocates it ina database or file based on a pre-determined structure and format defined by the user. This new external database or file – populated with data originally presented on-line – is subsequently analyzed in ways the original on-line presentation of data did not support. Common software programming languages like R and Python are typically used to write the software code for both the crawler and the scraper.
+%\citep{farley2017}
+
+%Most websites define a \textit{robots.txt} file to let crawlers know of any restrictions about crawling their website. These restrictions are just a suggestion but good web citizens will follow them. The \textit{robots.txt} file is a valuable resource to check before crawling to minimize the chance of being blocked, and also to discover hints about a website's structure. More information about the \textit{robots.txt} protocol is available at \url{http://www.robotstxt.org}.
+%\citep{lawson2015}
+
+%Web crawlers are designed to retrieve web content and insert them to local repository. Crawlers are primarily used to produce a replica of all the visited pages that are later processed by a search engine that will index downloaded pages that facilitate in fast searches. 
+%Web crawler is an internet service that assists users in their web navigation by automating the task of link traversal, making a searchable index of the web, and fulfilling searchers’ queries from the index. That is, a web crawler automatically discovers and collects different resources in an orderly fashion from the internet according to the user requirements
+%\citep{patil2016}
+
+%Web scraping or web crawling refers to the procedure of automatic extraction of data from websites using software.
+%Web scraping or web crawling on the other hand is far faster and more effective, and can be used to gather and compile data from across thousands, or over millions, of pages for processing and drawing information from.
+%For the vast majority of computer users, interaction with the internet comes in the form of accessing websites through a browser, where information and multimedia objects are displayed in a human-friendly fashion for easy understanding. 
+%\citep{khder2021}
+
+\textit{Web scraping} é uma técnica de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário. \citep{lawson2015,patil2016}
+
+Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para informar sobre quaisquer restrições sobre o uso da técnica em seus domínios. Essas restrições são apenas sugestões, mas é recomendado que sejam seguidas, pois além de poderem conter informações sobre a estrutura do \textit{website}, minimiza a chance do \textit{crawler} ser bloqueado. Mais informações sobre o arquivo \textit{robots.txt} estão disponíveis em \url{robotstxt.org} \citep{lawson2015}.
+
+Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{crawler} e do \textit{scraper} podemos citar \href{https://cran.r-project.org}{R} e \href{https://python.org/}{Python}. Detalhamentos sobre o assunto podem ser encontrados em \citet{lawson2015}, \citet{sirisuriya2015}, \citet{patil2016}, \citet{farley2017} e \citet{khder2021}.
+
+
+
 
 \section{Coisas para Explicar}
 
