@@ -183,10 +183,10 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
 Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, com o intuito de aumentar ou diminuir a entrada da função de ativação, dependendo do seu sinal.
 
 Matematicamente, podemos descrever um neurônio $k \in \N$, por meio de um par de equações:
-\begin{align*}
+\begin{align}
     y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
     u_k &= \displaystyle{\sum_{i=1}^{m} }w_{k,i}x_i;
-\end{align*}
+\end{align}
 em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados; $w_{k,i} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
 
 \begin{figure}
@@ -475,6 +475,12 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 %The computational task of segmenting text into relevant words or units of meaning is called tokenization. Tokens may be words, numbers, or punctuation marks. In simplest form, tokenization can be achieved by splitting text using whitespace To compound problems, tokens can sometimes consist of multiple words (e.g., “he who cannot be named”) Tokenization serves also to segment sentences by delineating the end of one sentence and beginning of another. Punctuation plays an important role in this task, but unfortunately punctuation is often ambiguous. Punctuation like apostrophes, hyphens, and periods can create problems.
 %\citep{kamath2019}
 
+
+%The perplexity of two language models is only comparable if they use identical vocabularies.
+%An (intrinsic) improvement in perplexity does not guarantee an (extrinsic) improvement in the performance of a language processing task like speech recognition or machine translation. Nonetheless, because perplexity often correlates with such improvements, it is commonly used as a quick check on an algorithm. But a model’s improvement in perplexity should always be confirmed by an end-to-end evaluation of a real task before concluding the evaluation of the model.
+
+%\citep{jurafsky2021}
+
 O objetivo da ciência linguística é ser capaz de caracterizar e de explicar as diversas observações linguísticas ao nosso redor, presentes em conversações, na escrita e em outras mídias. Parte disso está relacionado à compreensão das estruturas linguísticas pelas quais a linguagem se comunica e, devido a isso, foram propostas regras para a estruturação das expressões linguísticas. Tal abordagem tornou-se cada vez mais formal e rigorosa à medida que os linguistas exploravam gramáticas detalhadas que tentavam descrever o que seria um texto bom ou mau escrito \citep{manning1999}.
 
 Processamento de Linguagem Natural (PLN), também conhecida como Linguística Computacional, foca na aplicação de métodos quantitativos e estatísticos para entender como seres humanos modelam linguagem, bem como abordagens computacionais para responder perguntas linguísticas. Ou seja, é a aplicação de métodos computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019}. 
@@ -498,13 +504,9 @@ Expressões Regulares são particularmente úteis para pesquisar em textos, loca
 
 
 \subsection{Vocabulário | Tokenization | Coding Words}
-
 Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
 
 Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros não negativos), que conterá um conjunto de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
-
-
-
 
 
 \subsection{Language Models}
@@ -521,26 +523,88 @@ Modelagem de linguagem é utilizada em reconheciento de fala, tradução automá
 
 
 \subsection{Avaliação Intrínseca e Extrínseca}
-Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo (\textit{end-to-end}) para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação.
+Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo (\textit{end-to-end}) para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
 
-No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Detalhamentos referentes às avaliações podem ser encontrados em \citet{jurafsky2021}.
+No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Detalhamentos referentes às avaliações podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
 
 
 \subsection{Entropy | Cross-entropy | Perplexity (WIP)}
-Em teoria da informação, perplexidade mede o quão bem uma distribuição probabilística prediz uma amostra. Perplexidade é comumente utilizada para medir a performance de um modelo de linguagem. Ela mede a qualidade intríseca do modelo como uma função de probabilidade $P(W)$ que o modelo prediz uma sequência de teste $W = \{w_1,\cdots,w_N\}$ que pode ocorrer, dada por:
+%In information theory, perplexity measures how well a probability distribution predicts a sample. Perplexity is a commonly used measure to evaluate the performance of a language model. It measures the intrinsic quality of an n-gram model as a function of the probability P(W) that the model predicts a test sequence W = w1w2 ...wN can occur, given by:
+%$P(W) = P(w1w2 ...wN)^{−1/N}$
+%Lower measures of perplexity imply that the model predicts the test data better, while higher perplexity values imply lower prediction quality.
+%\citep{kamath2019}
+
+%We introduced perplexity in Section 3.2.1 as a way to evaluate n-gram models on a test set. A better n-gram model is one that assigns a higher probability to the test data, and perplexity is a normalized version of the probability of the test set. The perplexity measure actually arises from the information-theoretic concept of cross-entropy, which explains otherwise mysterious properties of perplexity (why Entropy the inverse probability, for example?) and its relationship to entropy. Entropy is a measure of information. Given a random variable X ranging over whatever we are predicting (words, letters, parts of speech, the set of which we’ll call $\chi$) and with a particular probability function, call it p(x), the entropy of the random variable X is:
+%\begin{equation}
+%    H(X) = - \sum_{x \in \chi} p(x) log_2 p(x)
+%\end{equation}
+%The log can, in principle, be computed in any base. If we use log base 2, the resulting value of entropy will be measured in bits.
+%One intuitive way to think about entropy is as a lower bound on the number of bits it would take to encode a certain decision or piece of information in the optimal coding scheme.
+
+%The perplexity of two language models is only comparable if they use identical vocabularies.
+%\citep{jurafsky2021}
+
+
+\textbf{Entropia} é uma medida de informação. Dada uma variável aleatória $X$ que abrange tudo o que estivermos prevendo (palavras, letras, tokens... um conjunto $\chi$) e uma particular função de probabilidade $p(x)$, a entropia da variável aleatória $X$ é:
 \begin{equation}
-    P(W) = P(w_1, w_2, \dots, w_N)^{-\frac{1}{N}}.
+    \label{entropia}
+    H(X) = - \sum_{x \in \chi} \biggl(p(x) \; log_2 (p(x)) \biggl)
 \end{equation}
-Medidas menores de perplexidade implicam que o modelo prediz dados de teste melhor, enquanto uma perplexidade maior implica em uma qualidade de predição mais baixa.
-\citep{kamath2019}
+O logaritmo ($log$), em princípio, pode ser computado em qualquer base. Se utilizamos $log$ na base 2, o valor resultante da entropia é mensurado em \textit{bits}. 
+
+A equação (\ref{entropia}) é utilizada para computar a entropia de apenas uma variável aleatória. Usualmente, computaremos a entropia de sequências. No caso de uma gramática, por exemplo, será computado a entropia de uma sequência de palavras $W = \{w_1,\dots,w_n; \; n \in \N \}$. Uma forma de fazer isso é ter uma variável que abrange todas as sequências de palavras. Por exemplo, podemos computar a entropia de uma variável aleatória que abrange todas as sequência de tamanho $n$ presentes em uma linguagem $L$ por meio de
+\begin{equation}
+    H(w_1,\dots,w_n) = - \sum_{w_{1:n} \in L} \biggl( p(w_{1:n}) \; log(w_{1:n}) \biggl).
+\end{equation}
+Podemos definir, também, a taxa de entropia (ou entropia por palavra) da sequência dividindo pelo número de palavras:
+\begin{equation}
+    \frac{1}{n}H(w_{1:n}) = - \frac{1}{n} \sum_{w_{1:n} \in L} \biggl( p(w_{1:n}) \; log(w_{1:n}) \biggl).
+\end{equation}
+Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras (em que um processo estocástico é um conjunto de variáveis aleatórias, e que cada v.a. produz uma única palavra), e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
+\begin{align}
+    H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n) \\
+         & = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( p(w_1,\cdots,w_n) \; log(p(w_1,\cdots,w_n)) \biggl).
+\end{align}
+
+\textbf{Entropia cruzada} (\textit{cross-entropy}) é utilizada quando não temos a verdadeira distribuição probabilística $p$ que gerou os dados. No entanto, ela permite a utilização de um modelo $m$, que é um modelo de $p$ (i.e., uma aproximação de $p$). Podemos definir a entropia cruzada de $m$ em $p$ como
+\begin{equation}
+    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( p(w_1,\cdots,w_n) \; log(m(w_1,\cdots,w_n)) \biggl).
+\end{equation}
+Considerando que o processo estocástico $H(p,m)$ seja estacionário (as probabilidades são invariantes ao deslocamento do índice $t$, que indica a posição na sequência) e ergótico (as propriedades estatísticas podem ser deduzidas por meio de uma sequência suficientemente longa do processo), temos que
+\begin{equation}
+    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( log(m(w_1,\cdots,w_n)) \biggl).
+\end{equation}
+A intuição é que uma sequência de palavras suficientemente longa conterá outras sequências menores, e que cada uma dessas irá ocorrer recorrentemente na sequência mais longa de acordo com suas respectivas probabilidades.
+
+É interessante observar que a entropia cruzada $H(p,m)$ é o limite superior da entropia $H(p)$. Devido a isso, para um modelo $m$
+\begin{equation}
+    H(p) \leq H(p,m).
+\end{equation}
+Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo de $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
+
+\textbf{Perplexidade} é uma medida oriunda da teoria da informação comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $log$ com base 2)
+\begin{align}
+    Perplexidade(W) & = 2^{H(W)} \\
+                    & = p(w_1,\cdots,w_n)^{-\frac{1}{n}}.
+\end{align}
+Medidas menores de perplexidade implicam uma qualidade de predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (corpus) \citep{manning1999, kamath2019, jurafsky2021}.
 
 
-\citet{manning1999} comentam sobre a relação entre perplexidade e entropia cruzada. Matematicamente, dado um modelo $m$:
-\begin{align*}
-    P(W, m) & = P(w_1,\cdots,w_N)^{-\frac{1}{N}} \\
-            & = 2^{H(W,m)},
-\end{align*}
-em que $H(W,m)$ é a entropia cruzada do modelo $m$ para uma sequência de tokens $W$.
+%Em teoria da informação, perplexidade mede o quão bem uma distribuição probabilística prediz uma amostra, sendo comumente utilizada para mensurar a performance de um modelo de linguagem. Ela mede a qualidade intrínseca do modelo como uma função de probabilidade $P(W)$ que o modelo prediz uma sequência de teste $W = \{w_1,\cdots,w_N\}$ que pode ocorrer, dada por:
+%\begin{equation}
+%    P(W) = P(w_1, w_2, \dots, w_N)^{-\frac{1}{N}}.
+%\end{equation}
+%Medidas menores de perplexidade implicam que o modelo prediz dados de teste melhor, enquanto uma perplexidade maior implica em uma qualidade de predição mais baixa.
+%\citep{kamath2019}
+
+
+
+%\citet{manning1999} comentam sobre a relação entre perplexidade e entropia cruzada. Matematicamente, dado um modelo $m$:
+%\begin{align*}
+%    P(W, m) & = P(w_1,\cdots,w_N)^{-\frac{1}{N}} \\
+%            & = 2^{H(W,m)},
+%\end{align*}
+%em que $H(W,m)$ é a entropia cruzada do modelo $m$ para uma sequência de tokens $W$.
 
 
 \subsection{Word Embedding}
