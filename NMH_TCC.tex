@@ -489,7 +489,7 @@ De acordo com \citet{jurafsky2021}, é importante testar algoritmos em mais de u
 % \citep{jurafsky2021}
 
 
-\subsection{Corpus/Corpora}
+\subsection{Corpus e Corpora}
 Um corpus (plural corpora) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um corpus com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um corpus ou ao relatar os resultados obtidos nas análises são se o tipo de texto do corpus é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
 
 
@@ -501,7 +501,7 @@ Expressões Regulares são particularmente úteis para pesquisar em textos, loca
 
 Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
 
-Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros), que conterá um conjunto de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
+Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela hash (uma função hash mapeia um conjunto de objetos para um intervalo específico de inteiros não negativos), que conterá um conjunto de tokens e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os tokens quando necessário.
 
 
 
@@ -543,17 +543,56 @@ Medidas menores de perplexidade implicam que o modelo prediz dados de teste melh
 em que $H(W,m)$ é a entropia cruzada do modelo $m$ para uma sequência de tokens $W$.
 
 
-\subsection{Word Embedding (WIP)}
+\subsection{Word Embedding}
+%Quando lidamos com PLN, boa parte das variáveis são categóricas como palavras e tokens. Como codificar esses dados categóricos de uma forma que seja útil para o classificador estatístico? Vamos discutir duas opções: \textit{one-hot encodings} e \textit{dense embedding vectors}.
 
+
+%ONE-HOT ENCODINGS
+%Em modelos lineares e log-lineares na forma $f(x) = xW + b$, é comum pensar em termos de uma função indicadora, e atribuir uma única dimensão para cada possível atributo (uma dummy para cada categoria).
+%Tal processo é denominado como \textit{one-hot encoding}, em que cada dimensão corresponde a um único atributo, e o vetor de atributos resultante pode ser pensado como uma combinação de alta dimensão de vetores indicadores em que uma única dimensão tem o valor 1 e todas as outras tem o valor 0.
+
+
+%DENSE ENCODINGS (FEATURE EMBEDDINGS)
+%Talvez o maior salto conceitual quando mudamos de \texit{sparse-input linear models} para modelos não lineares é deixar de representar cada atributo como uma única dimensão \texit{one-hot}, e representar em vez disso por meio de vetores densos. Ou seja, cada atributo é \textit{embedded} em um espaço $d$ dimensional, e é representado como um vetor nesse espaço.
+%Os \textit{embeddings} (representação de cada atributo na forma de vetor) são tratados como parâmetros da rede neural, e são treinados junto dos outros parâmetros da função $f$.
+%A grande mudança no formato de entrada quando muda do classificador linear para o profundo é, muda da representação esparsa em que cada atributo tem a própria dimensão, para a representação profunda em que cada atributo é mapeado para um vetor.  
+%Um dos benefícios de utilizar a vetores densos e com baixa dimensão é computacional: boa parte das \textit{toolkits} não lidam bem com vetores esparsos de dimensões muito altas.
+%O principal benefício da representação densa é o poder de generalização: se acreditamos que alguns atributos podem fornecer ideias similares, é válido fornece uma representação que seja capaz de capturar essas similaridades. Por exemplo, assumindo que observamos a palavra \texit{dog} muitas vezes durante o treino, mas apenas observamos poucas vezes (ou nenhuma única vez) a palavra \textit{cat}. Se cada palavra é associada a sua própria dimensão, ocorrência de \textit{dog} não informam nada referente às ocorrências de \textit{cat}. No entanto, nos vetores densos o vetor aprendido para \textit{dog} pode ser similar ao aprendido para \textit{cat}, permitindo que o modelo compartilhe \textit{statistical strength} entre ambos os eventos. Este argumento assume que vimos ocorrências da palavra \textit{cat} similares aos da palavra \textit{dog}.
+%Em casos em que temos atributos relativamente distintos na categoria, e nós acreditamos que não há correlação entre os atributos, podemos utilizar a representação \textit{one-hot}. No entanto, se acreditamos que há correlação entre os diferentes atributos, é válido deixar que a rede identifique as correlações e ganhe \textit{statistical strength} pelo compartilhamento dos parâmetros.
+
+
+%RELATION BETWEEN ONE-HOT AND DENSE VECTORS
+%Representar atributos em vetores densos é uma parte integral da \textit{neural network framework}, e, consequentemente, as diferenças entre a representação esparsa (one-hot) e densa são mais sutis do que aparentam inicialmente. De fato, utilizar vetores esparsos (one-hot) como entradas de uma rede que será treinada equivale a dedicar a primeira camada da rede a aprender o \textit{dense embedding vector} para cada atributo baseado nos dados de treino.
+%Quanto utilizados vetores densos, cada atributo categórico $f_i$ é mapeado a um vetor denso $d$ dimensional $v(f_i)$. Este mapeamento é feito por meio de uma camada \textit{embedding} ou \textit{lookup}.
+%Considere um vocabulário de $|V|$ palavras, cada uma \textit{embedded} como um vetor $d$ dimensional. A coleção de vetores pode ser pensada como uma matriz $|V| \times d$ $\bs{E}$, em que cada linha corresponde a um atributo \textit{embedded}. 
+%Seja $\bs{f_i}$ a representação one-hot do atributo $f_i$, i.e., um vetor $|V|$ dimensional em que todos os valores são zeros exceto por um índice, correspondendo ao valor do $i$-ésimo atributo, que é 1. A multiplicação $\bs{f_i E}$ irá ``selecionar'' a linha correspondente de $\bs{E}$. Posto isso, podemos definir $v(f_i)$ como
+%\begin{equation}
+%    v(f_i) = \bs{f_i E}.
+%\end{equation}
+%A entrada da rede é então a coleção de vetores one-hot. Apesar de ser elegante e bem definido matematicamente, uma implementação eficiente envolve uma \texit{hash-based data structure} que mapeia os atributos a seus correspondentes vetores \textit{embedding}, não sendo realizada a representação one-hot.
+%\citep{goldberg2017}
+
+
+Em PLN, as palavras (ou tokens) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
+\begin{itemize}
+    \item \textit{one-hot encoding}: é criado uma variável indicadora (\textit{dummy}) para cada categoria.
+    \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida (\textit{embedded}) em um vetor $d \in \N$ dimensional.
+\end{itemize}
+O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
+
+No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}) na camada de entrada e uma camada embutida (\textit{embedding layer}) para obter o vetor denso que representará as categorias. Matematicamente, cada categoria $f_i$ é mapeada a um vetor denso $d$ dimensional $v(f_i)$. Seja um vocabulário de $|V|$ palavras, a coleção de vetores pode ser representada pela matriz $\bs{E}_{|V| \times d}$, em que cada linha corresponde a uma categoria. Considerando $\bs{f_i}$ a representação \textit{one-hot} da categoria $f_i$, i.e., um vetor $|V|$ dimensional em que todas os valores são zeros exceto por um índice de valor 1, correspondente à $i$-ésima categoria. Dessa forma, o produto $\bs{f_i E}$ irá ``selecionar'' a respectiva linha de $\bs{E}$. Posto isso, podemos definir $v(f_i)$ como
+\begin{equation}
+    v(f_i) = \bs{f_i E}.
+\end{equation}
+em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso.
+\citep{goldberg2017}
 
 \section{Coisas para Explicar}
 
 \begin{itemize}
     \item aprendizagem (stochastic gradient descent e backpropagation)
-    \item word embedding (\url{https://www.tensorflow.org/text/guide/word_embeddings}) e (\url{https://machinelearningmastery.com/use-word-embedding-layers-deep-learning-keras/})
     \item métrica \href{https://thegradient.pub/understanding-evaluation-metrics-for-language-models/}{PERPLEXITY} e \href{https://huggingface.co/docs/transformers/perplexity}{PERPLEXITY}
     \item optimizer \href{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/}{ADAM}
-    \item avaliação intrínseca e extrínseca (\url{https://www.scirp.org/journal/paperinformation.aspx?paperid=98203#:~:text=In\%20an\%20intrinsic\%20evaluation\%2C\%20quality,performance\%20of\%20other\%20NLP\%20systems.}) e (\url{https://cs224d.stanford.edu/lecture_notes/notes2.pdf})
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -571,7 +610,7 @@ O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC N
 
 \begin{itemize}
     \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada no \href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{GitHub do MIT}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto \href{https://www.norbeck.nu/abc/links.asp}{nesta página}. 
-    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{``abcnotation.com''}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um ``crawler'' e um ``scrapper'' para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
+    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um ``crawler'' e um ``scrapper'' para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
 \end{itemize}
 
 
