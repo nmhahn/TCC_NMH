@@ -2,8 +2,9 @@
 \usepackage{ulem}
 \usepackage{dsfont}
 \usepackage{placeins}
-
+\usepackage{refcheck}
 \usepackage{enumitem}
+
 
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
@@ -183,10 +184,10 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
 Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, com o intuito de aumentar ou diminuir a entrada da função de ativação, dependendo do seu sinal.
 
 Matematicamente, podemos descrever um neurônio $k \in \N$, por meio de um par de equações:
-\begin{align}
+\begin{align*}
     y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
     u_k &= \displaystyle{\sum_{i=1}^{m} }w_{k,i}x_i;
-\end{align}
+\end{align*}
 em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados; $w_{k,i} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
 
 \begin{figure}
@@ -296,10 +297,8 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
         \bs{z}_t = \varphi \bigl( \bs{W}_{hy} + \bs{b_z} \bigl),
     \end{equation*}
     onde $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
-    
     \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $\bs h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
     \item \textbf{LSTM:} similarmente utiliza \textit{gates} na fórmula recursiva. Além de $\bs{h_t}$, uma LSTM mantém um \textit{cell state}, que pega valores em $\R$ \textit{elementwise} e são análogas a contadores.
-    
 \end{itemize}
 
 
@@ -311,15 +310,83 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 
 \subsection{Aprendizagem | Ajuste de uma RNA}
 
-\begin{itemize}
-    \item stochastic gradient descent
-    \item backpropagation e BPTT
-    \item optimizer ADAM
+% apenas para separar, na versão final não espero ter estes subsubsections
+
+\subsubsection{gradient | gradient descent}
+Algoritmos de aprendizagem de máquina, usualmente, envolvem alguma parte de otimização, referindo-se a minimizar (ou maximizar) uma função $f(x)$. Tal função pode ser chamada de \textbf{função custo} (\textit{cost function}) ou de \textbf{função perda} (\textit{loss function}). 
+
+Seja uma função $y=f(x)$, $x,y \in \R$. A \textbf{derivada} dessa função, $f'(x)$ ou $\frac{dy}{dx}$, fornece a inclinação de $f(x)$ no ponto $x$, podendo ser utilizada para minimizar a função $f(x)$. Quando $f'(x)=0$, temos um \textbf{ponto crítico} ou \textbf{ponto estacionário}, pois não temos nenhuma informação referente ao sentido da inclinação (positivo ou negativo):
+\begin{itemize} % inserir gráficos exemplificando?
+    \item \textbf{mínimo (máximo) local}: ponto em que $f(x)$ é menor (maior) que os pontos vizinhos, não sendo possível reduzir (aumentar) $f(x)$ por meio de passos infinitesimais.
+    \item \textbf{mínimo (máximo) global}: ponto em que $f(x)$ obtém o seu menor (maior) valor.
+    \item \textbf{ponto de sela}: ponto que não é nem mínimo e nem máximo.
 \end{itemize}
+Podemos minimizar funções com uma única entrada ou com múltiplas entradas, ou seja, respectivamente, $f: \R \rightarrow \R$ ou $f: \R^n \rightarrow \R$. Para que o conceito de ``minimização'' tenha sentido, é necessário que exista apenas uma única saída (escalar) da função.
+
+O \textbf{gradiente} generaliza a noção de derivada no caso em que a derivada é em relação a um vetor $\bs{x}$: o gradiente de $f$ é o vetor contendo todas as derivadas parciais $\frac{\partial}{\partial x_i} f(\bs{x})$, denotado por $\nabla_{\bs{x}} f(\bs{x})$. Dessa forma, o elemento $i$ do gradiente é aquele que contém a derivada parcial de $f$ em relação à variável $x_i$. No caso de múltiplas dimensões, um ponto crítico é aquele em que todos os elementos do gradiente são iguais a zero. Posto isso, podemos minimizar $f$ por meio do método de descida do gradiente (\textit{\textbf{gradient descent}}), também conhecido como \textit{\textbf{steepest descent}}, propondo um novo ponto
+\begin{equation*}
+    x' = x - \epsilon \nabla_{\bs{x}} f(\bs{x}),
+\end{equation*}
+em que $\epsilon$ é a \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo. O método converge quando todos os elementos do gradiente são zero (na prática, próximos de zero) \citep{goodfellow2016}. 
+
+
+%-----------------------------------------------------------
+
+%Boa parte dos algoritmos de aprendizagem de máquina envolvem alguma forma de otimização. Otimização refere-se à tarefa de minimizar ou maximizar alguma função $f(x)$ alterando o valor de $x$.
+
+%A função que queremos minimizar ou maximizar é denominada de \textbf{função objetiva} ou \textbf{critério}. Quando estamos minimizando, podemos também chamar de \textbf{função custo}, \textbf{função perda} ou \textbf{função erro}.
+
+%Considere uma função $y=f(x)$, $x,y \in \R$. A \textbf{derivada} dessa função é denotada por $f'(x)$ ou como $\frac{dy}{dx}$. A derivada $f'(x)$ dá a inclinação de $f(x)$ no ponto $x$.
+
+%A derivada é, portanto, útil para minimizar uma função, pois informa como mudar $x$ para fazer uma pequena melhoria em $y$. Por exemplo, sabemos que $f(x - \epsilon \; sign (f'(x))) < f(x)$ para um $\epsilon$ suficientemente pequeno. Podemos, então, reduzir $f(x)$ movendo $x$ em pequenos passos com sinal oposto ao da derivada. Esta técnica é chamada de \textbf{descida do gradiente} (\textit{gradient descent}). 
+
+%Quando $f'(x)=0$, a derivada não fornece nenhuma informação referente ao sentido do movimento. Pontos em que $f'(x)=0$ são conhecidos como \textbf{pontos críticos} ou \textbf{pontos estacionários}:
+%\begin{itemize} % inserir gráficos exemplificando?
+%    \item \textbf{mínimo (máximo) local}: ponto em que $f(x)$ é menor (maior) que os pontos vizinhos, não sendo possível reduzir (aumentar) $f(x)$ fazendo passos infinitesimais.
+%    \item \textbf{mínimo (máximo) global}: ponto em que $f(x)$ obtém o seu menor (maior) valor.
+%    \item \textbf{ponto de sela}: ponto que não é nem mínimo e nem máximo.
+%\end{itemize}
+
+%Comumente, minimizamos funções com múltiplas entradas: $f: \R^n \rightarrow \R$. Para o conceito de ``minimização'' ter sentido, é necessário que exista apenas uma única saída (escalar).
+
+%Para funções com múltiplas entradas, precisamos utilizar o conceito de \textbf{derivadas parciais}. A derivada parcial $\frac{\partial}{\partial x_i} f(\bs{x})$ mede o quanto que $f$ varia conforme apenas a variável $x_i$ varia no ponto $\bs{x}$. O \textbf{gradiente} generaliza a noção de derivada no caso em que a derivada é em relação a um vetor: o gradiente de $f$ é o vetor contendo todas as derivadas parciais, denotado por $\nabla_{\bs{x}} f(\bs{x})$. Elemento $i$ do gradiente é a derivada parcial de $f$ em relação a $x_i$. Em múltiplas dimensões, pontos críticos são pontos em que todos os elementos do gradiente são iguais a zero.
+
+%A \textbf{derivada direcional} em direção a $\bs{u}$ (um vetor unitário) é a inclinação da função $f$ em direção a $u$. Em outras palavras, a derivada direcional é a derivada da função $f(\bs{x} + \alpha \bs{u})$ em relação ao $\alpha$, com $\alpha = 0$.
+
+%Para minimizar $f$, gostaríamos de encontrar a direção em que $f$ decresce mais rapidamente. Podemos fazer isso por meio da derivada direcional
+%\begin{equation*}
+%    \min_{\bs{u},\bs{u}^\top \bs{u}=1} \bs{u} \nabla_{\bs{x}} f(\bs{x}) = \min_{\bs{u},\bs{u}^\top \bs{u}=1} \parallel \bs{u} \parallel_2 \; \parallel \nabla_{\bs{x}} f(\bs{x}) \parallel_2 \cos{(\theta)}
+%\end{equation*}
+%em que $\theta$ é o ângulo entre $\bs{u}$ e o gradiente. Substituindo $\parallel \bs{u} \parallel_2 = 1$ e ignorando fatores que não dependem de $\bs{u}$, a expressão simplifica para $\min_{\bs{u}} \cos{(\theta)}$. Isso é minimizado quando os pontos de $\bs{u}$ apontam para a direção oposta ao gradiente. Em outras palavras, o gradiente aponta para cima e o gradiente negativo aponta para baixo. Podemos diminuir $f$ movendo em direção ao gradiente negativo. Isso é conhecido como \textbf{\textit{method of steepest descent}} ou \textbf{\textit{gradient descent}}.
+
+%\textit{Steepest descent} propõe um novo ponto
+%\begin{equation*}
+%    x' = x - \epsilon \nabla_{\bs{x}} f(\bs{x})
+%\end{equation*}
+%em que $\epsilon$ é a \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo. Podemos selecionar $\epsilon$ de diversas maneiras. Uma abordagem popular é definir $\epsilon$ como uma constante pequena.
+
+%\textit{Steepest descent} converge quando todos os elementos do gradientes são zero (na prática, próximos de zero).
+
+%Apesar do \textit{gradient descent} ser limitado a otimizações em espaços contínuos, o conceito geral (\textit{general concept}) de repetidamente realizar pequenos passos em direção a uma configuração melhor pode ser generalizada para espaços discretos.
+%\citep{goodfellow2016}
+
+\subsubsection{stocastic gradient descent}
+O treinamento de uma rede neural segue o paradigma de minimização empírica do risco, que minimiza a perda sobre todos os dados de treino. Esta minimização é comumente realizada por meio do descida estocástica do gradiente (SGD). Em um processo similar que a descida do gradiente, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo. A diferença é que, para cada atualização, uma subamostra $Beta \subset [n]$, chamada de mini-lote (\textit{mini-batch}), é aleatoriamente selecionada e o cálculo do gradiente é realizado apenas com $Beta$ em vez do lote completo (\textit{full batch}) $[n]$. Este processo reduz consideravelmente o custo computacional no cálculo do gradiente. Pela lei dos grandes números (detalhes em \citet{seneta2013}), estre gradiente estocástico deve ser próximo do da amostra completa, embora com algumas flutuações aleatórias. Uma passagem por todo o conjunto de treinamento é chamada de época (\textit{epoch}). Normalmente, após várias ou dezenas de épocas, o erro é nivelado e o treinamento é concluído \citep{fan2021}.
+
+
+\subsubsection{optimizer ADAM}
+% w.r.t. == with reference to
+
+
+%Stochastic gradient-based optimization is of core practical importance in many fields of science and engineering. Many problems in these fields can be cast as the optimization of some scalar parameterized objective function requiring maximization or minimization with respect to its parameters. If the function is differentiable w.r.t. its parameters, gradient descent is a relatively efficient optimization method, since the computation of first-order partial derivatives w.r.t. all the parameters is of the same computational complexity as just evaluating the function. Often, objective functions are stochastic. For example, many objective functions are composed of a sum of subfunctions evaluated at different subsamples of data; in this case optimization can be made more efficient by taking gradient steps w.r.t. individual subfunctions, i.e. stochastic gradient descent (SGD) or ascent. SGD proved itself as an efficient and effective optimization method that was central in many machine learning success stories, such as recent advances in deep learning (Deng et al., 2013; Krizhevsky et al., 2012; Hinton & Salakhutdinov, 2006; Hinton et al., 2012a; Graves et al., 2013). Objectives may also have other sources of noise than data subsampling, such as dropout (Hinton et al., 2012b) regularization. For all such noisy objectives, efficient stochastic optimization techniques are required. The focus of this paper is on the optimization of stochastic objectives with high-dimensional parameters spaces. In these cases, higher-order optimization methods are ill-suited, and discussion in this paper will be restricted to first-order methods.
+%We propose Adam, a method for efficient stochastic optimization that only requires first-order gradients with little memory requirement. The method computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients; the name Adam is derived from adaptive moment estimation. Our method is designed to combine the advantages of two recently popular methods: AdaGrad (Duchi et al., 2011), which works well with sparse gradients, and RMSProp (Tieleman & Hinton, 2012), which works well in on-line and non-stationary settings; important connections to these and other stochastic optimization methods are clarified in section 5. Some of Adam’s advantages are that the magnitudes of parameter updates are invariant to rescaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary objective, it works with sparse gradients, and it naturally performs a form of step size annealing.
+%\citep{kingma2014}
+
+
+\subsubsection{backpropagation | BPTT}
 
 
 \section{Processamento de Linguagem Natural}
-
 % CHAPTER 1
 %THE AIM of a linguistic science is to be able to characterize and explain the multitude of linguistic observations circling around us, in conversations, writing, and other media. Part of that has to do with the cognitive side of how humans acquire, produce, and understand language, part of it has to do with understanding the relationship between linguistic utterances and the world, and part of it has to do with understanding the linguistic structures by which language communicates. In order to approach the last problem, people have proposed that there are rules which are used to structure linguistic expressions.
 %This basic approach has a long history that extends back at least 2000 years, but in this century the approach became increasingly formal and rigorous as linguists explored detailed grammars that attempted to describe what were wellformed versus ill-formed utterances of a language.
@@ -463,9 +530,9 @@ Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamen
 
 \subsection{Language Models}
 Um modelo estatístico de linguagem é uma distribuição de probabilidade sobre uma sequência de palavras ou tokens. Dado um conjunto de $L$ tokens $w_1,\cdots,w_L$, um modelo de linguagem vai predizer a probabilidade $P(W)$:
-\begin{equation}
+\begin{equation*}
     P(W) = P(w_1,\cdots,w_L).
-\end{equation}
+\end{equation*}
 Um modelo de linguagem é aquele que tenta predizer a frequência que uma frase pode ocorrer no uso natural de uma linguagem. Por exemplo, modelos de linguagem podem prever uma palavra $w_L$ dadas todas as palavras anteriores a ela:
 \begin{equation}
     P(w_L | w_{L-1},w_{L-2},\cdots,w_1).
@@ -500,31 +567,31 @@ No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em 
 \textbf{Entropia} é uma medida de informação. Considerando um conjunto de tokens $\chi$ e uma particular função de probabilidade $p(x)$, define-se a entropia da variável aleatória $X$ como
 \begin{equation}
     \label{entropia}
-    H(X) = - \sum_{x \in \chi} \biggl(p(x) \; log_2 (p(x)) \biggl)
+    H(X) = - \sum_{x \in \chi} p(x) \log_2 \big(p(x)\big) 
 \end{equation}
-O logaritmo ($log$), em princípio, pode ser computado em qualquer base. Se utilizamos $log$ na base 2, o valor resultante da entropia é mensurado em \textit{bits}. 
+O logaritmo, em princípio, pode ser computado em qualquer base. Se utilizamos $\log$ na base 2, o valor resultante da entropia é mensurado em \textit{bits}. 
 
 A equação (\ref{entropia}) é utilizada para computar a entropia de apenas uma variável aleatória. Usualmente, computaremos a entropia de sequências. No caso de uma gramática, por exemplo, será computado a entropia de uma sequência de palavras $W = \{w_1,\dots,w_n; \; n \in \N \}$. Uma forma de fazer isso é ter uma variável que abrange todas as sequências de palavras. Por exemplo, podemos computar a entropia de uma variável aleatória que abrange todas as sequência de tamanho $n$ presentes em uma linguagem $L$ por meio de
-\begin{equation}
-    H(w_1,\dots,w_n) = - \sum_{w_{1:n} \in L} \biggl( p(w_{1:n}) \; log(w_{1:n}) \biggl).
-\end{equation}
+\begin{equation*}
+    H(w_1,\dots,w_n) = - \sum_{w_{1:n} \in L} p(w_{1:n}) \log(w_{1:n}).
+\end{equation*}
 Podemos definir, também, a taxa de entropia (ou entropia por palavra) da sequência dividindo pelo número de palavras:
-\begin{equation}
-    \frac{1}{n}H(w_{1:n}) = - \frac{1}{n} \sum_{w_{1:n} \in L} \biggl( p(w_{1:n}) \; log(w_{1:n}) \biggl).
-\end{equation}
+\begin{equation*}
+    \frac{1}{n}H(w_{1:n}) = - \frac{1}{n} \sum_{w_{1:n} \in L}  p(w_{1:n}) \log(w_{1:n}).
+\end{equation*}
 Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras (em que um processo estocástico é um conjunto de variáveis aleatórias, e que cada v.a. produz uma única palavra), e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
-\begin{align}
+\begin{align*}
     H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n) \\
-         & = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( p(w_1,\cdots,w_n) \; log(p(w_1,\cdots,w_n)) \biggl).
-\end{align}
+         & = \lim_{n \rightarrow \infty} - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n)  \log\big(p(w_1,\cdots,w_n)\big).
+\end{align*}
 
 \textbf{Entropia cruzada} (\textit{cross-entropy}) é utilizada quando não temos a verdadeira distribuição probabilística $p$ que gerou os dados. No entanto, ela permite a utilização de um modelo $m$, que é um modelo de $p$ (i.e., uma aproximação de $p$). Podemos definir a entropia cruzada de $m$ em $p$ como
-\begin{equation}
-    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( p(w_1,\cdots,w_n) \; log(m(w_1,\cdots,w_n)) \biggl).
-\end{equation}
+\begin{equation*}
+    H(p,m) = \lim_{n \rightarrow \infty}  - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n) \log\big(m(w_1,\cdots,w_n)\big) .
+\end{equation*}
 Considerando que o processo estocástico $H(p,m)$ seja estacionário (as probabilidades são invariantes ao deslocamento do índice $t$, que indica a posição na sequência) e ergótico (as propriedades estatísticas podem ser deduzidas por meio de uma sequência suficientemente longa do processo), temos que
 \begin{equation}
-    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \biggl( log(m(w_1,\cdots,w_n)) \biggl).
+    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \log\big(m(w_1,\cdots,w_n)\big).
 \end{equation}
 A intuição é que uma sequência de palavras suficientemente longa conterá outras sequências menores, e que cada uma dessas irá ocorrer recorrentemente na sequência mais longa de acordo com suas respectivas probabilidades.
 
@@ -534,11 +601,10 @@ A intuição é que uma sequência de palavras suficientemente longa conterá ou
 \end{equation}
 Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
 
-\textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $log$ com base 2)
-\begin{align}
-    Perplexidade(W) & = 2^{H(W)} \\
-                    & = p(w_1,\cdots,w_n)^{-\frac{1}{n}}.
-\end{align}
+\textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $\log$ com base 2)
+\begin{align*}
+    Perplexidade(W)  = 2^{H(W)}  = p(w_1,\cdots,w_n)^{-\frac{1}{n}}.
+\end{align*}
 Medidas menores de perplexidade implicam uma qualidade de predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (corpus) \citep{manning1999, kamath2019, jurafsky2021}.
 
 
@@ -592,7 +658,7 @@ Medidas menores de perplexidade implicam uma qualidade de predição melhor. Por
 Em PLN, as palavras (ou tokens) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
 \begin{itemize}
     \item \textit{one-hot encoding}: é criado uma variável indicadora (\textit{dummy}) para cada categoria.
-    \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida (\textit{embedded}) em um vetor $d \in \N$ dimensional.
+    \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida em um vetor $d$-dimensional.
 \end{itemize}
 O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
 
@@ -654,15 +720,6 @@ Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para i
 Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{crawler} e do \textit{scraper} podemos citar \href{https://cran.r-project.org}{R} e \href{https://python.org/}{Python}. Detalhamentos sobre o assunto podem ser encontrados em \citet{lawson2015}, \citet{sirisuriya2015}, \citet{patil2016}, \citet{farley2017} e \citet{khder2021}.
 
 
-
-
-\section{Coisas para Explicar}
-
-\begin{itemize}
-    \item aprendizagem (stochastic gradient descent e backpropagation)
-    \item métrica \href{https://thegradient.pub/understanding-evaluation-metrics-for-language-models/}{PERPLEXITY} e \href{https://huggingface.co/docs/transformers/perplexity}{PERPLEXITY}
-    \item optimizer \href{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/}{ADAM}
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Metodologia
