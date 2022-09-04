@@ -27,8 +27,8 @@
 \advisorinfo{Doutor pela Universidade Federal do Rio Grande do Sul, Porto Alegre, RS}{UFRGS}
 
 % banca examinadora:
-\examinera{Prof. Dr. xxx}
-\examinerainfo{Doutor pela XX -- Cidade, Estado}{Universidade}
+\examinera{Prof. Dr. João Henrique Ferreira Flores}
+\examinerainfo{Doutor pela Universidade Federal do Rio Grande do Sul, Porto Alegre, RS}{UFRGS}
 
 % departamento:
 \dept{\DEST}
@@ -87,13 +87,6 @@ In this work ....
 
 % lista de tabelas (Obrigatório)
 \listoftables
-
-% se um pato perde a pata, ele fica manco ou viúvo???
-
-% Regras do PUMI:
-%  * vamos ver a introdução por último
-%  * deixar em bullets os itens que pretende falar
-%  * focar na fundamentação teórica (redes neurais, RNN e LSTM)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -370,21 +363,41 @@ em que $\epsilon$ é a \textbf{taxa de aprendizagem} (\textit{learning rate}), u
 %Apesar do \textit{gradient descent} ser limitado a otimizações em espaços contínuos, o conceito geral (\textit{general concept}) de repetidamente realizar pequenos passos em direção a uma configuração melhor pode ser generalizada para espaços discretos.
 %\citep{goodfellow2016}
 
-\subsubsection{stocastic gradient descent}
-O treinamento de uma rede neural segue o paradigma de minimização empírica do risco, que minimiza a perda sobre todos os dados de treino. Esta minimização é comumente realizada por meio do descida estocástica do gradiente (SGD). Em um processo similar que a descida do gradiente, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo. A diferença é que, para cada atualização, uma subamostra $Beta \subset [n]$, chamada de mini-lote (\textit{mini-batch}), é aleatoriamente selecionada e o cálculo do gradiente é realizado apenas com $Beta$ em vez do lote completo (\textit{full batch}) $[n]$. Este processo reduz consideravelmente o custo computacional no cálculo do gradiente. Pela lei dos grandes números (detalhes em \citet{seneta2013}), estre gradiente estocástico deve ser próximo do da amostra completa, embora com algumas flutuações aleatórias. Uma passagem por todo o conjunto de treinamento é chamada de época (\textit{epoch}). Normalmente, após várias ou dezenas de épocas, o erro é nivelado e o treinamento é concluído \citep{fan2021}.
+
+\subsubsection{stochastic gradient descent}
+A descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent} - SGD}) é uma extensão do algoritmo de descida do gradiente. Em um processo similar, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo, minimizando uma função de custo. A diferença principal é que, para cada atualização, um lote (\textbf{\textit{minibatch}}) $\mathbb{B} \subset [n]$ é aleatoriamente selecionado, e o cálculo de gradiente é realizado com $\mathbb{B}$ em vez de todo o conjunto de treino $[n]$, assim, reduzindo o custo computacional. Pela Lei dos Grandes Números (detalhes em \citet{seneta2013}), temos que SGD aproxima-se do gradiente calculado para toda a base de dados, embora com alguns erros. Além disso, mesmo que $[n]$ aumente, o tamanho de $\mathbb{B}$ pode ser fixado. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, fan2021}.
+
+
+
+%----------------------------------------------------------
+
+%O treinamento de uma rede neural segue o paradigma de minimização empírica do risco, que minimiza a perda sobre todos os dados de treino. Esta minimização é comumente realizada por meio do descida estocástica do gradiente (SGD). Em um processo similar que a descida do gradiente, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo. A diferença é que, para cada atualização, uma subamostra $Beta \subset [n]$, chamada de mini-lote (\textit{mini-batch}), é aleatoriamente selecionada e o cálculo do gradiente é realizado apenas com $Beta$ em vez do lote completo (\textit{full batch}) $[n]$. Este processo reduz consideravelmente o custo computacional no cálculo do gradiente. Pela lei dos grandes números (detalhes em \citet{seneta2013}), este gradiente estocástico deve ser próximo do da amostra completa, embora com algumas flutuações aleatórias. Uma passagem por todo o conjunto de treinamento é chamada de época (\textit{epoch}). Normalmente, após várias ou dezenas de épocas, o erro é nivelado e o treinamento é concluído \citep{fan2021}.
+
+%Em um processo similar à descida do gradiente, a descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent} - SGD}) inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo, ou seja, minimizando a função de custo. A diferença principal é que, para cada atualização, um mini-lote (\textbf{\textit{mini-batch}}) $\mathbb{B} \subset [n]$ é aleatoriamente selecionada, e o cálculo de gradiente é realizado com $\mathbb{B}$ em vez do lote completo (\textbf{\textit{full batch}}) $[n]$, assim, reduzindo o custo computacional do cálculo do gradiente. Para fins de simplificação, vamos chamar de lote o \textit{mini-batch} e dados de treino o \textit{full batch}. A abordagem do SGD é válida graças à lei dos grandes números (detalhes em \citet{seneta2013}), que garante que a o gradiente estocástico será suficientemente próximo do gradiente para toda a base de treino, embora com alguns erros. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{fan2021}.
+
 
 
 \subsubsection{optimizer ADAM}
-% w.r.t. == with reference to
+ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. Detalhamentos disponíveis em \citet{kingma2014}.
 
+
+%----------------------------------------------------------
+
+% w.r.t. == with reference to
 
 %Stochastic gradient-based optimization is of core practical importance in many fields of science and engineering. Many problems in these fields can be cast as the optimization of some scalar parameterized objective function requiring maximization or minimization with respect to its parameters. If the function is differentiable w.r.t. its parameters, gradient descent is a relatively efficient optimization method, since the computation of first-order partial derivatives w.r.t. all the parameters is of the same computational complexity as just evaluating the function. Often, objective functions are stochastic. For example, many objective functions are composed of a sum of subfunctions evaluated at different subsamples of data; in this case optimization can be made more efficient by taking gradient steps w.r.t. individual subfunctions, i.e. stochastic gradient descent (SGD) or ascent. SGD proved itself as an efficient and effective optimization method that was central in many machine learning success stories, such as recent advances in deep learning (Deng et al., 2013; Krizhevsky et al., 2012; Hinton & Salakhutdinov, 2006; Hinton et al., 2012a; Graves et al., 2013). Objectives may also have other sources of noise than data subsampling, such as dropout (Hinton et al., 2012b) regularization. For all such noisy objectives, efficient stochastic optimization techniques are required. The focus of this paper is on the optimization of stochastic objectives with high-dimensional parameters spaces. In these cases, higher-order optimization methods are ill-suited, and discussion in this paper will be restricted to first-order methods.
 %We propose Adam, a method for efficient stochastic optimization that only requires first-order gradients with little memory requirement. The method computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients; the name Adam is derived from adaptive moment estimation. Our method is designed to combine the advantages of two recently popular methods: AdaGrad (Duchi et al., 2011), which works well with sparse gradients, and RMSProp (Tieleman & Hinton, 2012), which works well in on-line and non-stationary settings; important connections to these and other stochastic optimization methods are clarified in section 5. Some of Adam’s advantages are that the magnitudes of parameter updates are invariant to rescaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary objective, it works with sparse gradients, and it naturally performs a form of step size annealing.
 %\citep{kingma2014}
 
 
-\subsubsection{backpropagation | BPTT}
+\subsubsection{back-propagation | BPTT}
+O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes estão disponíveis em \citet{haykin2008}, \citet{goodfellow2016}, \citet{fan2021}.  
 
+%----------------------------------------------------------
+
+%The back-propagation algorithm (Rumelhart et al., 1986a), often simply called backprop, allows the information from the cost to then flow backwards through the network, in order to compute the gradient.
+%The term back-propagation is often misunderstood as meaning the whole learning algorithm for multi-layer neural networks. Actually, back-propagation refers only to the method for computing the gradient, while another algorithm, such as stochastic gradient descent, is used to perform learning using this gradient.
+%\citep{goodfellow2016}
 
 \section{Processamento de Linguagem Natural}
 % CHAPTER 1
