@@ -252,7 +252,7 @@ onde $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados
 \subsection{Função de Ativação}
 O objetivo da função de ativação \sout{(ou de transferência)} é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022} . \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
 
-\pumi{Minha sugestão: A função objetivo é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
+\pumi{Minha sugestão: A função objetivo é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
 \begin{itemize}
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
     Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
@@ -278,10 +278,10 @@ Listas de funções de ativação comumente utilizadas podem ser encontradas em 
 %Um nó de saída recebe entradas e calcula um valor de saída, mas em vez de ir para outro nó, esse é o valor final. Se esse for um modelo preditivo, então esse valor é o resultado da previsão. Se o modelo é utilizado para classificação, então esse é o valor empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada). 
 %\citep{hair2005}.
 
-Um único neurônio (nó computacional), mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários cinco ou dez operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
+Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários por vezes diversas operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
 
 \begin{enumerate}
-    \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente $x_i$. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
+    \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
     \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
     \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
@@ -303,7 +303,7 @@ Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferent
 
 %A rede neural é dita totalmente conectada, no sentido de que cada um dos nós de uma camada da rede está conectado a todos os nós da camada adjacente seguinte. Entretanto, se alguns dos elos de ligação (conexões sinápticas) estiverem faltando na rede, dizemos que a rede é parcialmente conectada  \citep{haykin2001}.
 
-A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios ou nós computacionais. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente \citep{haykin2008}. 
+A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios ou nós computacionais. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2008}. 
 % vanilla == padrão (não encontrei sinônimo bom, talvez trocar para "básica")
 
 \begin{itemize}
@@ -364,12 +364,16 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 %\end{itemize}
 
 
-\subsection{Aprendizagem | Ajuste de uma RNA}
+\subsection{Ajustando uma RNA}
 
 % apenas para separar, na versão final não espero ter estes subsubsections
 
 \subsubsection{gradient | gradient descent}
 Algoritmos de aprendizagem de máquina, usualmente, envolvem alguma parte de otimização, referindo-se a minimizar (ou maximizar) uma função $f(x)$. Tal função pode ser chamada de \textbf{função custo} (\textit{cost function}) ou de \textbf{função perda} (\textit{loss function}). 
+
+
+\pumi{Tira esta parte de cálculo I por favor. Inicia em "Seja $f:\R^n\rightarrow\R^n$ e denote por $\nabla_{\bs{x}} f(\bs{x})$ o gradiente de $f$ no ponto $\bs x$. blablabla, os pontos de máximos e mínimos de $f$ são as soluções das equações normais $\nabla_{\bs{x}} f(\bs{x})=\bs0$, onde $\bs0$ denota o vetor nulo em $\R^n$ etc...}
+
 
 Seja uma função $y=f(x)$, $x,y \in \R$. A \textbf{derivada} dessa função, $f'(x)$ ou $\frac{dy}{dx}$, fornece a inclinação de $f(x)$ no ponto $x$, podendo ser utilizada para minimizar a função $f(x)$. Quando $f'(x)=0$, temos um \textbf{ponto crítico} ou \textbf{ponto estacionário}, pois não temos nenhuma informação referente ao sentido da inclinação (positivo ou negativo):
 \begin{itemize} % inserir gráficos exemplificando?
@@ -383,7 +387,7 @@ O \textbf{gradiente} generaliza a noção de derivada no caso em que a derivada 
 \begin{equation*}
     x' = x - \epsilon \nabla_{\bs{x}} f(\bs{x}),
 \end{equation*}
-em que $\epsilon$ é a \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo. O método converge quando todos os elementos do gradiente são zero (na prática, próximos de zero) \citep{goodfellow2016}. 
+em que $\epsilon$ é chamada de \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo. O método converge quando todos os elementos do gradiente são zero (na prática, próximos de zero) \citep{goodfellow2016}. 
 
 
 %-----------------------------------------------------------
@@ -428,7 +432,9 @@ em que $\epsilon$ é a \textbf{taxa de aprendizagem} (\textit{learning rate}), u
 
 
 \subsubsection{stochastic gradient descent}
-A descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent} - SGD}) é uma extensão do algoritmo de descida do gradiente. Em um processo similar, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo, minimizando uma função de custo. A diferença principal é que, para cada atualização, um lote (\textbf{\textit{minibatch}}) $\mathbb{B} \subset [n]$ é aleatoriamente selecionado, e o cálculo de gradiente é realizado com $\mathbb{B}$ em vez de todo o conjunto de treino $[n]$, assim, reduzindo o custo computacional. Pela Lei dos Grandes Números (detalhes em \citet{seneta2013}), temos que SGD aproxima-se do gradiente calculado para toda a base de dados, embora com alguns erros. Além disso, mesmo que $[n]$ aumente, o tamanho de $\mathbb{B}$ pode ser fixado. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, fan2021}.
+\pumi{Seria legal mais detalhes como no gradient descent}
+
+A descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent} - SGD}) é uma extensão do algoritmo de descida do gradiente. Em um processo similar, SGD inicia de um certo valor $\theta_0$ e ajusta, iterativamente, os parâmetros $\theta_t$ em direção ao gradiente negativo, minimizando uma função de custo. A diferença principal é que, para cada atualização, um lote (\textbf{\textit{minibatch}}) $\mathds{B} \subset [n]$ é aleatoriamente selecionado, e o cálculo de gradiente é realizado com $\mathbb{B}$ em vez de todo o conjunto de treino $[n]$, assim, reduzindo o custo computacional. Pela Lei dos Grandes Números, o SGD aproxima-se do gradiente calculado, embora com alguns erros. Além disso, mesmo que $[n]$ aumente, o tamanho de $\mathbb{B}$ pode ser fixado. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, fan2021}.
 
 
 
@@ -441,7 +447,7 @@ A descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent
 
 
 \subsubsection{optimizer ADAM}
-ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. Detalhamentos disponíveis em \citet{kingma2014}.
+ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. O detalhamento destes métodos fogem ao escopo deste trabalho. Detalhes podem ser encontrados em \citet{kingma2014}.
 
 
 %----------------------------------------------------------
@@ -454,7 +460,7 @@ ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD 
 
 
 \subsubsection{back-propagation | BPTT}
-O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes estão disponíveis em \citet{haykin2008}, \citet{goodfellow2016}, \citet{fan2021}.  
+O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes podem ser encontrados em \citet{haykin2008}, \citet{goodfellow2016} e \citet{fan2021}.  
 
 %----------------------------------------------------------
 
@@ -605,22 +611,22 @@ Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamen
 
 
 \subsection{Language Models}
-Um modelo estatístico de linguagem é uma distribuição de probabilidade sobre uma sequência de palavras ou tokens. Dado um conjunto de $L$ tokens $w_1,\cdots,w_L$, um modelo de linguagem vai predizer a probabilidade $P(W)$:
+Um modelo estatístico de linguagem é uma distribuição de probabilidade sobre uma sequência de palavras ou tokens. Dado um conjunto de $L$ tokens $w_1,\cdots,w_L$, um modelo de linguagem vai predizer a probabilidade $P(W)$: 
 \begin{equation*}
     P(W) = P(w_1,\cdots,w_L).
 \end{equation*}
 Um modelo de linguagem é aquele que tenta predizer a frequência que uma frase pode ocorrer no uso natural de uma linguagem. Por exemplo, modelos de linguagem podem prever uma palavra $w_L$ dadas todas as palavras anteriores a ela:
-\begin{equation}
+\begin{equation*}
     P(w_L | w_{L-1},w_{L-2},\cdots,w_1).
-\end{equation}
-Modelagem de linguagem é utilizada em reconheciento de fala, tradução automática, marcação de parte da fala (part-of-speech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
+\end{equation*}
+Modelagem de linguagem é utilizada em reconhecimento de fala, tradução automática, marcação de parte da fala (part-of-speech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
 \citep{kamath2019, jurafsky2021}
 
 
 \subsection{Avaliação Intrínseca e Extrínseca}
-Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo (\textit{end-to-end}) para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
+Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
 
-No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Detalhamentos referentes às avaliações podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
+No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Mais detalhes podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
 
 
 \subsection{Entropy | Cross-entropy | Perplexity}
@@ -640,14 +646,15 @@ No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em 
 %\citep{jurafsky2021}
 
 
-\textbf{Entropia} é uma medida de informação. Considerando um conjunto de tokens $\chi$ e uma particular função de probabilidade $p(x)$, define-se a entropia da variável aleatória $X$ como
+\textbf{Entropia} é uma medida de informação. Seja $\chi$ um conjunto finto de tokens e seja $X$ uma variável aleatória discreta associada à esses tokens com função massa de probabilidade $p$.
+\sout{Considerando um conjunto de tokens $\chi$ e uma particular função massa de probabilidade $p(x)$,} Define-se a entropia da variável aleatória $X$ como
 \begin{equation}
     \label{entropia}
-    H(X) = - \sum_{x \in \chi} p(x) \log_2 \big(p(x)\big) 
+    H(X) := - \sum_{x \in \chi} p(x) \log_2 \big(p(x)\big) 
 \end{equation}
 O logaritmo, em princípio, pode ser computado em qualquer base. Se utilizamos $\log$ na base 2, o valor resultante da entropia é mensurado em \textit{bits}. 
 
-A equação (\ref{entropia}) é utilizada para computar a entropia de apenas uma variável aleatória. Usualmente, computaremos a entropia de sequências. No caso de uma gramática, por exemplo, será computado a entropia de uma sequência de palavras $W = \{w_1,\dots,w_n; \; n \in \N \}$. Uma forma de fazer isso é ter uma variável que abrange todas as sequências de palavras. Por exemplo, podemos computar a entropia de uma variável aleatória que abrange todas as sequência de tamanho $n$ presentes em uma linguagem $L$ por meio de
+A equação (\ref{entropia}) é utilizada para computar a entropia de apenas uma variável aleatória. Usualmente, computaremos a entropia de sequências. No caso de uma gramática, por exemplo, será computado a entropia de uma sequência de palavras $W = \{w_1,\dots,w_n; \; n \in \N \}$. Uma forma de fazer isso é definir uma variável que abrange todas as sequências de palavras. Por exemplo, podemos computar a entropia de uma variável aleatória que abrange todas as sequência de tamanho $n$ presentes em uma linguagem $L$ por meio de
 \begin{equation*}
     H(w_1,\dots,w_n) = - \sum_{w_{1:n} \in L} p(w_{1:n}) \log(w_{1:n}).
 \end{equation*}
@@ -655,7 +662,7 @@ Podemos definir, também, a taxa de entropia (ou entropia por palavra) da sequê
 \begin{equation*}
     \frac{1}{n}H(w_{1:n}) = - \frac{1}{n} \sum_{w_{1:n} \in L}  p(w_{1:n}) \log(w_{1:n}).
 \end{equation*}
-Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras (em que um processo estocástico é um conjunto de variáveis aleatórias, e que cada v.a. produz uma única palavra), e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
+Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras, e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
 \begin{align*}
     H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n) \\
          & = \lim_{n \rightarrow \infty} - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n)  \log\big(p(w_1,\cdots,w_n)\big).
@@ -665,7 +672,7 @@ Para que seja possível mensurar a verdadeira entropia de uma linguagem, são ne
 \begin{equation*}
     H(p,m) = \lim_{n \rightarrow \infty}  - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n) \log\big(m(w_1,\cdots,w_n)\big) .
 \end{equation*}
-Considerando que o processo estocástico $H(p,m)$ seja estacionário (as probabilidades são invariantes ao deslocamento do índice $t$, que indica a posição na sequência) e ergótico (as propriedades estatísticas podem ser deduzidas por meio de uma sequência suficientemente longa do processo), temos que
+Considerando que o processo estocástico $H(p,m)$ seja estacionário e ergótico, temos que
 \begin{equation}
     H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \log\big(m(w_1,\cdots,w_n)\big).
 \end{equation}
@@ -677,7 +684,7 @@ A intuição é que uma sequência de palavras suficientemente longa conterá ou
 \end{equation}
 Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
 
-\textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como 2 elevado a entropia cruzada (considerando $\log$ com base 2)
+\textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem para um conjunto $W$, definida como
 \begin{align*}
     Perplexidade(W)  = 2^{H(W)}  = p(w_1,\cdots,w_n)^{-\frac{1}{n}}.
 \end{align*}
@@ -738,10 +745,10 @@ Em PLN, as palavras (ou tokens) são variáveis categóricas que precisam de uma
 \end{itemize}
 O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
 
-No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}) na camada de entrada e uma camada embutida (\textit{embedding layer}) para obter o vetor denso que representará as categorias. Matematicamente, cada categoria $f_i$ é mapeada a um vetor denso $d$ dimensional $v(f_i)$. Seja um vocabulário de $|V|$ palavras, a coleção de vetores pode ser representada pela matriz $\bs{E}_{|V| \times d}$, em que cada linha corresponde a uma categoria. Considerando $\bs{f_i}$ a representação \textit{one-hot} da categoria $f_i$, i.e., um vetor $|V|$ dimensional em que todas os valores são zeros exceto por um índice de valor 1, correspondente à $i$-ésima categoria. Dessa forma, o produto $\bs{f_i E}$ irá ``selecionar'' a respectiva linha de $\bs{E}$. Posto isso, podemos definir $v(f_i)$ como
-\begin{equation}
-    v(f_i) = \bs{f_i E}.
-\end{equation}
+No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}) na camada de entrada e uma camada embutida (\textit{embedding layer}) para obter o vetor denso que representará as categorias. Matematicamente, cada categoria $f_i$ é mapeada a um vetor denso $d-$dimensional $\bs v(f_i)$. Seja um vocabulário de $|V|$ palavras, a coleção de vetores pode ser representada pela matriz $\bs{E}_{|V| \times d}$, em que cada linha corresponde a uma categoria. Considerando $\bs{f_i}$ a representação \textit{one-hot} da categoria $f_i$, i.e., um vetor $|V|$ dimensional em que todas os valores são zeros exceto por um índice de valor 1, correspondente à $i$-ésima categoria. Dessa forma, o produto $\bs{f_i E}$ irá ``selecionar'' a respectiva linha de $\bs{E}$. Posto isso, podemos definir $\bs v(f_i)$ como
+\begin{equation*}
+    \bs v(f_i) = \bs{f_i E}.
+\end{equation*}
 em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso.
 \citep{goldberg2017}
 
@@ -799,7 +806,7 @@ O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC N
 
 \begin{itemize}
     \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada no \href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{GitHub do MIT}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto \href{https://www.norbeck.nu/abc/links.asp}{nesta página}. 
-    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um ``crawler'' e um ``scrapper'' para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
+    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um crawler e um scrapper para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
 \end{itemize}
 
 
@@ -819,7 +826,7 @@ Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento 
 
 \begin{itemize}
     \item \textbf{tratamento}: um arquivo no formato \textit{.abc} contém diversas \textit{tags} com informações como título, subtítulo, autor, entre outras. Além disso, no arquivo também estão contidos caracteres representando letra de música, bem como caracteres de comentário. Como nenhuma desses itens afetam diretamente a música, considerando que as notas musicais serão as mesmas, o autor resolveu, por meio de expressões regulares, remover esses caracteres, com o intuito de diminuir o ruído nos arquivos. Após os tratamentos, o arquivo final contém dados como índice (representando o início da música), tonalidade, andamento, vozes da música (no caso de músicas com múltiplos instrumentos) e as notas musicais (mantendo a estrutura da peça musical).
-    \item \textbf{união}: todas as músicas foram ``coladas'', como se fizessem parte de um único texto. Esse processo é possibilita que uma música inicie após o término da outra, pois temos, de certa forma, uma ordem de músicas (no caso, foi a ordem presente na base, sem aleatorização).
+    \item \textbf{união}: todas as músicas foram ``coladas'', como se fizessem parte de um único texto. Esse processo possibilita que uma música inicie após o término da outra, pois temos, de certa forma, uma ordem de músicas (no caso, foi a ordem presente na base, sem aleatorização).
     \item \textbf{tokenização}: para cada caractere (\textit{token}) presente, foi criado um único índice. Consequentemente, é possível que uma sequência de caracteres seja convertido para uma sequência única de índices, possibilitando a conversão de texto para número e vice-versa.
 \end{itemize}
 
