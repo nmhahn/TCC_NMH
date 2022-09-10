@@ -14,7 +14,9 @@
 \newcommand{\pumi}[1]{\textcolor{red}{#1}}
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
+
 \newcommand{\bs}[1]{\boldsymbol{#1}}
+
 \begin{document}
 
 
@@ -94,21 +96,71 @@ In this work ....
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introdução}
 
+
+    % considerações iniciais | contexto histórico
+Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: estocástica, \textit{rule-based} e inteligência artificial.
+
+Wolfgang Amadeus Mozart (1756-1791) utilizou técnicas de composição algorítmica em sua obra \textit{Musikalisches Wurfelspiel} (\textit{Dice Music}), um jogo musical que envolvia atribuir um número para fragmentos de músicas, e combiná-los ao acaso, criando uma nova peça com as partes selecionadas. Além disso, John Cage (1912-1992), assim como Mozart, utilizou aleatoriedade em suas composições. Como exemplo, temos \textit{Reunion}, uma performance em que músicas são geradas ao jogar xadrez em um tabuleiro equipado com um foto receptor: cada lance emitia um som e, portanto, a música resultante é única por jogo. Por fim, com o auxílio de computadores, David Cope (1941-) criou, em 1981, o EMI (\textit{Experiments in Musical Intelligence}), um sistema baseado em grandes bases de dados com descrições de estilos de diferentes estratégias composicionais e, como complemento, o sistema também tinha a capacidade de criar as próprias regras composicionais por meio dos novos dados recebidos \citep{alpern1995, maurer}. 
+
+
+    % tentar 2 parágrafos (jogando ideias por enquanto)
+%Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: estocástica, \textit{rule-based} e inteligência artificial.
+
+%Mozart, também, utilizou técnicas de composição automática em sua \textit{Musikalisches Wurfelspiel} (\textit{Dice Music}), um jogo musical que envolvia atribuir um número para cada pequeno fragmento de música, e combiná-los ao acaso, criando uma nova peça de parte selecionadas aleatoriamente. Essa simples forma de ``composição algorítmica'' deixa o processo criativo nas mãos do acaso, deixando o rolar de um dado decidir quais notas serão utilizadas \citep{alpern1995}.
+
+%Existem exemplos modernos, também, de composição algorítmica sem o uso de computadores. Jogn Cage, por exemplo, assim como Mozart, utilizou aleatoriedade em muitas de suas composições, como em \textit{Reunion}, performada por jogar xadrez em um tabuleiro equipado com um foto receptor: Os lances dos ``jogadores'' disparavam sons, e portanto a peça musical é diferente a cada vez que um jogo é jogado \citep{alpern1995}. 
+
+% http://artsites.ucsc.edu/faculty/cope/experiments.htm
+%Um exemplo disso é o sitema de David Cope chamado de \textit{Experiments in Musical Intelligence - EMI}. EMI é baseado em uma grande base de dados de descrições de estilos, ou regras, de diferentes estratégias composicionais. No entanto, EMI também tem a capacidade de criar sua própria gramática e base de dados de regras, em que o próprio computador deduz baseado em diversas partituras de um compositor em específico que é inputado no sistema. EMI tem sido utilizado para composição musical automática com um certo sucesso em estilos similares ao de Bach, Mozart, Bartók, Brahms, Joplin e muitos outros compositores.
+
+%-------------------------------------------------------------
+
+%Mozart, too, used automated composition techniques in his Musikalisches Wurfelspiel ("Dice Music"), a musical game which "involved assembling a number of small musical fragments, and combining them by chance, piecing together a new piece from randomly chosen parts" (Alpern, 1995). This very simple form of "algorithmic" composition leaves creative decisions in the hands of chance, letting the role of a dice to decide what notes are to be used.
+
+%There are more modern examples, as well, of algorithmic composition without the use of the computer. John Cage, for example, like Mozart, utilized randomness in many of his compositions, such as in Reunion, performed by playing chess on a photo-receptor equipped chessboard: "The players' moves trigger sounds, and thus the piece is different each time it is perfomed" (Alpern, 1995).
+
+%An example of this is David Cope's system called Experiments in Musical Intelligence (EMI). Like the previous example of Shottstaedt and of Ebcioglu's CHORAL, EMI is based on a large database of style descriptions, or rules, of different compositional strategies. However, EMI also has the capactiy to create its own grammar and database of rules, which the computer itself deduces based on several scores from a specific composer's work that are input to it. EMI has been used to automatically compose music that evokes already somewhat successfully the styles of Bach, Mozart, Bartók, Brahms, Joplin, and many others.
+
+
+    % literatura
+Na literatura, encontramos diversos exemplos de trabalhos envolvendo composição musical automática. Ao mesmo tempo em que o trabalho de \citet{colombo2016} é claro em sua relação com a composição algorítmica, \citet{souza2018} é evasivo. Os dados utilizados para o objetivo de composição podem vir tanto em formato de áudio \citep[como o de][]{kuang2021} quanto em formato de texto (como o de \citet{agarwala2017}). \sout{Ademais, a música, similar a uma linguagem, atua como uma forma de expressão na qual as combinações de notas musicas são capazes de transmitir emoções.} Por fim, os trabalhos de \citet{fernandez2013} e de \citet{olivan2021} são um sucinto resumo de abordagens e técnicas de inteligência artificial (como redes neurais artificiais) utilizadas para composição automática de músicas. 
+
+% ideias presentes, falta organizar...
+%Na literatura, os artigos de \citet{fernandez2013} e \citet{olivan2021} contêm, sucintamente, exemplos e explicações de diversas abordagens utilizando técnicas de inteligência artificial (como redes neurais) para composição musical. Apesar de estarem associados, nem todos os trabalhos envolvendo composição musical fazem a relação com a área de composição algorítmica (exemplos temos \citet{agarwala2017} e \citet{souza2018}).
+%Dados utilizados para criação dos modelos são tanto em formato de áudio quanto em formato de texto.
+%Similar a linguagem, música atua como uma forma de expressão na qual combinações de notas musicais são capazes de comunicar um escopo de emoções (presente em \citet{agarwala2017}).
+%Como em linguagem escrita, o processo de composição musical é um processo complexo que depende de um grande número de decisões (presente em \citet{olivan2021}).
+%Em geral, os artigos não focam na avaliação do modelo, e sim no fato de que uma música é gerada de forma automática.
+
+
+    % problematização | objetivos | hipóteses | justificativa
+\section{\sout{Problematização | Objetivos | Hipóteses } }
 \begin{itemize}
-    \item composição algorítmica (composição automática) - caminhar histórico?
-    \item formas de composição algorítmica: rule-based, stochastic e AI
+    \item modelos que criam músicas mas com dificuldade de serem comparados
+    \item não apenas compor músicas de forma automática, mas também ser capaz de avaliar esses modelos de forma métrica (entropia e perplexidade) 
 \end{itemize}
 
-% certamente olhar este artigo e suas bibliografias:
-% https://ccrma.stanford.edu/~blackrse/algorithm.html
+Mesmo \citet{olivan2021} sendo claros nas formas de avaliação de modelos de redes neurais que geram músicas, bem como nas formas de avaliação das músicas geradas, os trabalhos, no geral, concentram-se na criação das músicas e não na avaliação dos modelos. Posto isso, o presente trabalho propõe-se a explorar o problema no contexto de modelagem, sendo a composição algorítmica uma consequência do modelo. Dessa forma, mesmo sem conhecimentos sobre teoria musical, é possível elencar um melhor modelo apenas por métricas objetivas. No caso, entropia cruzada e perplexidade. Por fim, no contexto deste trabalho, estaremos nos restringido a dados no formato textual. 
+% verificar melhor os artigos referente a algumas afirmações feitas nesse trecho...
+\pumi{Sugestão: introduzir melhor e então: ... a literatura,  no geral, concentram-se na criação das músicas e não na avaliação dos modelos... blabla uma excessão é o trabalho de \citet{olivan2021} blabla }
 
-% talvez olhar este artigo:
-% https://musica.ufmg.br/nasnuvens/wp-content/uploads/2020/11/2016-38-A-interatividade-nas-trilhas-sonoras-de-jogos-digitais-e-um-comparativo-com-a-música-de-cinema.pdf
-
-
-
+\pumi{No geral falta trabalhar mais na intro. Precisa trabalhar mais na problematização e na descrição velada dos objetivo do trabalho, enfatizando os pontos importantes; }
 % referencial teórico
 \chapter{Referencial Teórico}
+
+
+\section{Composição Algorítmica}
+Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
+
+De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
+\begin{itemize}
+    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
+    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
+    \item \textbf{inteligência artificial (IA): }similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática, que pode evoluir (isto é, ser modificada de uma forma automática) ao longo do processo.
+\end{itemize}
+Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{olivan2021}.  
+
+
 
     % NN
 \section{Redes Neurais Artificiais}
@@ -124,7 +176,7 @@ In this work ....
 %Redes neurais são uma abordagem totalmente diferente para a análise de dados em relação a qualquer outra técnica multivariada. Em vez de conceitualizar o problema como de caráter matemático, redes neurais usam o cérebro humano e sua estrutura para desenvolver uma estratégia de processamento. Apesar de jamais sermos capazes de construir redes neurais tão complexas quanto o cérebro humano, podemos usar seus princípios básicos de unidades de processamento paralelo múltiplo engajadas no reconhecimento de padrões. 
 
 % paragrafo
-Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.  Por outro lado, RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
+Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.  Por outro lado, tecnicamente RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
 
 
 \subsection{Redes Neurais e a Estatística}
@@ -132,15 +184,15 @@ Muitos modelos de RNAs são similares ou idênticos a populares técnicas estat�
 
 No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado):
 \begin{enumerate}[label=(\roman*)]
-  \item especificar a arquitetura da rede;
-  \item treinar a rede para performar bem com o conjunto de treinamento (referencial).
+  \item especificar a arquitetura da rede ;
+  \item treinar a rede para performar bem com o conjunto de treinamento (referencial). \pumi{ esta frase está ruim} 
 \end{enumerate}
 Para um estatístico, tais passos são equivalentes a: 
 \begin{enumerate}[label=(\roman*)]
-  \item especificar um modelo de regressão;
+  \item especificar um modelo;
   \item estimar os parâmetros do modelo dado um conjunto de dados.
 \end{enumerate}  
-Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. 
+Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. \pumi{Eu discordo da noção como está aqui. O treinamento de uma rede neural pode ser pensada como a estimação de parâmetros em um modelo, potencialmente não linear.}
 
 
 
@@ -174,14 +226,22 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
     \item Um \textit{somador} ou \textit{acumulador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
     \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito).
 \end{enumerate}
-Também é incluído um \textit{bias} (viés) no modelo, externo ao neurônio, com o intuito de aumentar ou diminuir a entrada da função de ativação, dependendo do seu sinal.
+Também é incluído um intercepto  no modelo, chamado de \textit{bias} na literatura de machine learning, com o intuito de aumentar ou diminuir o sinal de entrada da função de ativação, dependendo do seu sinal.
+
+\pumi{Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e $\varphi(\cdot)$ uma função de ativação, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída, $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
+\begin{align*}
+    u_k & := \sum_{i=1}^{m} w_{k,i}x_i;\\   
+    y_k &:= \varphi(u_k + b_k),
+\end{align*}
+onde $b_k$ é o \textit{bias} e $w_{k,i} \in \R$, são pesos associados ao neurônio.}
+
 
 Matematicamente, podemos descrever um neurônio $k \in \N$, por meio de um par de equações:
 \begin{align*}
     y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
     u_k &= \displaystyle{\sum_{i=1}^{m} }w_{k,i}x_i;
 \end{align*}
-em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados; $w_{k,i} \in \R$, são os pesos associados ao neurônio $k$; $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
+onde $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados; $w_{k,i} \in \R$, são  pesos associados ao $k$-ésimo neurônio, $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
 
 \begin{figure}
     \centering
@@ -190,8 +250,9 @@ em que $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observad
 \end{figure}
 
 \subsection{Função de Ativação}
-O objetivo da função de ativação (ou de transferência) é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
+O objetivo da função de ativação \sout{(ou de transferência)} é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022} . \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
 
+\pumi{Minha sugestão: A função objetivo é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
 \begin{itemize}
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
     Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
@@ -201,7 +262,9 @@ O objetivo da função de ativação (ou de transferência) é determinar se a i
     Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. \\
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. % pq? % quais? 
-    \item \textbf{\textit{softmax}}:
+    \item \textbf{\textit{softmax}}: A função de ativação softmax $f:\R^n\rightarrow (0,1)^n$, dada por 
+    \[f(\bs x):=\bigg(\frac{e^{x_1}}{\sum_{j=1}^n e^{x_j}},\cdots, \frac{e^{x_n}}{\sum_{j=1}^n e^{x_j}}\bigg), \quad \forall\,\bs x=(x_1,\cdots,x_n)\in\R^n,\]
+    é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
 \end{itemize}
 % pq domínio é igual para todos?
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
@@ -682,19 +745,6 @@ No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}
 em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso.
 \citep{goldberg2017}
 
-
-
-\section{Composição Algorítmica}
-Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
-
-De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
-
-\begin{itemize}
-    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
-    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
-    \item \textbf{inteligência artificial (IA):} similar ao ``rule-based'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática.
-\end{itemize}
-Detalhamentos referentes às metodologias estão disponíveis em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{hernandez2021}.  
 
 
 \section{Notação ABC}
