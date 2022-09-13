@@ -123,7 +123,7 @@ Wolfgang Amadeus Mozart (1756-1791) utilizou técnicas de composição algorítm
 
 
     % literatura
-Na literatura, encontramos diversos exemplos de trabalhos envolvendo composição musical automática. Ao mesmo tempo em que o trabalho de \citet{colombo2016} é claro em sua relação com a composição algorítmica, \citet{souza2018} é evasivo. Os dados utilizados para o objetivo de composição podem vir tanto em formato de áudio \citep[como o de][]{kuang2021} quanto em formato de texto (como o de \citet{agarwala2017}). \sout{Ademais, a música, similar a uma linguagem, atua como uma forma de expressão na qual as combinações de notas musicas são capazes de transmitir emoções.} Por fim, os trabalhos de \citet{fernandez2013} e de \citet{olivan2021} são um sucinto resumo de abordagens e técnicas de inteligência artificial (como redes neurais artificiais) utilizadas para composição automática de músicas. 
+Na literatura, encontramos diversos exemplos de trabalhos envolvendo composição musical automática. Os dados utilizados para o objetivo de composição podem vir tanto em formato de áudio \citep[como o de][]{kuang2021} quanto em formato de texto \citep[como o de][]{agarwala2017}. Ao mesmo tempo em que o trabalho de \citet{colombo2016} é claro em sua relação com a composição algorítmica, \citet{souza2018} é evasivo. Também, observou-se um foco em criação de músicas e avaliação das composições musicais, seja pela estrutura musical seja pela opinião de ouvintes referente à geração (se era musicalmente plausível). Por fim, os trabalhos de \citet{fernandez2013}, \citet{ji2020} e de \citet{olivan2021} são um sucinto resumo de abordagens e técnicas de inteligência artificial (como redes neurais artificiais) utilizadas para composição automática de músicas, assim como as formas de avaliação. 
 
 % ideias presentes, falta organizar...
 %Na literatura, os artigos de \citet{fernandez2013} e \citet{olivan2021} contêm, sucintamente, exemplos e explicações de diversas abordagens utilizando técnicas de inteligência artificial (como redes neurais) para composição musical. Apesar de estarem associados, nem todos os trabalhos envolvendo composição musical fazem a relação com a área de composição algorítmica (exemplos temos \citet{agarwala2017} e \citet{souza2018}).
@@ -134,17 +134,28 @@ Na literatura, encontramos diversos exemplos de trabalhos envolvendo composiçã
 
 
     % problematização | objetivos | hipóteses | justificativa
-\section{\sout{Problematização | Objetivos | Hipóteses } }
-\begin{itemize}
-    \item modelos que criam músicas mas com dificuldade de serem comparados
-    \item não apenas compor músicas de forma automática, mas também ser capaz de avaliar esses modelos de forma métrica (entropia e perplexidade) 
-\end{itemize}
+%\section{\sout{Problematização | Objetivos | Hipóteses } }
+%\begin{itemize}
+%    \item modelos que criam músicas mas com dificuldade de serem comparados
+%    \item não apenas compor músicas de forma automática, mas também ser capaz de avaliar esses modelos de forma métrica (entropia e perplexidade) 
+%\end{itemize}
 
-Mesmo \citet{olivan2021} sendo claros nas formas de avaliação de modelos de redes neurais que geram músicas, bem como nas formas de avaliação das músicas geradas, os trabalhos, no geral, concentram-se na criação das músicas e não na avaliação dos modelos. Posto isso, o presente trabalho propõe-se a explorar o problema no contexto de modelagem, sendo a composição algorítmica uma consequência do modelo. Dessa forma, mesmo sem conhecimentos sobre teoria musical, é possível elencar um melhor modelo apenas por métricas objetivas. No caso, entropia cruzada e perplexidade. Por fim, no contexto deste trabalho, estaremos nos restringido a dados no formato textual. 
+O presente trabalho propõe-se a explorar o problema de composição algorítmica no contexto de modelagem, sendo as peças musicais geradas uma consequência dos modelos. Dessa forma, mesmo sem conhecimentos sobre teoria musical, é possível elencar um melhor modelo apenas por métricas objetivas. Por meio de técnicas de Processamento de Linguagem Natural e de Redes Neurais Artificiais, serão criados modelos capazes de composição com base em conjuntos de músicas na notação ABC. Consequentemente, os dados utilizados serão restritos ao formato textual. 
+% O QUE MAIS INSERIR?
+% COMO INSERIR?
+
+%
+% - talvez inserir mais detalhes sobre quais técnicas utilizadas
+% - detalhar um pouco mais sobre o que foi (redes recorrentes, modelos de linguagem)
+% - não foi falado quais artigos eu me baseio (abrir mais o parágrafo)
+% - explicar talvez o impacto da modificação dos hyperparâmetros
+
+
+%Mesmo \citet{olivan2021} sendo claros nas formas de avaliação de modelos de redes neurais que geram músicas, bem como nas formas de avaliação das músicas geradas, os trabalhos, no geral, concentram-se na criação das músicas e não na avaliação dos modelos. Posto isso, o presente trabalho propõe-se a explorar o problema no contexto de modelagem, sendo a composição algorítmica uma consequência do modelo. Dessa forma, mesmo sem conhecimentos sobre teoria musical, é possível elencar um melhor modelo apenas por métricas objetivas. No caso, entropia cruzada e perplexidade. Por fim, no contexto deste trabalho, estaremos nos restringido a dados no formato textual. 
 % verificar melhor os artigos referente a algumas afirmações feitas nesse trecho...
-\pumi{Sugestão: introduzir melhor e então: ... a literatura,  no geral, concentram-se na criação das músicas e não na avaliação dos modelos... blabla uma excessão é o trabalho de \citet{olivan2021} blabla }
+%\pumi{Sugestão: introduzir melhor e então: ... a literatura,  no geral, concentram-se na criação das músicas e não na avaliação dos modelos... blabla uma excessão é o trabalho de \citet{olivan2021} blabla }
 
-\pumi{No geral falta trabalhar mais na intro. Precisa trabalhar mais na problematização e na descrição velada dos objetivo do trabalho, enfatizando os pontos importantes; }
+%\pumi{No geral falta trabalhar mais na intro. Precisa trabalhar mais na problematização e na descrição velada dos objetivo do trabalho, enfatizando os pontos importantes; }
 % referencial teórico
 \chapter{Referencial Teórico}
 
@@ -160,6 +171,7 @@ De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes qu
 \end{itemize}
 Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{olivan2021}.  
 
+% - no escopo deste trabalho, vamos focar no 3º tipo bla bla
 
 
     % NN
@@ -185,7 +197,7 @@ Muitos modelos de RNAs são similares ou idênticos a populares técnicas estat�
 No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado):
 \begin{enumerate}[label=(\roman*)]
   \item especificar a arquitetura da rede ;
-  \item treinar a rede para performar bem com o conjunto de treinamento (referencial). \pumi{ esta frase está ruim} 
+  \item treinar a rede com um conjunto de treinamento (referencial). 
 \end{enumerate}
 Para um estatístico, tais passos são equivalentes a: 
 \begin{enumerate}[label=(\roman*)]
@@ -193,8 +205,9 @@ Para um estatístico, tais passos são equivalentes a:
   \item estimar os parâmetros do modelo dado um conjunto de dados.
 \end{enumerate}  
 Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. \pumi{Eu discordo da noção como está aqui. O treinamento de uma rede neural pode ser pensada como a estimação de parâmetros em um modelo, potencialmente não linear.}
-
-
+% avaliar este ponto
+% - fazer o paralelismo fala da literatura da RNA (o paralelo com a literatura estatística)
+% - inserir a questão de RNA ser um modelo caixa preta, e a interpretabilidade é perdida, sendo o foco a predição
 
 \subsubsection{Jargões} 
 Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatísticos, os termos na literatura de RNAs são diferentes da estatística. No que segue, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e suas equivalências em estatística:
@@ -216,7 +229,7 @@ Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatí
     %\item análise de agrupamento (\textit{cluster analysis}) é chamada de aprendizagem competitiva ou quantização adaptativa de vetor  (\textit{adaptative vector quantization}); \pumi{esta erminologia nunca tinha visto}
     \item interpolação e extrapolação são chamadas de generalização.
 \end{itemize}
-Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumentes divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
+Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumente divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
 
 
 \subsection{Neurônio}
@@ -226,33 +239,29 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
     \item Um \textit{somador} ou \textit{acumulador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
     \item Uma \textit{função de ativação} para restringir a amplitude de saída de um neurônio (fixando em um valor finito).
 \end{enumerate}
-Também é incluído um intercepto  no modelo, chamado de \textit{bias} na literatura de machine learning, com o intuito de aumentar ou diminuir o sinal de entrada da função de ativação, dependendo do seu sinal.
+Também é incluído um intercepto no modelo, chamado de \textit{bias} na literatura de \textit{machine learning}, com o intuito de aumentar ou diminuir o sinal de entrada da função de ativação, dependendo do seu sinal.
 
-\pumi{Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e $\varphi(\cdot)$ uma função de ativação, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída, $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
+Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e uma função de ativação $\varphi(\cdot)$, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
 \begin{align*}
     u_k & := \sum_{i=1}^{m} w_{k,i}x_i;\\   
-    y_k &:= \varphi(u_k + b_k),
+    y_k & := \varphi(u_k + b_k),
 \end{align*}
-onde $b_k$ é o \textit{bias} e $w_{k,i} \in \R$, são pesos associados ao neurônio.}
-
-
-Matematicamente, podemos descrever um neurônio $k \in \N$, por meio de um par de equações:
-\begin{align*}
-    y_k &= \varphi(u_k + b_k) = \varphi(v_k);\\[.2cm]
-    u_k &= \displaystyle{\sum_{i=1}^{m} }w_{k,i}x_i;
-\end{align*}
-onde $x_i \in \R$, $i \in \{1,\dots,m\}$, $m \in \N$, são os valores observados; $w_{k,i} \in \R$, são  pesos associados ao $k$-ésimo neurônio, $u_k$ é a saída da combinação linear entre os sinais de entrada e os pesos; $b_k$ é o \textit{bias}; $\varphi(\cdot)$ é uma função de ativação; e $y_k$ é o sinal de saída.
+sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 
 \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
-	\caption{Modelo Neuronal (adaptado de \citet{haykin2001,hair2005})}
+	\caption{Modelo Neuronal \citep[adaptado de][]{haykin2001,hair2005}}
 \end{figure}
 
 \subsection{Função de Ativação}
-O objetivo da função de ativação \sout{(ou de transferência)} é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022} . \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
+O objetivo da função de ativação \sout{(ou de transferência)} é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
 
-\pumi{Minha sugestão: A função objetivo é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
+\pumi{Minha sugestão: A função ativação é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
+% referente ao parágrafo
+% - funções são escolhidas para resolver problemas específicos
+% - peculiaridades para cada perfil de rede
+
 \begin{itemize}
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
     Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
@@ -267,8 +276,8 @@ O objetivo da função de ativação \sout{(ou de transferência)} é determinar
     é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
 \end{itemize}
 % pq domínio é igual para todos?
-Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
-
+Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hastie2009}, \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
+% hastie é 2008
 
 \subsection{Arquiteturas de RNAs}
 %Comumente, um neurônio, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada''. Alguns autores referem-se às entradas como outra camada, mas não faremos isso aqui \citep{hagan2014}. 
@@ -365,6 +374,9 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 
 
 \subsection{Ajustando uma RNA}
+% - o ajuste de uma RNA é um processo mais complexo do que o ajuste de um modelo estatístico
+% - 
+
 
 % apenas para separar, na versão final não espero ter estes subsubsections
 
@@ -622,6 +634,7 @@ Um modelo de linguagem é aquele que tenta predizer a frequência que uma frase 
 Modelagem de linguagem é utilizada em reconhecimento de fala, tradução automática, marcação de parte da fala (part-of-speech tagging), reconhecimento de manuscrito, recuperação de informação, dentre outras aplicações. 
 \citep{kamath2019, jurafsky2021}
 
+% dar a ideia e remover as equações
 
 \subsection{Avaliação Intrínseca e Extrínseca}
 Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em ao menos uma métrica para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
@@ -792,9 +805,9 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%  Metodologia
+%%%%  Simulações
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Metodologia}
+\chapter{Estudo de Simulações}
 
 % coleta de dados
 \section{Bases de Dados}
