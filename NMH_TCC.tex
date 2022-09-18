@@ -5,15 +5,19 @@
 \usepackage{refcheck}
 \usepackage{enumitem}
 
+\usepackage{xcolor}
+
 
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
 
 %\makeindex  Opcional (Índice Remissivo)
 
+\newcommand{\nico}[1]{\textcolor{orange}{#1}}
 \newcommand{\pumi}[1]{\textcolor{red}{#1}}
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
+
 
 \newcommand{\bs}[1]{\boldsymbol{#1}}
 
@@ -191,29 +195,12 @@ Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \cite
 Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.  Por outro lado, tecnicamente RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2009}.
 
 
-\subsection{Redes Neurais e a Estatística}
-Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística) entre outros, especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação \citep{sarle1994, cheng1994}.
+\subsection{\nico{Redes Neurais e a Estatística}}
+Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística), especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação. \nico{Devido a esse foco em predição, RNAs são utilizadas como modelos \textbf{caixa preta}: uma certa entrada produz uma determinada saída da função, mas o processo interno que a rede utilizou para chegar nesse resultado é desconhecido e, consequentemente, há perda de interpretabilidade do modelo \citep{sarle1994, cheng1994, rojas1996}}.
 
-No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado):
-\begin{enumerate}[label=(\roman*)]
-  \item especificar a arquitetura da rede ;
-  \item treinar a rede com um conjunto de treinamento (referencial). 
-\end{enumerate}
-Para um estatístico, tais passos são equivalentes a: 
-\begin{enumerate}[label=(\roman*)]
-  \item especificar um modelo;
-  \item estimar os parâmetros do modelo dado um conjunto de dados.
-\end{enumerate}  
-Por conseguinte, uma RNA pode ser pensada como uma generalização não linear de um modelo linear, seja para regressão, seja para classificação \citep{cheng1994, hastie2009}. \pumi{Eu discordo da noção como está aqui. O treinamento de uma rede neural pode ser pensada como a estimação de parâmetros em um modelo, potencialmente não linear.}
-% avaliar este ponto
-% - fazer o paralelismo fala da literatura da RNA (o paralelo com a literatura estatística)
-% - inserir a questão de RNA ser um modelo caixa preta, e a interpretabilidade é perdida, sendo o foco a predição
-
-\subsubsection{Jargões} 
-Apesar de muitos modelos de RNAs serem similares ou idênticos a modelos estatísticos, os termos na literatura de RNAs são diferentes da estatística. No que segue, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e suas equivalências em estatística:
-
+No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): \nico{especificar a arquitetura da rede e treinar a rede com um conjuntos dados de treinamento. Paralelamente, no contexto estatístico, esses passos são equivalentes a especificar um modelo e estimar seus parâmetros dado um conjunto de dados. Posto isso, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e as respectivas equivalências de acordo com a estatística:}
 \begin{itemize}
-    \item variáveis são chamadas de atributos;
+    \item variáveis são chamadas de atributos \nico{(\textit{features})};
     \item variáveis independentes são chamadas de entrada (\textit{input});
     \item valores preditos são chamados de saída (\textit{output});
     \item variáveis dependentes são chamadas de variáveis alvo (\textit{target}) ou valores de treinamento;
@@ -233,7 +220,7 @@ Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram 
 
 
 \subsection{Neurônio}
-Um neurônio (ou nó computacional) é uma unidade de processamento de informação fundamental para a operação de uma rede neural \citep{haykin2008}. Podemos identificar três elementos básicos do modelo neuronal:
+Um neurônio (ou nó computacional) é uma unidade de processamento de informação fundamental para a operação de uma rede neural \citep{haykin2009}. Podemos identificar três elementos básicos do modelo neuronal:
 \begin{enumerate}
     \item Um conjunto de sinapses, cada uma caracterizada por um peso ou força própria. O peso sináptico de um neurônio artificial pode estar em um intervalo que inclui valores positivos e negativos.
     \item Um \textit{somador} ou \textit{acumulador} para somar os sinais de entrada, ponderados pelas respectivas sinapses de cada neurônio, constituindo uma \textit{combinação linear}.
@@ -254,28 +241,34 @@ sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 	\caption{Modelo Neuronal \citep[adaptado de][]{haykin2001,hair2005}}
 \end{figure}
 
-\subsection{Função de Ativação}
-O objetivo da função de ativação \sout{(ou de transferência)} é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
+\subsection{\nico{Função de Ativação}}
+\nico{Uma função de ativação pode ser linear ou não linear. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. Abaixo, seguem algumas funções de ativação:}
 
-\pumi{Minha sugestão: A função ativação é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
+%O objetivo da função de ativação é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
+
+%\pumi{Minha sugestão: A função ativação é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
 % referente ao parágrafo
 % - funções são escolhidas para resolver problemas específicos
 % - peculiaridades para cada perfil de rede
 
 \begin{itemize}
-    \item \textbf{linear:} $f: \R \rightarrow \R$ dada por $f(x) = \alpha x,$  $\alpha \in \R\backslash\{0\}$. \\
-    Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, como comenta \citet{sarle1994}, um modelo de regressão linear.
-    \item \textbf{sigmóide ou \textit{logit}}: $f: \R \rightarrow (0,1)$ dada por $f(x) = \frac{1}{1 + e^{-x}}$. \\
+    \item \textbf{linear:} $f: \R \rightarrow \R$ dada por 
+    \[f(x) := \alpha x, \quad \alpha \in \R\backslash\{0\}.\]
+    Observe que no caso da função linear, o neurônio está sempre ativado, sendo seu valor alterado pela constante $\alpha$. Em particular, quando $\alpha=1$, temos a função identidade e, consequentemente, um modelo de regressão linear.
+    \item \textbf{sigmóide ou \textit{logit}}: $f: \R \rightarrow (0,1)$ dada por 
+    \[f(x) := \frac{1}{1 + e^{-x}}.\]
     Quando essa função de ativação é associada a uma rede, o neurônio é equivalente a uma regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação no contexto de modelos lineares generalizados: relacionar o preditor linear ao respectivo valor esperado \citep{sarle1994,frei2020,mccullagh1989}.
-    \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$. \\
+    \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por 
+    \[f(x) := \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}.\]
     Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
-    \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por $f(x) = \max\{0,x\}$. \\
-    De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. % pq? % quais? 
-    \item \textbf{\textit{softmax}}: A função de ativação softmax $f:\R^n\rightarrow (0,1)^n$, dada por 
-    \[f(\bs x):=\bigg(\frac{e^{x_1}}{\sum_{j=1}^n e^{x_j}},\cdots, \frac{e^{x_n}}{\sum_{j=1}^n e^{x_j}}\bigg), \quad \forall\,\bs x=(x_1,\cdots,x_n)\in\R^n,\]
-    é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
+    \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por 
+    \[f(x) := \max\{0,x\}.\]
+    De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. 
+    \item \textbf{\textit{softmax}}: $f:\R^n\rightarrow (0,1)^n$ dada por 
+    \[f(\bs x):=\bigg(\frac{e^{x_1}}{\sum_{j=1}^n e^{x_j}},\cdots, \frac{e^{x_n}}{\sum_{j=1}^n e^{x_j}}\bigg), \quad \forall\,\bs x=(x_1,\cdots,x_n)\in\R^n.\]
+    \nico{A função} é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
 \end{itemize}
-% pq domínio é igual para todos?
+
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hastie2009}, \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
 % hastie é 2008
 
@@ -294,7 +287,7 @@ Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente pa
     \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
     \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
-Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2008,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
+Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2009,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
 
 
 \subsubsection{Redes Alimentadas Adiante}
@@ -312,7 +305,7 @@ Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferent
 
 %A rede neural é dita totalmente conectada, no sentido de que cada um dos nós de uma camada da rede está conectado a todos os nós da camada adjacente seguinte. Entretanto, se alguns dos elos de ligação (conexões sinápticas) estiverem faltando na rede, dizemos que a rede é parcialmente conectada  \citep{haykin2001}.
 
-A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios ou nós computacionais. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2008}. 
+A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2009}. 
 % vanilla == padrão (não encontrei sinônimo bom, talvez trocar para "básica")
 
 \begin{itemize}
@@ -320,7 +313,7 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
     \item imagens com rede totalmente e parcialmente conectada
 \end{itemize}
 
-\subsubsection{Redes Neurais Recorrentes}
+\subsubsection{\nico{Redes Neurais Recorrentes}}
 %Uma rede neural recorrente se distingue de uma rede neural alimentada adiante por ter pelo menos um laço de realimentação. Uma rede recorrente pode consistir, por exemplo, de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios. [...]; auto-realimentação se refere a uma situação onde a saída de um neurônio é realimentada para a sua própria entrada. [...]. \citep{haykin2001}
 
 %A presença de laços de realimentação, [...], tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho. Além disso, os laços de realimentação envolvem o uso de ramos particulares compostos de elementos de atraso unitário (representado por $z^{-1}$), o que resulta em um comportamento dinâmico não-linear, admitindo-se que a rede contenha unidades não-lineares. \citep{haykin2001}
@@ -343,28 +336,120 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 %A key point here is the presence of the self-loop, which will cause the hidden state of the neural network to change after the input of each $\bs{x}^{(t)}$. In practice, one only works with sequences of finite length, and it makes sense to unfurl the loop in a ``time-layered'' network that looks more like a feed-forward network. Note that in this case, we have a different node for the hidden state at each time-stamp and the self-loop has been unfurled into a feed-forward network. This representation is mathematically equivalent, but is much easier to comprehend because of its similarity to a traditional network.
 %\citep{aggarwal2018}
 
-Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2008}. Vamos introduzir as RNNs base, bem como variantes melhoradas como a \textit{long short-term memory} (LSTM).
+Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2009}. 
+
+\nico{
+\begin{itemize}
+    \item imagem de RNN sem \textit{self-feedback loops} e sem neurônios na camada oculta (adaptar da figura 17 de \citet{haykin2009}).
+    \item imagem de RNN com neurônios na camada oculta (adaptar da figura 18 de \citet{haykin2009}).
+\end{itemize}
+}
+
+\subsubsection{\nico{\textit{vanilla RNN}}}
+\nico{
+Sejam $\bs{x}_{1},\cdots,\bs{x}_{T}$ entradas de dados sequenciais. Uma \textit{vanilla RNN} modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ dado por
+\begin{equation*}
+    \bs{h}_t = f_{\bs{{\theta}}} (\bs{h}_{t-1}, \bs{x}_t),    
+\end{equation*}
+em que $f_{\bs{\theta}}$ geralmente é uma função não linear parametrizada por $\bs{\theta}$. Assim como em modelagem de séries temporais, há o compartilhamento dos parâmetros ao longo do tempo.
+}
+
+\nico{
+Quando o objetivo é realizar uma predição do futuro com base no passado, uma RNN utiliza $\bs{h_t}$ como uma espécie de resumo, pois é mapeada uma sequência arbitrária $\bs{x}_{t},\bs{x}_{t-1},\cdots,\bs{x}_{2},\bs{x}_{1}$. Por exemplo, se a RNN é utilizada para modelagem estatística de linguagem (como prever as próximas palavras dadas as palavras anteriores), não é necessário armazenar todas as informações na sequência de entrada até o tempo $t$, apenas o suficiente para prever o resto da sentença.
+}
+
+\nico{
+Um déficit da \textit{vanilla RNN} é sua dificuldade em capturar longa dependência nos dados, resultante de sequências compridas. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
+}
+
+\subsubsection{\nico{LSTM - \textit{Long Short-Term Memory} (WIP)}}
+% WIP = Work in Progress
+
+\nico{
+De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequencias com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não desaparecem e nem explodem a cada passo temporal (\textit{each time step}). Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) ao longo de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que a rede esqueça esse estado antigo. Por exemplo, se uma sequência é feito de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequências, precisamos de um mecanismo para esquecer o estado antigo, \textit{setting it to zero}. As RNNs fechadas aprendem quando fazer isso.
+}
+
+
+%\nico{
+%\citep{goodfellow2016} pg 410 (do livro)
+
+%The clever idea of introducing self-loops to produce paths where the gradient
+%can flow for long durations is a core contribution of the initial long short-term
+%memory (LSTM) model (Hochreiter and Schmidhuber, 1997). A crucial addition
+%has been to make the weight on this self-loop conditioned on the context, rather than
+%fixed (Gers et al., 2000). By making the weight of this self-loop gated (controlled
+%by another hidden unit), the time scale of integration can be changed dynamically. In %this case, we mean that even for an LSTM with fixed parameters, the time scale
+%of integration can change based on the input sequence, because the time constants
+%are output by the model itself.
+
+%Instead of a unit that simply applies an elementwise nonlinearity to the affine transformation of inputs and recurrent units, LSTM
+%recurrent networks have “LSTM cells” that have an internal recurrence (a self-loop),
+%in addition to the outer recurrence of the RNN. Each cell has the same inputs
+%and outputs as an ordinary recurrent network, but has more parameters and a
+%system of gating units that controls the flow of information. The most important
+%component is the state unit s
+%(t)
+%i that has a linear self-loop similar to the leaky
+%units described in the previous section. However, here, the self-loop weight (or the
+%associated time constant) is controlled by a forget gate unit f
+%(t)
+%i (for time step t
+%and cell i), that sets this weight to a value between 0 and 1 via a sigmoid unit:
+%f
+%(t)
+%i = σ 
+%b
+%f
+%i +
+%j
+%U
+%f
+%i,j x
+%(t)
+%j + 
+%j
+%W
+%f
+%i,jh
+%(t−1)
+%j
+%
+%, (10.40)
+%where x
+%(t)
+%is the current input vector and h
+%(t)
+%is the current hidden layer vector,
+%containing the outputs of all the LSTM cells, and b
+%f
+%,Uf
+%, Wf are respectively
+%biases, input weights and recurrent weights for the forget gates. The LSTM cell
+%410
+%}
+
+%Vamos introduzir as RNNs base, bem como variantes melhoradas como a \textit{long short-term memory} (LSTM).
 
 %\subsubsubsection{}
 
 %puramente copiado e sem polimento de \citep{fan2021}
-\begin{itemize}
-    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modela o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
-    \begin{equation}
-        \label{recursive_formula}
-        \bs{h}^{(t)} = f_{\bs{\theta}} (\bs{h}^{(t-1)},\bs{x}^{(t)}).
-    \end{equation}
-    Aqui, $f_{\bs{\theta}}$ é geralmente uma função não linear parametrizada por $\bs{\theta}$. Temos que uma RNN base com apenas uma camada oculta tem a seguinte forma
-    \begin{equation*}
-        \bs{h}_{t} = \varphi \bigl( \bs{W}_{hh} \bs{h^{(t-1)}} + \bs{W}_{xh} \bs{x^{(t)}} + \bs{b_h} \bigl)
-    \end{equation*}
-    \begin{equation*}
-        \bs{z}_t = \varphi \bigl( \bs{W}_{hy} + \bs{b_z} \bigl),
-    \end{equation*}
-    onde $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
-    \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $\bs h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
-    \item \textbf{LSTM:} similarmente utiliza \textit{gates} na fórmula recursiva. Além de $\bs{h_t}$, uma LSTM mantém um \textit{cell state}, que pega valores em $\R$ \textit{elementwise} e são análogas a contadores.
-\end{itemize}
+%\begin{itemize}
+%    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modela o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
+%    \begin{equation}
+%        \label{recursive_formula}
+%        \bs{h}^{(t)} = f_{\bs{\theta}} (\bs{h}^{(t-1)},\bs{x}^{(t)}).
+%    \end{equation}
+%    Aqui, $f_{\bs{\theta}}$ é geralmente uma função não linear parametrizada por $\bs{\theta}$. Temos que uma RNN base com apenas uma camada oculta tem a seguinte forma
+%    \begin{equation*}
+%        \bs{h}_{t} = \varphi \bigl( \bs{W}_{hh} \bs{h^{(t-1)}} + \bs{W}_{xh} \bs{x^{(t)}} + \bs{b_h} \bigl)
+%    \end{equation*}
+%    \begin{equation*}
+%        \bs{z}_t = \varphi \bigl( \bs{W}_{hy} + \bs{b_z} \bigl),
+%    \end{equation*}
+%    onde $\bs{W}_{hh}$, $\bs{W}_{xh}$, $\bs{W}_{hy}$ são  matrizes de pesos, $\bs{b}_{h}$, $\bs{b}_{z}$ são vetores de \textit{bias}, e $z_t$ é a saída no tempo $t$. Como em muitos modelos clássicos de séries temporais, esses parâmetros são compartilhados ao longo do tempo. Note que, dependendo da aplicação, podemos ter diferentes configurações de entrada e saída: \textit{one-to-many} (única entrada e múltiplas saídas), \textit{many-to-one} (múltiplas entradas e única saída), \textit{many-to-many}. Um déficit da RNN base é sua dificuldade em capturar dependência longa nos dados em sequências compridas. Sendo assim, foram desenvolvidas variantes para contornar o problema, como a LSTM (\textit{long short-term memory}) e a GRU (\textit{gated recurrent units}).
+%    \item \textbf{GRU:} introduz \textit{gates} na fórmula recursiva \eqref{recursive_formula} de mesmo comprimento que $\bs h^{(t)}$. Esses \textit{gates}, que pegam valores em $[0,1]$ multiplicados por $\bs{h^{(t-1)}}$, elemento-a-elemento, determinando por quanto tempo são mantidos os antigos \pumi{estados? esta explicação ficou confusa} \textit{hidden states}.
+%    \item \textbf{LSTM:} similarmente utiliza \textit{gates} na fórmula recursiva. Além de $\bs{h_t}$, uma LSTM mantém um \textit{cell state}, que pega valores em $\R$ \textit{elementwise} e são análogas a contadores.
+%\end{itemize}
 
 
 
@@ -472,7 +557,7 @@ ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD 
 
 
 \subsubsection{back-propagation | BPTT}
-O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes podem ser encontrados em \citet{haykin2008}, \citet{goodfellow2016} e \citet{fan2021}.  
+O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes podem ser encontrados em \citet{haykin2009}, \citet{goodfellow2016} e \citet{fan2021}.  
 
 %----------------------------------------------------------
 
@@ -805,9 +890,9 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%  Simulações
+%%%%  Modelagem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Estudo de Simulações}
+\chapter{Estudo de Modelagem}
 
 % coleta de dados
 \section{Bases de Dados}
