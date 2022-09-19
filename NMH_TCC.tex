@@ -242,7 +242,10 @@ sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 \end{figure}
 
 \subsection{\nico{Função de Ativação}}
-\nico{Uma função de ativação pode ser linear ou não linear. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. Abaixo, seguem algumas funções de ativação:}
+%O objetivo da função de ativação é mapear os valores de um neurônio
+%olhar link de glm (analogia)
+\nico{
+Uma função de ativação pode ser linear ou não linear. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. Abaixo, seguem algumas funções de ativação:}
 
 %O objetivo da função de ativação é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
 
@@ -272,7 +275,7 @@ sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hastie2009}, \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
 % hastie é 2008
 
-\subsection{Arquiteturas de RNAs}
+\subsection{\nico{Arquiteturas de RNAs}}
 %Comumente, um neurônio, mesmo com muitas entradas, pode não ser suficiente. Talvez sejam necessários cinco ou dez, operando paralelamente, no que chamamos de ``camada''. Alguns autores referem-se às entradas como outra camada, mas não faremos isso aqui \citep{hagan2014}. 
 %Em geral, podemos identificar três classes de arquiteturas de rede fundamentalmente diferentes \citep{haykin2001}.
 
@@ -345,11 +348,11 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 \end{itemize}
 }
 
-\subsubsection{\nico{\textit{vanilla RNN}}}
+\subsubsection{\nico{\textit{vanilla} RNN}}
 \nico{
-Sejam $\bs{x}_{1},\cdots,\bs{x}_{T}$ entradas de dados sequenciais. Uma \textit{vanilla RNN} modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ dado por
+Sejam $\bs{x}_{1},\cdots,\bs{x}_{T}$ entradas de dados sequenciais. Uma \textit{vanilla} RNN modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ dado por
 \begin{equation*}
-    \bs{h}_t = f_{\bs{{\theta}}} (\bs{h}_{t-1}, \bs{x}_t),    
+    \bs{h}_t = f_{\bs{{\theta}}} (\bs{h}_{t-1}, \bs{x}_{t}),    
 \end{equation*}
 em que $f_{\bs{\theta}}$ geralmente é uma função não linear parametrizada por $\bs{\theta}$. Assim como em modelagem de séries temporais, há o compartilhamento dos parâmetros ao longo do tempo.
 }
@@ -359,28 +362,37 @@ Quando o objetivo é realizar uma predição do futuro com base no passado, uma 
 }
 
 \nico{
-Um déficit da \textit{vanilla RNN} é sua dificuldade em capturar longa dependência nos dados, resultante de sequências compridas. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
+Um déficit da \textit{vanilla} RNN é sua dificuldade em capturar longa dependência nos dados, resultante de sequências compridas. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
 }
 
-\subsubsection{\nico{LSTM - \textit{Long Short-Term Memory} (WIP)}}
-% WIP = Work in Progress
+\subsubsection{\nico{LSTM - \textit{Long Short-Term Memory}}}
 
 \nico{
-De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequencias com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não desaparecem e nem explodem a cada passo temporal (\textit{each time step}). Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) ao longo de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que a rede esqueça esse estado antigo. Por exemplo, se uma sequência é feito de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequências, precisamos de um mecanismo para esquecer o estado antigo, \textit{setting it to zero}. As RNNs fechadas aprendem quando fazer isso.
+De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequencias com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não desaparecem e nem explodem a cada passo temporal (\textit{each time step}). Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) ao longo de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que a rede esqueça esse estado antigo. Por exemplo, se uma sequência é feita de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequência, precisamos de um mecanismo para esquecer o estado antigo, reiniciando o mecanismo (\textit{setting it to zero}). As RNNs fechadas aprendem quando fazer isso.
 }
 
+\nico{
+O diferencial de uma RNN LSTM de uma \textit{vanilla} RNN são as suas ``células LSTM'' (\textit{LSTM cells}) que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula tem as mesma entradas e saídas de uma \textit{vanilla} RNN, mas há mais parâmetros e um sistema de neurônios portões (\textit{gating units}) que controlam o fluxo de informação \citep{goodfellow2016}.
+}
+
+\nico{
+Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ são armazenados para o tempo $t$, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$:
+\begin{align*}
+    \bs{c}_{t} & = \bs{f}_{t} \odot \bs{c}_{t-1} + \bs{i}_{t} \odot \bs{h}_{t}, \\
+    \bs{h}_{t} & = \bs{o}_{t} \odot \varphi(\bs{c}_{t}),
+\end{align*}
+em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Idealmente, os elementos desses portões tem valores quase binários, sendo utilizada a função de ativação sigmóide para garantir que seus valores estejam no intervalo $(0,1)$. Por exemplo, um elemento de $\bs{f}_t$ ser próximo de $1$ pode sugerir a presença do atributo nos dados sequenciais. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
+}
+
+\nico{
+\begin{itemize}
+    \item imagem do modelo LSTM (adaptar, talvez, de \citet{goodfellow2016}; pg 409 figura 10.16)
+\end{itemize}
+}
 
 %\nico{
 %\citep{goodfellow2016} pg 410 (do livro)
 
-%The clever idea of introducing self-loops to produce paths where the gradient
-%can flow for long durations is a core contribution of the initial long short-term
-%memory (LSTM) model (Hochreiter and Schmidhuber, 1997). A crucial addition
-%has been to make the weight on this self-loop conditioned on the context, rather than
-%fixed (Gers et al., 2000). By making the weight of this self-loop gated (controlled
-%by another hidden unit), the time scale of integration can be changed dynamically. In %this case, we mean that even for an LSTM with fixed parameters, the time scale
-%of integration can change based on the input sequence, because the time constants
-%are output by the model itself.
 
 %Instead of a unit that simply applies an elementwise nonlinearity to the affine transformation of inputs and recurrent units, LSTM
 %recurrent networks have “LSTM cells” that have an internal recurrence (a self-loop),
@@ -436,7 +448,6 @@ De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de model
 %\begin{itemize}
 %    \item \textbf{RNNs base:} suponha que $\bs{x}^{(1)},\dots,\bs{x}^{(T)}$ são entradas de uma série temporal. Uma RNN base modela o ``estado oculto'' no tempo $t$ por meio de um vetor $\bs{h}^{(t)}$, que é utilizado na fórmula recursiva 
 %    \begin{equation}
-%        \label{recursive_formula}
 %        \bs{h}^{(t)} = f_{\bs{\theta}} (\bs{h}^{(t-1)},\bs{x}^{(t)}).
 %    \end{equation}
 %    Aqui, $f_{\bs{\theta}}$ é geralmente uma função não linear parametrizada por $\bs{\theta}$. Temos que uma RNN base com apenas uma camada oculta tem a seguinte forma
@@ -967,9 +978,9 @@ Desenvolveu-se um modelo de RNN-LSTM. % o que mais colocar...?
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%  Conclusão
+%%%%  Conclusão e Trabalhos Futuros
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusão}
+\chapter{Conclusão e Trabalhos Futuros}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Referências
