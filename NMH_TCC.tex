@@ -5,7 +5,7 @@
 \usepackage{refcheck}
 \usepackage{enumitem}
 
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 
 
 % Caminho da Pasta das Figuras
@@ -903,19 +903,58 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Modelagem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Estudo de Modelagem}
+\chapter{\nico{Estudo de Modelagem (WIP)}}
+\nico{
+\begin{itemize}
+    \item implementação (linguagem, IDE, versões, etc.) \textbf{OK}
+    \item bases de dados
+    \item tratamento dos dados
+    \item modelo e cenários testados
+    \begin{itemize}
+        \item pt1: todos os modelos com tanh
+        \item pt2: setup dos 2 melhores e 2 piores de cada base de dados, e trocar para sigmoid para comparar resultados
+    \end{itemize}
+    \item processo de geração de músicas
+    \item extras:
+    \begin{itemize}
+        \item lembrar de gerar músicas desses top melhor e top pior modelos
+        \item referenciar github com projeto (e deixar git público)
+    \end{itemize}
+\end{itemize}
+}
+
+\section{\nico{Implementação Computacional}}
+\nico{
+O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}:
+\begin{itemize}
+    \item \textbf{Python}: versão 3.9.12;
+    \item \href{https://www.tensorflow.org/?hl=pt-br}{\textbf{TensorFlow}}: versão 2.9.1;
+    \item \href{https://numpy.org}{\textbf{NumPy}}: versão 1.22.3;
+    \item \href{https://pypi.org/project/regex/}{\textbf{regex}}: versão 2.5.112;
+    \item \href{https://scikit-learn.org/stable/}{\textbf{sklearn}}: versão 1.1.1;
+    \item \href{https://pypi.org/project/beautifulsoup4/}{\textbf{bs4}}: versão 4.10.0;
+    \item \href{https://pypi.org/project/requests/}{\textbf{requests}}: versão 2.27.1;
+    \item \href{https://web.mit.edu/music21/}{\textbf{music21}}: versão 7.3.3.
+\end{itemize}
+Além disso, as análises dos resultados foram realizados na linguagem \href{https://cran.r-project.org}{R} e na IDE \href{https://www.rstudio.com}{RStudio}:
+\begin{itemize}
+    \item \textbf{R}: versão 4.1.2;
+    \item \href{https://ggplot2.tidyverse.org}{\textbf{ggplot2}}: versão 3.3.5;
+    \item \href{https://cran.r-project.org/web/packages/gridExtra/index.html}{\textbf{gridExtra}}: versão 2.3.
+\end{itemize}
+Por fim, todos os códigos desenvolvidos nesse trabalho estão disponíveis em um repositório do \href{https://github.com/nmhahn/TCC_NMH}{GitHub do autor}.
+}
+
 
 % coleta de dados
 \section{Bases de Dados}
-
-% resumo como foram coletados os dados (fonte também) e que isso resultou em error 403 (acesso negado) no site hehe
 
 
 O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC Notation}. Abaixo, seguem algumas explicações sobre cada uma:
 
 \begin{itemize}
     \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada no \href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{GitHub do MIT}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto \href{https://www.norbeck.nu/abc/links.asp}{nesta página}. 
-    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem \href{https://python.org/}{Python}, um crawler e um scrapper para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
+    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem Python, um crawler e um scrapper para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
 \end{itemize}
 
 
@@ -931,7 +970,7 @@ O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC N
 %   - codifiquei/vetorizei as strings para que fosse possível ir e vir (caractere --> index e vice-versa)
 
 
-Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento e tokenização. Abaixo, alguns detalhes sobre cada uma:
+Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento, união e tokenização. Abaixo, alguns detalhes sobre cada uma:
 
 \begin{itemize}
     \item \textbf{tratamento}: um arquivo no formato \textit{.abc} contém diversas \textit{tags} com informações como título, subtítulo, autor, entre outras. Além disso, no arquivo também estão contidos caracteres representando letra de música, bem como caracteres de comentário. Como nenhuma desses itens afetam diretamente a música, considerando que as notas musicais serão as mesmas, o autor resolveu, por meio de expressões regulares, remover esses caracteres, com o intuito de diminuir o ruído nos arquivos. Após os tratamentos, o arquivo final contém dados como índice (representando o início da música), tonalidade, andamento, vozes da música (no caso de músicas com múltiplos instrumentos) e as notas musicais (mantendo a estrutura da peça musical).
@@ -939,43 +978,150 @@ Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento 
     \item \textbf{tokenização}: para cada caractere (\textit{token}) presente, foi criado um único índice. Consequentemente, é possível que uma sequência de caracteres seja convertido para uma sequência única de índices, possibilitando a conversão de texto para número e vice-versa.
 \end{itemize}
 
-% rede neural
-\section{Modelo de Rede Neural Recorrente LSTM}
-Desenvolveu-se um modelo de RNN-LSTM. % o que mais colocar...? 
+    % modelo
+\section{\nico{Modelo}}
+\nico{
+Desenvolveu-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
+}
 
     % arquitetura
-\subsection{Arquitetura}
-
-\begin{itemize}
-    \item entrada 
-    \item \textit{word embedding} 
-    \item LSTM 
-    \item saída   
-\end{itemize}
+\subsection{\nico{Arquitetura}}
+\nico{
+A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, a última camada tem as saídas da rede, sendo os resultados preditos.
+}
 
     % parâmetros de treinamento
-\subsection{Parâmetros da Rede | Treinamento | Ajuste}
-
-\begin{itemize}
-    \item epochs: 2000
-    \item batch\_size: $\{4,16\}$
-    \item seq\_length: $\{50,200\}$
-    \item learning\_rate: $\{1e-3,1e-5\}$
-    \item vocab\_size: depende da base
-    \item embedding\_dim: $\{256,512\}$
-    \item lstm\_units: $\{256,1024\}$
+\subsection{\nico{Parâmetros e Ajuste da Rede}}
+\nico{
+O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, e segmentado em duas etapas. Ademais, cada modelo treinado tem a entropia cruzada como função de custo e a perplexidade como métrica de avaliação.  Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando os demais hiperparâmetros: \begin{itemize}
+    \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$;
+    \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$;
+    \item a taxa de aprendizagem no ajuste: \textit{learning\_rate} $\in \{10^{-3},10^{-5}\}$;
+    \item o tamanho do vocabulário: \textit{vocab\_size}, sendo $64$ para \textit{Irish} e $125$ para \textit{ABC Notation};
+    \item a dimensão do vetor utilizado para \textit{dense encoding}: \textit{embedding\_dim} $\in \{256,512\}$;
+    \item número de células LSTM: \textit{lstm\_units} $\in \{256,1024\}$.
 \end{itemize}
+Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. Após isso, a segunda etapa envolveu selecionar os dois melhores e os dois piores modelos de cada base em relação à perplexidade para os dados de teste, alterar a função de ativação para sigmóide e avaliar se houve mudanças nas métricas. 
+}
+    % gerando músicas
+\subsection{\nico{Processo Gerador de Músicas}}
+\nico{
+Tendo os modelos devidamente ajustados, foi possível realizar a composição algorítmica de novas peças musicais. O processo gerador consiste de alguns passos:
+\begin{enumerate}
+    \item criar um novo modelo com os devidos hyperparâmetros, mas fixando o valor 1 em \textit{batch\_size}; 
+    \item carregar os pesos de um modelo já ajustado para esse novo modelo;
+    \item fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música no formato \textit{.abc} inicia;
+    \item o modelo estima um novo candidato para compor a sequência, e o processo é repetido até que o tamanho da sequência atinja um limite definido (no caso, utilizou-se 1000);
+    \item por fim, via expressões regulares, são extraídas da sequência as músicas geradas.
+\end{enumerate}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Resultados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Resultados}
+\chapter{\nico{Resultados (WIP)}}
 
 \begin{itemize}
     \item comentários
     \item principais resultados
     \item tabelas | gráficos
 \end{itemize}
+
+% tabelas geradas via kable do R + ajustes manuais
+
+    % Irish Results
+\rowcolors{2}{gray!25}{white}
+\begin{table}
+    \caption{\nico{Irish Results (+ bla bla bla dos resultados)}}
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}[t]{ccccccccccc}
+            \toprule
+            idx & batch\_size & seq\_length & learning\_rate & vocab\_size & embedding\_dim & lstm\_units & train\_cross\_entropy\_loss & train\_perplexity\_exp & test\_cross\_entropy\_loss & test\_perplexity\_exp \\
+            \midrule
+            1 & 4 & 50 & 1e-03 & 64 & 256 & 256 & 1.40274 & 4.06633 & 1.13925 & 3.12443 \\
+            2 & 16 & 50 & 1e-03 & 64 & 256 & 256 & 1.29574 & 3.65371 & 1.43617 & 4.20455 \\
+            3 & 4 & 200 & 1e-03 & 64 & 256 & 256 & 1.01743 & 2.76609 & 1.08047 & 2.94607 \\
+            4 & 16 & 200 & 1e-03 & 64 & 256 & 256 & 0.97303 & 2.64594 & 1.11635 & 3.05369 \\
+            5 & 4 & 50 & 1e-05 & 64 & 256 & 256 & 2.96449 & 19.38487 & 3.20716 & 24.70870 \\
+            6 & 16 & 50 & 1e-05 & 64 & 256 & 256 & 3.05959 & 21.31890 & 2.88653 & 17.93090 \\
+            7 & 4 & 200 & 1e-05 & 64 & 256 & 256 & 2.96315 & 19.35892 & 3.01556 & 20.40057 \\
+            8 & 16 & 200 & 1e-05 & 64 & 256 & 256 & 2.93856 & 18.88853 & 2.90777 & 18.31599 \\
+            9 & 4 & 50 & 1e-03 & 64 & 512 & 256 & 1.37006 & 3.93558 & 1.14525 & 3.14322 \\
+            10 & 16 & 50 & 1e-03 & 64 & 512 & 256 & 1.23492 & 3.43810 & 1.39474 & 4.03391 \\
+            11 & 4 & 200 & 1e-03 & 64 & 512 & 256 & 0.98240 & 2.67086 & 1.04194 & 2.83472 \\
+            12 & 16 & 200 & 1e-03 & 64 & 512 & 256 & 0.89671 & 2.45153 & 1.11508 & 3.04982 \\
+            13 & 4 & 50 & 1e-05 & 64 & 512 & 256 & 2.84646 & 17.22663 & 3.00801 & 20.24714 \\
+            14 & 16 & 50 & 1e-05 & 64 & 512 & 256 & 2.92232 & 18.58442 & 2.75109 & 15.65968 \\
+            15 & 4 & 200 & 1e-05 & 64 & 512 & 256 & 2.81504 & 16.69386 & 2.86684 & 17.58143 \\
+            16 & 16 & 200 & 1e-05 & 64 & 512 & 256 & 2.80051 & 16.45298 & 2.75502 & 15.72131 \\
+            17 & 4 & 50 & 1e-03 & 64 & 256 & 1024 & 1.29807 & 3.66221 & 1.06336 & 2.89608 \\
+            18 & 16 & 50 & 1e-03 & 64 & 256 & 1024 & 1.01105 & 2.74849 & 1.38611 & 3.99925 \\
+            19 & 4 & 200 & 1e-03 & 64 & 256 & 1024 & 0.61516 & 1.84996 & 1.05906 & 2.88365 \\
+            20 & 16 & 200 & 1e-03 & 64 & 256 & 1024 & 0.22259 & 1.24931 & 1.54519 & 4.68888 \\
+            21 & 4 & 50 & 1e-05 & 64 & 256 & 1024 & 2.69168 & 14.75645 & 2.77270 & 16.00183 \\
+            22 & 16 & 50 & 1e-05 & 64 & 256 & 1024 & 2.77769 & 16.08178 & 2.63616 & 13.95955 \\
+            23 & 4 & 200 & 1e-05 & 64 & 256 & 1024 & 2.64499 & 14.08325 & 2.68057 & 14.59346 \\
+            24 & 16 & 200 & 1e-05 & 64 & 256 & 1024 & 2.64882 & 14.13728 & 2.59135 & 13.34782 \\
+            25 & 4 & 50 & 1e-03 & 64 & 512 & 1024 & 1.17090 & 3.22490 & 1.01230 & 2.75193 \\
+            26 & 16 & 50 & 1e-03 & 64 & 512 & 1024 & 0.66184 & 1.93835 & 1.47724 & 4.38085 \\
+            27 & 4 & 200 & 1e-03 & 64 & 512 & 1024 & 0.56651 & 1.76211 & 1.10492 & 3.01897 \\
+            28 & 16 & 200 & 1e-03 & 64 & 512 & 1024 & 0.19567 & 1.21613 & 1.47724 & 4.38083 \\
+            29 & 4 & 50 & 1e-05 & 64 & 512 & 1024 & 2.52180 & 12.45100 & 2.60329 & 13.50806 \\
+            30 & 16 & 50 & 1e-05 & 64 & 512 & 1024 & 2.52574 & 12.50018 & 2.40415 & 11.06903 \\
+            31 & 4 & 200 & 1e-05 & 64 & 512 & 1024 & 2.46006 & 11.70547 & 2.49949 & 12.17624 \\
+            32 & 16 & 200 & 1e-05 & 64 & 512 & 1024 & 2.40354 & 11.06222 & 2.34059 & 10.38732 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+\rowcolors{2}{gray!25}{white}
+\begin{table}
+    \caption{\nico{ABC Notation Results (+ bla bla bla dos resultados)}}
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}[t]{ccccccccccc}
+            \toprule
+            idx & batch\_size & seq\_length & learning\_rate & vocab\_size & embedding\_dim & lstm\_units & train\_cross\_entropy\_loss & train\_perplexity\_exp & test\_cross\_entropy\_loss & test\_perplexity\_exp\\
+            \midrule
+            1 & 4 & 50 & 1e-03 & 125 & 256 & 256 & 2.05834 & 7.83296 & 1.88278 & 6.57178 \\
+            2 & 16 & 50 & 1e-03 & 125 & 256 & 256 & 1.91355 & 6.77709 & 1.68849 & 5.41129 \\
+            3 & 4 & 200 & 1e-03 & 125 & 256 & 256 & 1.73134 & 5.64820 & 1.75154 & 5.76345 \\
+            4 & 16 & 200 & 1e-03 & 125 & 256 & 256 & 1.65683 & 5.24264 & 1.63688 & 5.13912 \\
+            5 & 4 & 50 & 1e-05 & 125 & 256 & 256 & 3.51653 & 33.66729 & 3.37443 & 29.20754 \\
+            6 & 16 & 50 & 1e-05 & 125 & 256 & 256 & 3.62783 & 37.63112 & 3.45655 & 31.70746 \\
+            7 & 4 & 200 & 1e-05 & 125 & 256 & 256 & 3.50768 & 33.37072 & 3.43402 & 31.00094 \\
+            8 & 16 & 200 & 1e-05 & 125 & 256 & 256 & 3.52239 & 33.86516 & 3.58327 & 35.99121 \\
+            9 & 4 & 50 & 1e-03 & 125 & 512 & 256 & 1.92420 & 6.84967 & 1.78314 & 5.94852 \\
+            10 & 16 & 50 & 1e-03 & 125 & 512 & 256 & 1.87654 & 6.53090 & 1.65909 & 5.25455 \\
+            11 & 4 & 200 & 1e-03 & 125 & 512 & 256 & 1.67485 & 5.33798 & 1.70574 & 5.50545 \\
+            12 & 16 & 200 & 1e-03 & 125 & 512 & 256 & 1.58733 & 4.89069 & 1.58316 & 4.87032 \\
+            13 & 4 & 50 & 1e-05 & 125 & 512 & 256 & 3.48344 & 32.57171 & 3.33239 & 28.00509 \\
+            14 & 16 & 50 & 1e-05 & 125 & 512 & 256 & 3.51704 & 33.68446 & 3.33405 & 28.05186 \\
+            15 & 4 & 200 & 1e-05 & 125 & 512 & 256 & 3.43480 & 31.02528 & 3.36844 & 29.03321 \\
+            16 & 16 & 200 & 1e-05 & 125 & 512 & 256 & 3.36851 & 29.03519 & 3.42969 & 30.86696 \\
+            17 & 4 & 50 & 1e-03 & 125 & 256 & 1024 & 1.78247 & 5.94452 & 1.73868 & 5.68985 \\
+            18 & 16 & 50 & 1e-03 & 125 & 256 & 1024 & 1.66020 & 5.26036 & 1.45117 & 4.26811 \\
+            19 & 4 & 200 & 1e-03 & 125 & 256 & 1024 & 1.48683 & 4.42306 & 1.50569 & 4.50727 \\
+            20 & 16 & 200 & 1e-03 & 125 & 256 & 1024 & 1.35024 & 3.85835 & 1.37911 & 3.97136 \\
+            21 & 4 & 50 & 1e-05 & 125 & 256 & 1024 & 3.45181 & 31.55746 & 3.29725 & 27.03822 \\
+            22 & 16 & 50 & 1e-05 & 125 & 256 & 1024 & 3.34958 & 28.49071 & 3.12769 & 22.82123 \\
+            23 & 4 & 200 & 1e-05 & 125 & 256 & 1024 & 3.38667 & 29.56729 & 3.27032 & 26.31980 \\
+            24 & 16 & 200 & 1e-05 & 125 & 256 & 1024 & 3.15575 & 23.47053 & 3.25922 & 26.02916 \\
+            25 & 4 & 50 & 1e-03 & 125 & 512 & 1024 & 1.76738 & 5.85551 & 1.72469 & 5.61079 \\
+            26 & 16 & 50 & 1e-03 & 125 & 512 & 1024 & 1.63477 & 5.12830 & 1.45248 & 4.27371 \\
+            27 & 4 & 200 & 1e-03 & 125 & 512 & 1024 & 1.36084 & 3.89946 & 1.46824 & 4.34159 \\
+            28 & 16 & 200 & 1e-03 & 125 & 512 & 1024 & 1.30546 & 3.68938 & 1.37127 & 3.94033 \\
+            29 & 4 & 50 & 1e-05 & 125 & 512 & 1024 & 3.36589 & 28.95934 & 3.09466 & 22.07965 \\
+            30 & 16 & 50 & 1e-05 & 125 & 512 & 1024 & 3.14796 & 23.28840 & 2.95934 & 19.28517 \\
+            31 & 4 & 200 & 1e-05 & 125 & 512 & 1024 & 3.21004 & 24.77998 & 3.11401 & 22.51115\\
+            32 & 16 & 200 & 1e-05 & 125 & 512 & 1024 & 2.96839 & 19.46048 & 3.11079 & 22.43870\\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão e Trabalhos Futuros
