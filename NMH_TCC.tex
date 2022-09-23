@@ -13,7 +13,7 @@
 
 %\makeindex  Opcional (Índice Remissivo)
 
-\newcommand{\nico}[1]{\textcolor{orange}{#1}}
+\newcommand{\nico}[1]{\textcolor{teal}{#1}}
 \newcommand{\pumi}[1]{\textcolor{red}{#1}}
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
@@ -269,7 +269,7 @@ Uma função de ativação pode ser linear ou não linear. A escolha de uma part
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. 
     \item \textbf{\textit{softmax}}: $f:\R^n\rightarrow (0,1)^n$ dada por 
     \[f(\bs x):=\bigg(\frac{e^{x_1}}{\sum_{j=1}^n e^{x_j}},\cdots, \frac{e^{x_n}}{\sum_{j=1}^n e^{x_j}}\bigg), \quad \forall\,\bs x=(x_1,\cdots,x_n)\in\R^n.\]
-    \nico{A função} é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
+    {A função} é tipicamente utilizada para transformar vetores reais em vetores a ser interpretados como probabilidades, bastante útil em problemas de classificação.
 \end{itemize}
 
 Listas de funções de ativação comumente utilizadas podem ser encontradas em \citet{hastie2009}, \citet{hagan2014}, \citet{aggarwal2018} e \citet{dsa2022}.
@@ -348,9 +348,9 @@ Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para proc
 \end{itemize}
 }
 
-\subsubsection{\nico{\textit{vanilla} RNN}}
+\subsubsection{\nico{\textit{Vanilla} RNN}}
 \nico{
-Sejam $\bs{x}_{1},\cdots,\bs{x}_{T}$ entradas de dados sequenciais. Uma \textit{vanilla} RNN modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ dado por
+Sejam $\bs{x}_{1},\cdots,\bs{x}_{n}$ dados de entrada. Uma \textit{vanilla} RNN modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ via
 \begin{equation*}
     \bs{h}_t = f_{\bs{{\theta}}} (\bs{h}_{t-1}, \bs{x}_{t}),    
 \end{equation*}
@@ -362,26 +362,26 @@ Quando o objetivo é realizar uma predição do futuro com base no passado, uma 
 }
 
 \nico{
-Um déficit da \textit{vanilla} RNN é sua dificuldade em capturar longa dependência nos dados, resultante de sequências compridas. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
+Um déficit da \textit{vanilla} RNN é sua dificuldade em capturar longa dependência nos dados, \sout{resultante de sequências compridas}. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
 }
 
 \subsubsection{\nico{LSTM - \textit{Long Short-Term Memory}}}
 
 \nico{
-De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequencias com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não desaparecem e nem explodem a cada passo temporal (\textit{each time step}). Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) ao longo de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que a rede esqueça esse estado antigo. Por exemplo, se uma sequência é feita de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequência, precisamos de um mecanismo para esquecer o estado antigo, reiniciando o mecanismo (\textit{setting it to zero}). As RNNs fechadas aprendem quando fazer isso.
+De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequencias com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não desaparecem e nem explodem a cada passo temporal (\textit{each time step}). Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) ao longo de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que esse estado antigo seja descartado. Por exemplo, se uma sequência é feita de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequência, precisamos de um mecanismo para descartar o estado antigo, reiniciando o mecanismo (\textit{setting it to zero}). As RNNs fechadas aprendem quando fazer isso.
 }
 
 \nico{
-O diferencial de uma RNN LSTM de uma \textit{vanilla} RNN são as suas ``células LSTM'' (\textit{LSTM cells}) que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula tem as mesma entradas e saídas de uma \textit{vanilla} RNN, mas há mais parâmetros e um sistema de neurônios portões (\textit{gating units}) que controlam o fluxo de informação \citep{goodfellow2016}.
+O diferencial de uma  LSTM de uma \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}) que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesma entradas e saídas de uma \textit{vanilla} RNN, mas há mais parâmetros e um sistema de neurônios portões (\textit{gating units}) que controlam o fluxo de informação \citep{goodfellow2016}.
 }
 
 \nico{
-Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ são armazenados para o tempo $t$, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$:
+Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ são armazenados para o tempo $t$, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$, \pumi{de forma que a arquitetura da rede se torna} 
 \begin{align*}
     \bs{c}_{t} & = \bs{f}_{t} \odot \bs{c}_{t-1} + \bs{i}_{t} \odot \bs{h}_{t}, \\
     \bs{h}_{t} & = \bs{o}_{t} \odot \varphi(\bs{c}_{t}),
 \end{align*}
-em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Idealmente, os elementos desses portões tem valores quase binários, sendo utilizada a função de ativação sigmóide para garantir que seus valores estejam no intervalo $(0,1)$. Por exemplo, um elemento de $\bs{f}_t$ ser próximo de $1$ pode sugerir a presença do atributo nos dados sequenciais. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
+em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Idealmente, os elementos desses portões têm valores quase binários, sendo utilizada a função de ativação logit para garantir que seus valores estejam no intervalo $(0,1)$. Por exemplo, um elemento de $\bs{f}_t$ ser próximo de $1$ pode sugerir a presença do atributo nos dados sequenciais. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
 }
 
 \nico{
@@ -904,6 +904,8 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 %%%%  Modelagem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{\nico{Estudo de Modelagem (WIP)}}
+\pumi{Senti falta de uma introdução explicando qual o objetivo do estudo de modelagem.}
+
 \nico{
 \begin{itemize}
     \item implementação (linguagem, IDE, versões, etc.) \textbf{OK}
@@ -925,7 +927,7 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 
 \section{\nico{Implementação Computacional}}
 \nico{
-O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}:
+O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}. \pumi{Os pacotes utilizados neste trabalho foram os seguintes:}
 \begin{itemize}
     \item \textbf{Python}: versão 3.9.12;
     \item \href{https://www.tensorflow.org/?hl=pt-br}{\textbf{TensorFlow}}: versão 2.9.1;
@@ -987,13 +989,13 @@ Desenvolveu-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dad
     % arquitetura
 \subsection{\nico{Arquitetura}}
 \nico{
-A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, a última camada tem as saídas da rede, sendo os resultados preditos.
+A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
 }
 
     % parâmetros de treinamento
 \subsection{\nico{Parâmetros e Ajuste da Rede}}
 \nico{
-O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, e segmentado em duas etapas. Ademais, cada modelo treinado tem a entropia cruzada como função de custo e a perplexidade como métrica de avaliação.  Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando os demais hiperparâmetros: \begin{itemize}
+O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, e segmentado em duas etapas. \sout{Ademais, cada modelo treinado tem a entropia cruzada como função de custo e a perplexidade como métrica de avaliação.} \pumi{Sugestão: Para o ajuste das redes utilizou-se a entropia cruzada como função custo e a perplexidade como métrica de avaliação.}  Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando-se os demais hiperparâmetros: \begin{itemize}
     \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$;
     \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$;
     \item a taxa de aprendizagem no ajuste: \textit{learning\_rate} $\in \{10^{-3},10^{-5}\}$;
@@ -1001,14 +1003,15 @@ O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, e
     \item a dimensão do vetor utilizado para \textit{dense encoding}: \textit{embedding\_dim} $\in \{256,512\}$;
     \item número de células LSTM: \textit{lstm\_units} $\in \{256,1024\}$.
 \end{itemize}
-Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. Após isso, a segunda etapa envolveu selecionar os dois melhores e os dois piores modelos de cada base em relação à perplexidade para os dados de teste, alterar a função de ativação para sigmóide e avaliar se houve mudanças nas métricas. 
+Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. \pumi{A segunda etapa do experimento consistiu em trocar a função de ativação para a logit e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao grande número de modelos, a alteração foi feita apenas para os dois piores e os dois melhores modelos em termos de perplexidade.}
+\sout{Após isso, a segunda etapa envolveu selecionar os dois melhores e os dois piores modelos de cada base em relação à perplexidade para os dados de teste, alterar a função de ativação para sigmóide e avaliar se houve mudanças nas métricas. }
 }
     % gerando músicas
 \subsection{\nico{Processo Gerador de Músicas}}
 \nico{
 Tendo os modelos devidamente ajustados, foi possível realizar a composição algorítmica de novas peças musicais. O processo gerador consiste de alguns passos:
 \begin{enumerate}
-    \item criar um novo modelo com os devidos hyperparâmetros, mas fixando o valor 1 em \textit{batch\_size}; 
+    \item criar um novo modelo com os devidos hiperparâmetros, mas fixando o valor 1 em \textit{batch\_size}; 
     \item carregar os pesos de um modelo já ajustado para esse novo modelo;
     \item fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música no formato \textit{.abc} inicia;
     \item o modelo estima um novo candidato para compor a sequência, e o processo é repetido até que o tamanho da sequência atinja um limite definido (no caso, utilizou-se 1000);
@@ -1032,7 +1035,7 @@ Tendo os modelos devidamente ajustados, foi possível realizar a composição al
     % Irish Results
 \rowcolors{2}{gray!25}{white}
 \begin{table}
-    \caption{\nico{Irish Results (+ bla bla bla dos resultados)}}
+    \caption{\nico{Irish Results (+ bla bla bla dos resultados)}\pumi{vocabsize é fixo em 64 para todas as entradas desta tabela. logo não precisa estar numa coluna. Pode constar na caption. Sugiro ainda usar 3 casas depois da vírgula e diminuir o nome das colunas para diminuir o espaçamento entre colunas que está enorme. Use $10^{-3}$ e não 1e-03.  A organização das linhas está em termos de lstmunits. Sugiro que esta então seja a primeira coluna após idx, depois embeding que é a segunda coluna 'organizadora' e assim por diante. Aliás, idx é realmente uma coluna necessária?}}
     \centering
     \resizebox{\linewidth}{!}{
         \begin{tabular}[t]{ccccccccccc}
