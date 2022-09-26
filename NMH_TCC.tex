@@ -8,6 +8,11 @@
 \usepackage[table]{xcolor}
 
 
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+
 % Caminho da Pasta das Figuras
 \graphicspath{{figuras/}}
 
@@ -63,9 +68,9 @@
 \end{flushright}
 
 % Agradecimentos
-\newpage
-\chapter*{Agradecimentos}
-Agradeço a xxx. Opcional % mexer aqui
+%\newpage
+%\chapter*{Agradecimentos}
+%Agradeço a xxx. Opcional % mexer aqui
 
 % palavras chave
     % português
@@ -230,7 +235,7 @@ Também é incluído um intercepto no modelo, chamado de \textit{bias} na litera
 
 Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e uma função de ativação $\varphi(\cdot)$, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
 \begin{align*}
-    u_k & := \sum_{i=1}^{m} w_{k,i}x_i;\\   
+    u_k & := \sum_{i=1}^{m} w_{k,i}x_i; \\   
     y_k & := \varphi(u_k + b_k),
 \end{align*}
 sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
@@ -288,7 +293,7 @@ Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente pa
 \begin{enumerate}
     \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
     \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
-    \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Suas valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
+    \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Seus valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
 Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2009,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
 
@@ -378,7 +383,7 @@ O diferencial de uma  LSTM de uma \textit{vanilla} são as suas ``células LSTM'
 \nico{
 Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ são armazenados para o tempo $t$, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$, \pumi{de forma que a arquitetura da rede se torna} 
 \begin{align*}
-    \bs{c}_{t} & = \bs{f}_{t} \odot \bs{c}_{t-1} + \bs{i}_{t} \odot \bs{h}_{t}, \\
+    \bs{c}_{t} & = \bs{f}_{t} \odot \bs{c}_{t-1} + \bs{i}_{t} \odot \bs{h}_{t},  \\
     \bs{h}_{t} & = \bs{o}_{t} \odot \varphi(\bs{c}_{t}),
 \end{align*}
 em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Idealmente, os elementos desses portões têm valores quase binários, sendo utilizada a função de ativação logit para garantir que seus valores estejam no intervalo $(0,1)$. Por exemplo, um elemento de $\bs{f}_t$ ser próximo de $1$ pode sugerir a presença do atributo nos dados sequenciais. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
@@ -738,7 +743,9 @@ Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intr�
 No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela sua performance no conjunto de teste. Dado um corpus, podemos dividi-lo em treino e teste por meio de sequências de tokens (como palavras ou caracteres) presentes em partes sorteadas do texto. Mais detalhes podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
 
 
-\subsection{Entropy | Cross-entropy | Perplexity}
+\subsection{Entropia e Perplexidade}
+\label{entropia e perplexidade}
+
 %In information theory, perplexity measures how well a probability distribution predicts a sample. Perplexity is a commonly used measure to evaluate the performance of a language model. It measures the intrinsic quality of an n-gram model as a function of the probability P(W) that the model predicts a test sequence W = w1w2 ...wN can occur, given by:
 %$P(W) = P(w1w2 ...wN)^{−1/N}$
 %Lower measures of perplexity imply that the model predicts the test data better, while higher perplexity values imply lower prediction quality.
@@ -773,7 +780,7 @@ Podemos definir, também, a taxa de entropia (ou entropia por palavra) da sequê
 \end{equation*}
 Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras, e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
 \begin{align*}
-    H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n) \\
+    H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n)  \\
          & = \lim_{n \rightarrow \infty} - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n)  \log\big(p(w_1,\cdots,w_n)\big).
 \end{align*}
 
@@ -811,7 +818,7 @@ Medidas menores de perplexidade implicam uma qualidade de predição melhor. Por
 
 %\citet{manning1999} comentam sobre a relação entre perplexidade e entropia cruzada. Matematicamente, dado um modelo $m$:
 %\begin{align*}
-%    P(W, m) & = P(w_1,\cdots,w_N)^{-\frac{1}{N}} \\
+%    P(W, m) & = P(w_1,\cdots,w_N)^{-\frac{1}{N}}  \\
 %            & = 2^{H(W,m)},
 %\end{align*}
 %em que $H(W,m)$ é a entropia cruzada do modelo $m$ para uma sequência de tokens $W$.
@@ -906,7 +913,6 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 \chapter{\nico{Estudo de Modelagem (WIP)}}
 \pumi{Senti falta de uma introdução explicando qual o objetivo do estudo de modelagem.}
 
-\nico{
 \begin{itemize}
     \item implementação (linguagem, IDE, versões, etc.) \textbf{OK}
     \item bases de dados
@@ -923,11 +929,14 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
         \item referenciar github com projeto (e deixar git público)
     \end{itemize}
 \end{itemize}
+
+\nico{
+O estudo de modelagem visa a explorar um pouco do comportamento da rede neural utilizada para composição algorítmica. Por conseguinte, identificar os impactos objetivos (métrica escolhida) e subjetivos (música gerada) ao alterar os parâmetros da rede, como função de ativação, número de neurônios das camadas, para citar alguns. 
 }
 
 \section{\nico{Implementação Computacional}}
-\nico{
-O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}. \pumi{Os pacotes utilizados neste trabalho foram os seguintes:}
+
+O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}. \nico{As bibliotecas utilizados neste trabalho foram as seguintes:}
 \begin{itemize}
     \item \textbf{Python}: versão 3.9.12;
     \item \href{https://www.tensorflow.org/?hl=pt-br}{\textbf{TensorFlow}}: versão 2.9.1;
@@ -942,10 +951,12 @@ Além disso, as análises dos resultados foram realizados na linguagem \href{htt
 \begin{itemize}
     \item \textbf{R}: versão 4.1.2;
     \item \href{https://ggplot2.tidyverse.org}{\textbf{ggplot2}}: versão 3.3.5;
-    \item \href{https://cran.r-project.org/web/packages/gridExtra/index.html}{\textbf{gridExtra}}: versão 2.3.
+    \item \href{https://cran.r-project.org/web/packages/gridExtra/index.html}{\textbf{\sout{gridExtra}}}: versão 2.3. \nico{grid e gridExtra estavam reescalando meus plots com labels comparados ao sem labels, deixando gráficos de tamanhos diferentes...}
+    \item \nico{patchwork} \nico{esse aqui não teve o mesmo problema que o grid/gridExtra}
+    \item \nico{dplyr}
 \end{itemize}
-Por fim, todos os códigos desenvolvidos nesse trabalho estão disponíveis em um repositório do \href{https://github.com/nmhahn/TCC_NMH}{GitHub do autor}.
-}
+\nico{Para fins de reprodutibilidade, foi fixada a semente aleatória 00301831}. Por fim, todos os códigos desenvolvidos nesse trabalho estão disponíveis em um repositório do \href{https://github.com/nmhahn/TCC_NMH}{GitHub do autor}.
+
 
 
 % coleta de dados
@@ -981,37 +992,39 @@ Ambas as bases de dados utilizadas passaram por três procedimentos: tratamento,
 \end{itemize}
 
     % modelo
-\section{\nico{Modelo}}
-\nico{
+\section{Modelo}
 Desenvolveu-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
-}
+
 
     % arquitetura
 \subsection{\nico{Arquitetura}}
-\nico{
-A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
-}
+\nico{ % não sei oq mudar aqui...
+A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}.} A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
 
     % parâmetros de treinamento
 \subsection{\nico{Parâmetros e Ajuste da Rede}}
-\nico{
-O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, e segmentado em duas etapas. \sout{Ademais, cada modelo treinado tem a entropia cruzada como função de custo e a perplexidade como métrica de avaliação.} \pumi{Sugestão: Para o ajuste das redes utilizou-se a entropia cruzada como função custo e a perplexidade como métrica de avaliação.}  Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando-se os demais hiperparâmetros: \begin{itemize}
-    \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$;
-    \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$;
-    \item a taxa de aprendizagem no ajuste: \textit{learning\_rate} $\in \{10^{-3},10^{-5}\}$;
+O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, \nico{tendo a entropia cruzada como função custo e a perplexidade como métrica de avaliação. Ademais, houve uma segmentação em duas etapas}. Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando-se os demais \nico{parâmetros e hiperparâmetros}: 
+\begin{itemize}
     \item o tamanho do vocabulário: \textit{vocab\_size}, sendo $64$ para \textit{Irish} e $125$ para \textit{ABC Notation};
+    \item número de células LSTM: \textit{lstm\_units} $\in \{256,1024\}$;
     \item a dimensão do vetor utilizado para \textit{dense encoding}: \textit{embedding\_dim} $\in \{256,512\}$;
-    \item número de células LSTM: \textit{lstm\_units} $\in \{256,1024\}$.
+    \item a taxa de aprendizagem no ajuste: \textit{learning\_rate} $\in \{10^{-3},10^{-5}\}$;
+    \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$
+    \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$.
+;
+
+
+
+
 \end{itemize}
-Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. \pumi{A segunda etapa do experimento consistiu em trocar a função de ativação para a logit e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao grande número de modelos, a alteração foi feita apenas para os dois piores e os dois melhores modelos em termos de perplexidade.}
-\sout{Após isso, a segunda etapa envolveu selecionar os dois melhores e os dois piores modelos de cada base em relação à perplexidade para os dados de teste, alterar a função de ativação para sigmóide e avaliar se houve mudanças nas métricas. }
-}
+Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. \nico{A segunda etapa do experimento consistiu em trocar a função de ativação para a \textit{logit}, e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao volume de modelos, alterou-se apenas os dois piores e os dois melhores em termos da perplexidade.}
+
     % gerando músicas
 \subsection{\nico{Processo Gerador de Músicas}}
+Tendo os modelos devidamente ajustados, foi possível realizar a composição algorítmica de novas peças musicais. O processo gerador consiste de cinco passos:
 \nico{
-Tendo os modelos devidamente ajustados, foi possível realizar a composição algorítmica de novas peças musicais. O processo gerador consiste de alguns passos:
 \begin{enumerate}
-    \item criar um novo modelo com os devidos hiperparâmetros, mas fixando o valor 1 em \textit{batch\_size}; 
+    \item criar um novo modelo com os devidos parâmetros, mas fixar o valor 1 em \textit{batch\_size}; 
     \item carregar os pesos de um modelo já ajustado para esse novo modelo;
     \item fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música no formato \textit{.abc} inicia;
     \item o modelo estima um novo candidato para compor a sequência, e o processo é repetido até que o tamanho da sequência atinja um limite definido (no caso, utilizou-se 1000);
@@ -1024,112 +1037,318 @@ Tendo os modelos devidamente ajustados, foi possível realizar a composição al
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{\nico{Resultados (WIP)}}
 
+\nico{
 \begin{itemize}
-    \item comentários
-    \item principais resultados
-    \item tabelas | gráficos
+    \item tabelas | gráficos (segmentar por base de dados)
+    \item comentários sobre parâmetros vs métricas (perda e avaliação)
+    \item comparativo entre tanh e logit (mudou algo?)
+    \item músicas geradas + percepção subjetiva do autor (extra)
+    \item est.: 10-15 páginas 
 \end{itemize}
-
+}
 % tabelas geradas via kable do R + ajustes manuais
+% matriz de correlação utilizou-se spearman em vez de pearson
 
-    % Irish Results
+
+\nico{
+Comentários sobre o capítulo:
+\begin{itemize}
+    \item independente da base de dados, foram observados os mesmos padrões de comportamento. Como falar disso para evitar um copiar e colar da seção trocando poucos itens (paralelamente, similarmente...) ?
+    \begin{itemize}
+        \item ERRATA: apenas foi copiada a seção de Irish em ABC Notation, no entanto há diferenças claras no comportamento de alguns resultados (como o impacto de \textit{batch\_size})
+    \end{itemize}
+    \item falta comentar melhor nos captions das tabelas e figuras
+    \item o que inserir na parte das músicas geradas? (2 parágrafos?)
+    \item como concluir a seção de resultados? (1 parágrafo?)
+    \item dicas para segmentar em seções?
+\end{itemize}
+}
+
+\nico{ % parece meio crua
+Cada base será avaliada individualmente, considerando a variação dos parâmetros da rede, e impactos em ambas função perda e métrica de avaliação. Como comentado na seção \ref{entropia e perplexidade}, dois modelos de linguagem são comparáveis apenas se compartilharem o mesmo vocabulário (único por base). 
+}
+
+
+\subsubsection{\nico{Irish}}
+%\pumi{vocabsize é fixo em 64 para todas as entradas desta tabela. logo não precisa estar numa coluna. Pode constar na caption. Sugiro ainda usar 3 casas depois da vírgula e diminuir o nome das colunas para diminuir o espaçamento entre colunas que está enorme. Use $10^{-3}$ e não 1e-03.  A organização das linhas está em termos de lstmunits. Sugiro que esta então seja a primeira coluna após idx, depois embeding que é a segunda coluna 'organizadora' e assim por diante. Aliás, idx é realmente uma coluna necessária?}
+
+
+
+\nico{
+Inicialmente, avaliou-se a primeira etapa do estudo. A tabela \ref{table:irish_tanh_full} contém os resultados dos 32 modelos ajustados (identificados pela coluna \textit{idx}) para a base de dados Irish com, bem como os respectivos parâmetros e função de ativação \textit{tanh}. Além disso, as figuras \ref{fig:irish_tanh_pt1} e \ref{fig:irish_tanh_pt2} incluem a entropia cruzada calculada para cada época do ajuste. 
+}
 \rowcolors{2}{gray!25}{white}
 \begin{table}
-    \caption{\nico{Irish Results (+ bla bla bla dos resultados)}\pumi{vocabsize é fixo em 64 para todas as entradas desta tabela. logo não precisa estar numa coluna. Pode constar na caption. Sugiro ainda usar 3 casas depois da vírgula e diminuir o nome das colunas para diminuir o espaçamento entre colunas que está enorme. Use $10^{-3}$ e não 1e-03.  A organização das linhas está em termos de lstmunits. Sugiro que esta então seja a primeira coluna após idx, depois embeding que é a segunda coluna 'organizadora' e assim por diante. Aliás, idx é realmente uma coluna necessária?}}
+    \label{table:irish_tanh_full}
+    \caption{\nico{Resultados referentes à base de dados Irish, que contém um $vocab\_size=64$. Os modelos foram ajustados com 2000 épocas, função perda entropia cruzada (\textit{train\_loss}) e função de ativação \textit{tanh}. A avaliação foi feita pela métrica perplexidade, tanto para o conjunto de treino (\textit{train\_perplexity}) quanto para o conjunto de teste (\textit{test\_perplexity}).}}
     \centering
     \resizebox{\linewidth}{!}{
-        \begin{tabular}[t]{ccccccccccc}
-            \toprule
-            idx & batch\_size & seq\_length & learning\_rate & vocab\_size & embedding\_dim & lstm\_units & train\_cross\_entropy\_loss & train\_perplexity\_exp & test\_cross\_entropy\_loss & test\_perplexity\_exp \\
-            \midrule
-            1 & 4 & 50 & 1e-03 & 64 & 256 & 256 & 1.40274 & 4.06633 & 1.13925 & 3.12443 \\
-            2 & 16 & 50 & 1e-03 & 64 & 256 & 256 & 1.29574 & 3.65371 & 1.43617 & 4.20455 \\
-            3 & 4 & 200 & 1e-03 & 64 & 256 & 256 & 1.01743 & 2.76609 & 1.08047 & 2.94607 \\
-            4 & 16 & 200 & 1e-03 & 64 & 256 & 256 & 0.97303 & 2.64594 & 1.11635 & 3.05369 \\
-            5 & 4 & 50 & 1e-05 & 64 & 256 & 256 & 2.96449 & 19.38487 & 3.20716 & 24.70870 \\
-            6 & 16 & 50 & 1e-05 & 64 & 256 & 256 & 3.05959 & 21.31890 & 2.88653 & 17.93090 \\
-            7 & 4 & 200 & 1e-05 & 64 & 256 & 256 & 2.96315 & 19.35892 & 3.01556 & 20.40057 \\
-            8 & 16 & 200 & 1e-05 & 64 & 256 & 256 & 2.93856 & 18.88853 & 2.90777 & 18.31599 \\
-            9 & 4 & 50 & 1e-03 & 64 & 512 & 256 & 1.37006 & 3.93558 & 1.14525 & 3.14322 \\
-            10 & 16 & 50 & 1e-03 & 64 & 512 & 256 & 1.23492 & 3.43810 & 1.39474 & 4.03391 \\
-            11 & 4 & 200 & 1e-03 & 64 & 512 & 256 & 0.98240 & 2.67086 & 1.04194 & 2.83472 \\
-            12 & 16 & 200 & 1e-03 & 64 & 512 & 256 & 0.89671 & 2.45153 & 1.11508 & 3.04982 \\
-            13 & 4 & 50 & 1e-05 & 64 & 512 & 256 & 2.84646 & 17.22663 & 3.00801 & 20.24714 \\
-            14 & 16 & 50 & 1e-05 & 64 & 512 & 256 & 2.92232 & 18.58442 & 2.75109 & 15.65968 \\
-            15 & 4 & 200 & 1e-05 & 64 & 512 & 256 & 2.81504 & 16.69386 & 2.86684 & 17.58143 \\
-            16 & 16 & 200 & 1e-05 & 64 & 512 & 256 & 2.80051 & 16.45298 & 2.75502 & 15.72131 \\
-            17 & 4 & 50 & 1e-03 & 64 & 256 & 1024 & 1.29807 & 3.66221 & 1.06336 & 2.89608 \\
-            18 & 16 & 50 & 1e-03 & 64 & 256 & 1024 & 1.01105 & 2.74849 & 1.38611 & 3.99925 \\
-            19 & 4 & 200 & 1e-03 & 64 & 256 & 1024 & 0.61516 & 1.84996 & 1.05906 & 2.88365 \\
-            20 & 16 & 200 & 1e-03 & 64 & 256 & 1024 & 0.22259 & 1.24931 & 1.54519 & 4.68888 \\
-            21 & 4 & 50 & 1e-05 & 64 & 256 & 1024 & 2.69168 & 14.75645 & 2.77270 & 16.00183 \\
-            22 & 16 & 50 & 1e-05 & 64 & 256 & 1024 & 2.77769 & 16.08178 & 2.63616 & 13.95955 \\
-            23 & 4 & 200 & 1e-05 & 64 & 256 & 1024 & 2.64499 & 14.08325 & 2.68057 & 14.59346 \\
-            24 & 16 & 200 & 1e-05 & 64 & 256 & 1024 & 2.64882 & 14.13728 & 2.59135 & 13.34782 \\
-            25 & 4 & 50 & 1e-03 & 64 & 512 & 1024 & 1.17090 & 3.22490 & 1.01230 & 2.75193 \\
-            26 & 16 & 50 & 1e-03 & 64 & 512 & 1024 & 0.66184 & 1.93835 & 1.47724 & 4.38085 \\
-            27 & 4 & 200 & 1e-03 & 64 & 512 & 1024 & 0.56651 & 1.76211 & 1.10492 & 3.01897 \\
-            28 & 16 & 200 & 1e-03 & 64 & 512 & 1024 & 0.19567 & 1.21613 & 1.47724 & 4.38083 \\
-            29 & 4 & 50 & 1e-05 & 64 & 512 & 1024 & 2.52180 & 12.45100 & 2.60329 & 13.50806 \\
-            30 & 16 & 50 & 1e-05 & 64 & 512 & 1024 & 2.52574 & 12.50018 & 2.40415 & 11.06903 \\
-            31 & 4 & 200 & 1e-05 & 64 & 512 & 1024 & 2.46006 & 11.70547 & 2.49949 & 12.17624 \\
-            32 & 16 & 200 & 1e-05 & 64 & 512 & 1024 & 2.40354 & 11.06222 & 2.34059 & 10.38732 \\
-            \bottomrule
+        \begin{tabular}[t]{ccccccccc}
+        \toprule
+        idx & lstm\_units & embedding\_dim & learning\_rate & seq\_length & batch\_size & train\_loss & train\_perplexity & test\_perplexity \\
+        \midrule
+        1 & 256 & 256 & $10^{-3}$ & 50 & 4 & 1.403 & 4.066 & 3.124 \\
+        2 & 256 & 256 & $10^{-3}$ & 50 & 16 & 1.296 & 3.654 & 4.205 \\
+        3 & 256 & 256 & $10^{-3}$ & 200 & 4 & 1.017 & 2.766 & 2.946 \\
+        4 & 256 & 256 & $10^{-3}$ & 200 & 16 & 0.973 & 2.646 & 3.054 \\
+        5 & 256 & 256 & $10^{-5}$ & 50 & 4 & 2.964 & 19.385 & 24.709 \\
+        6 & 256 & 256 & $10^{-5}$ & 50 & 16 & 3.060 & 21.319 & 17.931 \\
+        7 & 256 & 256 & $10^{-5}$ & 200 & 4 & 2.963 & 19.359 & 20.401 \\
+        8 & 256 & 256 & $10^{-5}$ & 200 & 16 & 2.939 & 18.889 & 18.316 \\
+        9 & 256 & 512 & $10^{-3}$ & 50 & 4 & 1.370 & 3.936 & 3.143 \\
+        10 & 256 & 512 & $10^{-3}$ & 50 & 16 & 1.235 & 3.438 & 4.034 \\
+        11 & 256 & 512 & $10^{-3}$ & 200 & 4 & 0.982 & 2.671 & 2.835 \\
+        12 & 256 & 512 & $10^{-3}$ & 200 & 16 & 0.897 & 2.452 & 3.050 \\
+        13 & 256 & 512 & $10^{-5}$ & 50 & 4 & 2.846 & 17.227 & 20.247 \\
+        14 & 256 & 512 & $10^{-5}$ & 50 & 16 & 2.922 & 18.584 & 15.660 \\
+        15 & 256 & 512 & $10^{-5}$ & 200 & 4 & 2.815 & 16.694 & 17.581 \\
+        16 & 256 & 512 & $10^{-5}$ & 200 & 16 & 2.801 & 16.453 & 15.721 \\
+        17 & 1024 & 256 & $10^{-3}$ & 50 & 4 & 1.298 & 3.662 & 2.896 \\
+        18 & 1024 & 256 & $10^{-3}$ & 50 & 16 & 1.011 & 2.748 & 3.999 \\
+        19 & 1024 & 256 & $10^{-3}$ & 200 & 4 & 0.615 & 1.850 & 2.884 \\
+        20 & 1024 & 256 & $10^{-3}$ & 200 & 16 & 0.223 & 1.249 & 4.689 \\
+        21 & 1024 & 256 & $10^{-5}$ & 50 & 4 & 2.692 & 14.756 & 16.002 \\
+        22 & 1024 & 256 & $10^{-5}$ & 50 & 16 & 2.778 & 16.082 & 13.960 \\
+        23 & 1024 & 256 & $10^{-5}$ & 200 & 4 & 2.645 & 14.083 & 14.593 \\
+        24 & 1024 & 256 & $10^{-5}$ & 200 & 16 & 2.649 & 14.137 & 13.348 \\
+        25 & 1024 & 512 & $10^{-3}$ & 50 & 4 & 1.171 & 3.225 & 2.752 \\
+        26 & 1024 & 512 & $10^{-3}$ & 50 & 16 & 0.662 & 1.938 & 4.381 \\
+        27 & 1024 & 512 & $10^{-3}$ & 200 & 4 & 0.567 & 1.762 & 3.019 \\
+        28 & 1024 & 512 & $10^{-3}$ & 200 & 16 & 0.196 & 1.216 & 4.381 \\
+        29 & 1024 & 512 & $10^{-5}$ & 50 & 4 & 2.522 & 12.451 & 13.508 \\
+        30 & 1024 & 512 & $10^{-5}$ & 50 & 16 & 2.526 & 12.500 & 11.069 \\
+        31 & 1024 & 512 & $10^{-5}$ & 200 & 4 & 2.460 & 11.705 & 12.176 \\
+        32 & 1024 & 512 & $10^{-5}$ & 200 & 16 & 2.404 & 11.062 & 10.387 \\
+        \bottomrule
+\end{tabular}
+    }
+\end{table}
+\begin{figure}
+    \label{fig:irish_tanh_pt1}
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_1_16.pdf}
+    \caption{Irish (parte 1)}
+\end{figure}
+\begin{figure}
+    \label{fig:irish_tanh_pt2}
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_17_32.pdf}
+    \caption{Irish (parte 2)}
+\end{figure}
+
+\nico{
+De maneira geral, observou-se certos padrões no comportamento da função perda com a modificação de cada covariável:
+\begin{itemize}
+    \item o aumento do \textit{batch\_size} tendeu a uma redução da perda, bem como em uma menor variabilidade a cada época. Tal comportamento é coerente, dado que há mais lotes utilizados no treino.
+    \item \textit{seq\_length} tem comportamento e justificativa similares ao \textit{batch\_size}.
+    \item é evidente o impacto de \textit{learning\_rate} na perda, posto que o aumento da perda está fortemente relacionada a uma taxa de aprendizagem menor. 
+    \item não foi possível identificar modificação na perda ao alterarmos \textit{embedding\_dim}.
+    \item o aumento do \textit{lstm\_units} tendeu a uma redução da perda. 
+\end{itemize}
+Por meio da matriz de correlação da figura \ref{fig:irish_tanh_corrMatrix}, pode-se corroborar os padrões identificados anteriormente. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo.  
+}
+\begin{figure}
+    \label{fig:irish_tanh_corrMatrix}
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_corrMatrix.pdf}
+    \caption{Irish (matriz de correlação)}
+\end{figure}
+
+
+\nico{
+Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{5,7,11,25\}$. Pela tabela \ref{fig:irish_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}. 
+}
+\rowcolors{3}{white}{gray!25}
+\begin{table}
+    \label{fig:irish_tanh_vs_logit}
+    \caption{Irish: tanh vs logit}
+    \centering
+    \begin{tabular}{c|cc|cc}
+        \toprule
+        \multirow{2}{*}{idx} &
+        \multicolumn{2}{c}{\textit{train\_loss}} &
+        \multicolumn{2}{c}{\textit{test\_perplexity}} \\
+        & {\textit{tanh}} & {\textit{logit}} & {\textit{tanh}} & {\textit{logit}} \\
+        \midrule
+        5 & 2.964 & 3.021 & 24.709 & 27.576 \\
+        7 & 2.963 & 3.135 & 20.401 & 24.726 \\
+        11 & 0.982 & 1.195 & 2.835 & 3.549 \\
+        25 & 1.171 & 1.389 & 2.752 & 3.263 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+%
+\nico{
+Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{5,7\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base Irish.  
+}
+\begin{figure}
+    \label{fig:irish_tanh_vs_logit}
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_vs_logit.pdf}
+    \caption{Irish: tanh (esquerda) vs logit (direita)}
+\end{figure}
+
+
+\subsubsection{\nico{ABC Notation}}
+\nico{
+Assim como para a base de dados Irish, avaliou-se, inicialmente, a primeira etapa do estudo. A tabela \ref{table:abcnotation_tanh_full} contém os resultados dos 32 modelos ajustados (identificados pela coluna \textit{idx}) para a base de dados ABC Notation, bem como os respectivos parâmetros e função de ativação \textit{tanh}. Além disso, as figuras \ref{fig:abcnotation_tanh_pt1} e \ref{fig:abcnotation_tanh_pt2} incluem a entropia cruzada calculada para cada época do ajuste. 
+}
+\rowcolors{2}{gray!25}{white}
+\begin{table}
+    \label{table:abcnotation_tanh_full}
+    \caption{\nico{Resultados referentes à base de dados ABC Notation, que contém um $vocab\_size=125$. Os modelos foram ajustados com 2000 épocas, função perda entropia cruzada (\textit{train\_loss}) e função de ativação \textit{tanh}. A avaliação foi feita pela métrica perplexidade, tanto para o conjunto de treino (\textit{train\_perplexity}) quanto para o conjunto de teste (\textit{test\_perplexity}).}}
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}[t]{ccccccccc}
+        \toprule
+        idx & lstm\_units & embedding\_dim & learning\_rate & seq\_length & batch\_size & train\_loss & train\_perplexity & test\_perplexity \\
+        \midrule
+        1 & 256 & 256 & $10^{-3}$ & 50 & 4 & 2.058 & 7.833 & 6.572 \\
+        2 & 256 & 256 & $10^{-3}$ & 50 & 16 & 1.914 & 6.777 & 5.411 \\
+        3 & 256 & 256 & $10^{-3}$ & 200 & 4 & 1.731 & 5.648 & 5.763 \\
+        4 & 256 & 256 & $10^{-3}$ & 200 & 16 & 1.657 & 5.243 & 5.139 \\
+        5 & 256 & 256 & $10^{-5}$ & 50 & 4 & 3.517 & 33.667 & 29.208 \\
+        6 & 256 & 256 & $10^{-5}$ & 50 & 16 & 3.628 & 37.631 & 31.707 \\
+        7 & 256 & 256 & $10^{-5}$ & 200 & 4 & 3.508 & 33.371 & 31.001 \\
+        8 & 256 & 256 & $10^{-5}$ & 200 & 16 & 3.522 & 33.865 & 35.991 \\
+        9 & 256 & 512 & $10^{-3}$ & 50 & 4 & 1.924 & 6.850 & 5.949 \\
+        10 & 256 & 512 & $10^{-3}$ & 50 & 16 & 1.877 & 6.531 & 5.255 \\
+        11 & 256 & 512 & $10^{-3}$ & 200 & 4 & 1.675 & 5.338 & 5.505 \\
+        12 & 256 & 512 & $10^{-3}$ & 200 & 16 & 1.587 & 4.891 & 4.870 \\
+        13 & 256 & 512 & $10^{-5}$ & 50 & 4 & 3.483 & 32.572 & 28.005 \\
+        14 & 256 & 512 & $10^{-5}$ & 50 & 16 & 3.517 & 33.684 & 28.052 \\
+        15 & 256 & 512 & $10^{-5}$ & 200 & 4 & 3.435 & 31.025 & 29.033 \\
+        16 & 256 & 512 & $10^{-5}$ & 200 & 16 & 3.369 & 29.035 & 30.867 \\
+        17 & 1024 & 256 & $10^{-3}$ & 50 & 4 & 1.782 & 5.945 & 5.690 \\
+        18 & 1024 & 256 & $10^{-3}$ & 50 & 16 & 1.660 & 5.260 & 4.268 \\
+        19 & 1024 & 256 & $10^{-3}$ & 200 & 4 & 1.487 & 4.423 & 4.507 \\
+        20 & 1024 & 256 & $10^{-3}$ & 200 & 16 & 1.350 & 3.858 & 3.971 \\
+        21 & 1024 & 256 & $10^{-5}$ & 50 & 4 & 3.452 & 31.557 & 27.038 \\
+        22 & 1024 & 256 & $10^{-5}$ & 50 & 16 & 3.350 & 28.491 & 22.821 \\
+        23 & 1024 & 256 & $10^{-5}$ & 200 & 4 & 3.387 & 29.567 & 26.320 \\
+        24 & 1024 & 256 & $10^{-5}$ & 200 & 16 & 3.156 & 23.471 & 26.029 \\
+        25 & 1024 & 512 & $10^{-3}$ & 50 & 4 & 1.767 & 5.856 & 5.611 \\
+        26 & 1024 & 512 & $10^{-3}$ & 50 & 16 & 1.635 & 5.128 & 4.274 \\
+        27 & 1024 & 512 & $10^{-3}$ & 200 & 4 & 1.361 & 3.899 & 4.342 \\
+        28 & 1024 & 512 & $10^{-3}$ & 200 & 16 & 1.305 & 3.689 & 3.940 \\
+        29 & 1024 & 512 & $10^{-5}$ & 50 & 4 & 3.366 & 28.959 & 22.080 \\
+        30 & 1024 & 512 & $10^{-5}$ & 50 & 16 & 3.148 & 23.288 & 19.285 \\
+        31 & 1024 & 512 & $10^{-5}$ & 200 & 4 & 3.210 & 24.780 & 22.511 \\
+        32 & 1024 & 512 & $10^{-5}$ & 200 & 16 & 2.968 & 19.460 & 22.439 \\
+        \bottomrule
         \end{tabular}
     }
 \end{table}
-
-\rowcolors{2}{gray!25}{white}
-\begin{table}
-    \caption{\nico{ABC Notation Results (+ bla bla bla dos resultados)}}
+\begin{figure}
+    \label{fig:abcnotation_tanh_pt1}
     \centering
-    \resizebox{\linewidth}{!}{
-        \begin{tabular}[t]{ccccccccccc}
-            \toprule
-            idx & batch\_size & seq\_length & learning\_rate & vocab\_size & embedding\_dim & lstm\_units & train\_cross\_entropy\_loss & train\_perplexity\_exp & test\_cross\_entropy\_loss & test\_perplexity\_exp\\
-            \midrule
-            1 & 4 & 50 & 1e-03 & 125 & 256 & 256 & 2.05834 & 7.83296 & 1.88278 & 6.57178 \\
-            2 & 16 & 50 & 1e-03 & 125 & 256 & 256 & 1.91355 & 6.77709 & 1.68849 & 5.41129 \\
-            3 & 4 & 200 & 1e-03 & 125 & 256 & 256 & 1.73134 & 5.64820 & 1.75154 & 5.76345 \\
-            4 & 16 & 200 & 1e-03 & 125 & 256 & 256 & 1.65683 & 5.24264 & 1.63688 & 5.13912 \\
-            5 & 4 & 50 & 1e-05 & 125 & 256 & 256 & 3.51653 & 33.66729 & 3.37443 & 29.20754 \\
-            6 & 16 & 50 & 1e-05 & 125 & 256 & 256 & 3.62783 & 37.63112 & 3.45655 & 31.70746 \\
-            7 & 4 & 200 & 1e-05 & 125 & 256 & 256 & 3.50768 & 33.37072 & 3.43402 & 31.00094 \\
-            8 & 16 & 200 & 1e-05 & 125 & 256 & 256 & 3.52239 & 33.86516 & 3.58327 & 35.99121 \\
-            9 & 4 & 50 & 1e-03 & 125 & 512 & 256 & 1.92420 & 6.84967 & 1.78314 & 5.94852 \\
-            10 & 16 & 50 & 1e-03 & 125 & 512 & 256 & 1.87654 & 6.53090 & 1.65909 & 5.25455 \\
-            11 & 4 & 200 & 1e-03 & 125 & 512 & 256 & 1.67485 & 5.33798 & 1.70574 & 5.50545 \\
-            12 & 16 & 200 & 1e-03 & 125 & 512 & 256 & 1.58733 & 4.89069 & 1.58316 & 4.87032 \\
-            13 & 4 & 50 & 1e-05 & 125 & 512 & 256 & 3.48344 & 32.57171 & 3.33239 & 28.00509 \\
-            14 & 16 & 50 & 1e-05 & 125 & 512 & 256 & 3.51704 & 33.68446 & 3.33405 & 28.05186 \\
-            15 & 4 & 200 & 1e-05 & 125 & 512 & 256 & 3.43480 & 31.02528 & 3.36844 & 29.03321 \\
-            16 & 16 & 200 & 1e-05 & 125 & 512 & 256 & 3.36851 & 29.03519 & 3.42969 & 30.86696 \\
-            17 & 4 & 50 & 1e-03 & 125 & 256 & 1024 & 1.78247 & 5.94452 & 1.73868 & 5.68985 \\
-            18 & 16 & 50 & 1e-03 & 125 & 256 & 1024 & 1.66020 & 5.26036 & 1.45117 & 4.26811 \\
-            19 & 4 & 200 & 1e-03 & 125 & 256 & 1024 & 1.48683 & 4.42306 & 1.50569 & 4.50727 \\
-            20 & 16 & 200 & 1e-03 & 125 & 256 & 1024 & 1.35024 & 3.85835 & 1.37911 & 3.97136 \\
-            21 & 4 & 50 & 1e-05 & 125 & 256 & 1024 & 3.45181 & 31.55746 & 3.29725 & 27.03822 \\
-            22 & 16 & 50 & 1e-05 & 125 & 256 & 1024 & 3.34958 & 28.49071 & 3.12769 & 22.82123 \\
-            23 & 4 & 200 & 1e-05 & 125 & 256 & 1024 & 3.38667 & 29.56729 & 3.27032 & 26.31980 \\
-            24 & 16 & 200 & 1e-05 & 125 & 256 & 1024 & 3.15575 & 23.47053 & 3.25922 & 26.02916 \\
-            25 & 4 & 50 & 1e-03 & 125 & 512 & 1024 & 1.76738 & 5.85551 & 1.72469 & 5.61079 \\
-            26 & 16 & 50 & 1e-03 & 125 & 512 & 1024 & 1.63477 & 5.12830 & 1.45248 & 4.27371 \\
-            27 & 4 & 200 & 1e-03 & 125 & 512 & 1024 & 1.36084 & 3.89946 & 1.46824 & 4.34159 \\
-            28 & 16 & 200 & 1e-03 & 125 & 512 & 1024 & 1.30546 & 3.68938 & 1.37127 & 3.94033 \\
-            29 & 4 & 50 & 1e-05 & 125 & 512 & 1024 & 3.36589 & 28.95934 & 3.09466 & 22.07965 \\
-            30 & 16 & 50 & 1e-05 & 125 & 512 & 1024 & 3.14796 & 23.28840 & 2.95934 & 19.28517 \\
-            31 & 4 & 200 & 1e-05 & 125 & 512 & 1024 & 3.21004 & 24.77998 & 3.11401 & 22.51115\\
-            32 & 16 & 200 & 1e-05 & 125 & 512 & 1024 & 2.96839 & 19.46048 & 3.11079 & 22.43870\\
-            \bottomrule
-        \end{tabular}
-    }
+    \includegraphics[width=\textwidth]{abcnotation_tanh_1_16.pdf}
+    \caption{ABC Notation (parte 1)}
+\end{figure}
+\begin{figure}
+    \label{fig:abcnotation_tanh_pt2}
+    \centering
+    \includegraphics[width=\textwidth]{abcnotation_tanh_17_32.pdf}
+    \caption{ABC Notation (parte 2)}
+\end{figure}
+
+\nico{
+De maneira geral, observou-se certos padrões no comportamento da função perda com a modificação de cada covariável:
+\begin{itemize}
+    \item o aumento do \textit{batch\_size} tendeu a uma redução da perda, bem como em uma menor variabilidade a cada época. Tal comportamento é coerente, dado que há mais lotes utilizados no treino.
+    \item \textit{seq\_length} tem comportamento e justificativa similares ao \textit{batch\_size}.
+    \item é evidente o impacto de \textit{learning\_rate} na perda, posto que o aumento da perda está fortemente relacionada a uma taxa de aprendizagem menor. 
+    \item não foi possível identificar modificação na perda ao alterarmos \textit{embedding\_dim}.
+    \item o aumento do \textit{lstm\_units} tendeu a uma redução da perda. 
+\end{itemize}
+Por meio da matriz de correlação da figura \ref{fig:abcnotation_tanh_corrMatrix}, pode-se corroborar os padrões identificados anteriormente. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo.  
+}
+\begin{figure}
+    \label{fig:abcnotation_tanh_corrMatrix}
+    \centering
+    \includegraphics[width=\textwidth]{abcnotation_tanh_corrMatrix.pdf}
+    \caption{ABC Notation (matriz de correlação)}
+\end{figure}
+
+
+\nico{
+Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{8,6,20,28\}$. Pela tabela \ref{fig:abcnotation_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}.
+}
+\rowcolors{3}{white}{gray!25}
+\begin{table}
+    \label{fig:abcnotation_tanh_vs_logit}
+    \caption{ABC Notation: tanh vs logit}
+    \centering
+    \begin{tabular}{c|cc|cc}
+        \toprule
+        \multirow{2}{*}{idx} &
+        \multicolumn{2}{c}{\textit{train\_loss}} &
+        \multicolumn{2}{c}{\textit{test\_perplexity}} \\
+        & {\textit{tanh}} & {\textit{logit}} & {\textit{tanh}} & {\textit{logit}} \\
+        \midrule
+        8 & 3.628 & 3.670 & 31.707 & 33.038 \\
+        6 & 3.522 & 3.571 & 35.991 & 37.849 \\
+        20 & 1.350 & 1.616 & 3.971 & 5.142 \\
+        28 & 1.305 & 1.585 & 3.940 & 4.960 \\
+    \bottomrule
+  \end{tabular}
 \end{table}
+%
+\nico{
+Também, na figura \ref{fig:abcnotation_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{8,6\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base ABC Notation. 
+}
+\begin{figure}
+    \label{fig:abcnotation_tanh_vs_logit}
+    \centering
+    \includegraphics[width=\textwidth]{abcnotation_tanh_vs_logit.pdf}
+    \caption{ABC Notation: tanh (esquerda) vs logit (direita)}
+\end{figure}
+
+
+\subsubsection{\nico{Músicas Geradas}}
+
+\nico{
+\begin{itemize}
+    \item músicas Irish (como inserir isso)
+\end{itemize}
+}
+
+\nico{
+\begin{itemize}
+    \item músicas ABC Notation (como inserir isso)
+\end{itemize}
+}
+
+
+\subsubsection{\nico{Fechamento da Seção}}
+
+\nico{
+\begin{itemize}
+    \item como encerrar?
+\end{itemize}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão e Trabalhos Futuros
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusão e Trabalhos Futuros}
+\chapter{Considerações Finais}
+
+\nico{
+\begin{itemize}
+    \item comentários iniciais de fechamento
+    \item próximos passos (extensões):
+    \begin{itemize}
+        \item outras arquiteturad da RNN-LSTM
+        \item utilizar outros modelos além da RNN-LSTM (transformer, por exemplo)
+    \end{itemize}
+\end{itemize}
+}
+
+\nico{
+Este trabalho visou a explorar um perfil de problemas visto na literatura, em que o foco resumia-se a composição musical em si (como em \citet{agarwala2017}) ou era um dos assuntos que complementavam o objetivo principal (caso de \citet{souza2018}). porém, com uma abordagem no contexto de modelagem. Mesmo fixando-se um único modelo, a modificação dos parâmetros e os testes com mais de uma base de dados permitiu identificar certos padrões comportamentais. Os resultados referentes a piora do desempenho das redes ao trocar a função de ativação \textit{tanh} para \textit{logit} podem ser exemplos do que foi comentado por \citet{goodfellow2016}, em que a primeira performa melhor do que a segunda no contexto de RNNs (no caso, utilizou-se uma LSTM). 
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Referências
