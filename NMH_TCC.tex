@@ -255,7 +255,7 @@ sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
-	\caption{Modelo Neuronal \citep[adaptado de][]{haykin2001,hair2005}}
+	\caption{Modelo Neuronal \citep[adaptado de][]{hair2005,haykin2009}}
 \end{figure}
 
 \subsection{\nico{Função de Ativação}}
@@ -328,10 +328,18 @@ Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferent
 A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2009} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2009}. 
 % vanilla == padrão (não encontrei sinônimo bom, talvez trocar para "básica")
 
-\begin{itemize}
-    \item imagens com rede camada única e camada múltipla
-    \item imagens com rede totalmente e parcialmente conectada
-\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{figuras/network_layers.pdf}
+	\caption{Rede Camada Única e Múltipla \citep[adaptado de][]{haykin2009}}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{figuras/network_connections.pdf}
+	\caption{Rede Totalmente e Parcialmente Conectada \citep[adaptado de][]{haykin2009}}
+\end{figure}
+
+
 
 \subsubsection{\nico{Redes Neurais Recorrentes}}
 %Uma rede neural recorrente se distingue de uma rede neural alimentada adiante por ter pelo menos um laço de realimentação. Uma rede recorrente pode consistir, por exemplo, de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios. [...]; auto-realimentação se refere a uma situação onde a saída de um neurônio é realimentada para a sua própria entrada. [...]. \citep{haykin2001}
@@ -358,12 +366,6 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 
 Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2009}. 
 
-\nico{
-\begin{itemize}
-    \item imagem de RNN sem \textit{self-feedback loops} e sem neurônios na camada oculta (adaptar da figura 17 de \citet{haykin2009}).
-    \item imagem de RNN com neurônios na camada oculta (adaptar da figura 18 de \citet{haykin2009}).
-\end{itemize}
-}
 
 \subsubsection{\nico{\textit{Vanilla} RNN}}
 \nico{
@@ -381,6 +383,12 @@ Quando o objetivo é realizar uma predição do futuro com base no passado, uma 
 \nico{
 Um déficit da \textit{vanilla} RNN é sua dificuldade em capturar longa dependência nos dados, \sout{resultante de sequências compridas}. Esse problema é comumente relacionado ao fenômeno de desaparecimento (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
 }
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figuras/rnn_hidden_state.pdf}
+	\caption{Diagrama de uma RNN \citep[adaptado de][]{goodfellow2016, kamath2019}}
+\end{figure}
 
 \subsubsection{\nico{LSTM - \textit{Long Short-Term Memory}}}
 
@@ -1064,7 +1072,7 @@ Tendo os modelos devidamente ajustados, foi possível realizar a composição al
 
 \obs{talvez diminuir nomes de colunas (cuidar para substituir de acordo no texto)}
 
-\obs{matriz de correlação: deixar apenas duas primeiras linhas (removendo aqueles 0), e comentar que foi escolhida a de Spearmann (não precisa se preocupar com referência nisso)}
+\obs{matriz de correlação: deixar apenas duas primeiras linhas (removendo aqueles 0), e comentar que foi escolhida a de Spearman (não precisa se preocupar com referência nisso)}
 
 \nico{
 \begin{itemize}
