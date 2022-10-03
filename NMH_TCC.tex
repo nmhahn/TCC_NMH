@@ -24,7 +24,7 @@
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
 \newcommand{\B}{\mathds{B}}
-\newcommand{\Perp}{\mathds{P}}
+\newcommand{\Perp}{\mathcal{P}}
 \newcommand{\bs}[1]{\boldsymbol{#1}}
 
 \newcommand{\red}[1]{\textcolor{red}{#1}}
@@ -185,10 +185,10 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
 Também é incluído um intercepto no modelo, chamado de \textit{bias} na literatura de \textit{machine learning}, com o intuito de aumentar ou diminuir o sinal de entrada da função de ativação, dependendo do seu sinal.
 
 Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e uma função de ativação $\varphi(\cdot)$, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
-\begin{align*}
-    u_k & := \sum_{i=1}^{m} w_{k,i}x_i; \\   
+\begin{align}\label{vk}
+    u_k & := \sum_{i=1}^{m} w_{k,i}x_i; \nonumber\\   
     y_k & := \varphi(u_k + b_k),
-\end{align*}
+\end{align}
 sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 
 \begin{figure}
@@ -201,7 +201,7 @@ sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 
         % Função de Ativação
 \subsection{\nico{Função de Ativação}}
-Uma função de ativação pode ser linear ou não linear. \nico{Seu objetivo envolve transformar o valor de $v_k = u_k + b_k$ para um valor que esteja de acordo com a distribuição de $y_k$}. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. \nico{Em problemas de classificação de classe binária, ela é responsável por levar o valor de $v_k \in \R$ para o intervalo $(0,1)$, possibilitando a predição das respectivas classes}. Abaixo, seguem alguns exemplos:
+Uma função de ativação pode ser linear ou não linear. \nico{Seu objetivo em geral é transformar o valor de $v_k := u_k + b_k$ para um valor que esteja de acordo com a distribuição de $y_k$, como pode ser visto em \eqref{vk}}. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. \nico{Em problemas de classificação de classe binária, ela é responsável por levar o valor de $v_k \in \R$ para o intervalo $(0,1)$, possibilitando a predição das respectivas classes}. Abaixo, seguem alguns exemplos:
 
 
 %O objetivo da função de ativação é mapear os valores de um neurônio
@@ -280,7 +280,7 @@ Sejam $\bs{x}_{1},\cdots,\bs{x}_{n}$ dados de entrada. Uma  RNN \textit{vanilla}
 \end{equation*}
 em que $f_{\bs{\theta}}$ geralmente é uma função não linear parametrizada por $\bs{\theta}$. Assim como em modelagem de séries temporais, há o compartilhamento dos parâmetros ao longo do tempo.
 
-\nico{Por meio de uma sequência arbitrária $\bs{x}_{t},\cdots,\bs{x}_{1}$, pode-se utilizar $\bs{h}_{t}$ para fazer predições}. Por exemplo, se a RNN é utilizada para modelagem estatística de linguagem (como prever as próximas palavras dadas as palavras anteriores), não é necessário armazenar todas as informações na sequência de entrada até o tempo $t$, apenas o suficiente para prever o resto da sentença.
+Dada uma sequência de entrada $\bs{x}_{t},\cdots,\bs{x}_{1}$, pode-se utilizar $\bs{h}_{t}$ para fazer predições. Por exemplo, se a RNN é utilizada para modelagem estatística de linguagem (como prever as próximas palavras dadas as palavras anteriores), não é necessário armazenar todas as informações na sequência de entrada até o tempo $t$, apenas o suficiente para prever o resto da sentença.
 
 Um déficit da RNN \textit{vanilla} é sua dificuldade em capturar longa dependência nos dados. Esse problema é comumente relacionado ao fenômeno de dissipação (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
 \begin{figure}
@@ -321,13 +321,13 @@ em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh
 Algoritmos de aprendizagem de máquina, usualmente, envolvem alguma parte de otimização, referindo-se a minimizar (ou maximizar) uma função $f(x)$. Tal função pode ser chamada de \textbf{função custo} (\textit{cost function}) ou de \textbf{função perda} (\textit{loss function}). 
 }
 
-\nico{Seja $f: \R^n \rightarrow \R^n$ uma função diferenciável, e denote por $\nabla_{\bs{x}} f(\bs{x})$ o gradiente de $f$ no ponto $\bs{x}$. Os pontos críticos de $f$ são as soluções das equações $\nabla_{\bs{x}} f(\bs{x}) = \bs{0}$, em que $\bs{0}$ denota o valor nulo em $\R^n$}. Posto isso, podemos minimizar $f$ por meio do método de descida do gradiente (\textit{\textbf{gradient descent}}), também conhecido como \textit{\textbf{steepest descent}}, propondo um novo ponto
+\nico{Seja $f: \R^n \rightarrow \R^n$ uma função diferenciável, e denote por $\nabla_{\bs{x}} f(\bs{x})$ o gradiente de $f$ no ponto $\bs{x}\in\R^n$. Os pontos críticos de $f$ são as soluções das equações $\nabla_{\bs{x}} f(\bs{x}) = \bs{0}$, em que $\bs{0}$ denota o valor nulo em $\R^n$}. Posto isso, podemos minimizar $f$ por meio do método  do gradiente descendente (\textit{\textbf{gradient descent}}), também conhecido como \textit{\textbf{steepest descent}}, propondo um novo ponto
 \begin{equation*}
     \bs{x'} = \bs{x} - \epsilon \nabla_{\bs{x}} f(\bs{x}),
 \end{equation*}
-em que $\epsilon$ é chamada de \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo. O método converge quando todos os elementos do gradiente são zero (na prática, próximos de zero) \citep{goodfellow2016}. 
+em que $\epsilon$ é chamada de \textbf{taxa de aprendizagem} (\textit{learning rate}), um escalar positivo que determina o tamanho do passo em termos do valor do gradiente no ponto. O método converge quando todos os elementos do gradiente ficam abaixo de uma tolerância predeterminada \citep{goodfellow2016}. 
 
-\nico{Uma das desvantagens da descida do gradiente é o uso de todo o conjunto de treino $[n]$ para o cálculo do gradiente. Devido a isso, a descida estocástica do gradiente (\textbf{\textit{stochastic gradient descent} - SGD}) utiliza uma partição $\B \in [n]$ aleatoriamente selecionada dos dados, denominada lote (\textbf{\textit{minibatch}}). Iniciando de um certo valor $\bs{\theta}_0$, o SGD ajusta os parâmetros $\bs{\theta}_t$ em direção ao gradiente negativo, e utilizando um $\B$ de forma iterativa para minimizar uma função perda}. Pela Lei dos Grandes Números, o SGD aproxima-se do gradiente calculado, embora com alguns erros. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, kamath2019, fan2021}. 
+Uma das desvantagens  do método do gradiente descendente é o uso de todo o conjunto de treino para o cálculo do gradiente. Devido a isso, a  gradiente descendente estocástico (\textbf{\textit{stochastic gradient descent} - SGD}) utiliza uma partição aleatória dos dados, denominada lote (\textbf{\textit{minibatch}}). Iniciando com um certo valor $\bs{\theta}_0$, o SGD ajusta os parâmetros $\bs{\theta}_t$ em direção ao gradiente negativo, e utilizando uma partição aleatória dos dados de forma iterativa para minimizar uma função perda. Pela Lei dos Grandes Números, o SGD aproxima-se do gradiente calculado. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, kamath2019, fan2021}. 
 
 ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. O detalhamento destes métodos fogem ao escopo deste trabalho. Detalhes podem ser encontrados em \citet{kingma2014}.
 
@@ -367,7 +367,7 @@ Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamen
 
         % Modelos de Linguagem
 \subsection{\nico{Modelos de Linguagem}}
-Um modelo estatístico de linguagem \nico{é aquele que atribui probabilidades para uma sequência de \textit{tokens}}. \nico{Por exemplo, pode-se determinar a probabilidade de uma determinada sequência por meio da probabilidade de cada \textit{token} disponível nos $n$ \textit{tokens} anteriores. Dentre suas aplicações, tem-se} reconhecimento de fala, tradução automática, marcação de parte da fala (\textit{part-of-speech tagging}), reconhecimento de manuscrito, recuperação de informação, entre outras
+Um modelo estatístico de linguagem é aquele que atribui probabilidades para uma sequência de \textit{tokens}. Por exemplo, pode-se determinar a probabilidade de uma determinada sequência por meio da probabilidade de cada \textit{token} disponível nos \textit{tokens} anteriores. Dentre suas aplicações, tem-se reconhecimento de fala, tradução automática, marcação de parte da fala (\textit{part-of-speech tagging}), reconhecimento de manuscrito, recuperação de informação, entre outras
 \citep{kamath2019, jurafsky2021}.
 
 
@@ -375,7 +375,7 @@ Um modelo estatístico de linguagem \nico{é aquele que atribui probabilidades p
 
         % Avaliação Intrínseca e Extrínseca
 \subsection{Avaliação Intrínseca e Extrínseca}
-Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em \nico{utilizar uma métrica objetiva para mensurar} as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo \nico{independentemente de sua aplicação e não sendo necessário o encapsulamento em uma aplicação}. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
+Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em utilizar uma métrica objetiva para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
 
 No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela \nico{seu desempenho} no conjunto de teste. Dado um \textit{corpus}, podemos dividi-lo em treino e teste por meio de sequências de \textit{tokens} (como palavras ou caracteres) presentes em partes sorteadas do texto. Mais detalhes podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
 
@@ -386,20 +386,24 @@ No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em 
 \subsection{\nico{Entropia e Perplexidade}}
 \label{entropia e perplexidade}
 
-\nico{Seja $p(w)$ a função massa de probabilidade de uma variável aleatória discreta $W$, associada a um conjunto de \textit{tokens} (ou vocabulário) $L$. A \textbf{entropia} mede a quantidade de informação de uma variável aleatória, sendo definida por
-\begin{equation*}
-    H(W) := E \biggl(\log \biggl( \frac{1}{p(W)} \biggl) \biggl) = - \sum_{w \in L} p(w) \log \big(p(w)\big). 
-\end{equation*}
-No contexto de uma sequência de palavras de tamanho $n$, calcula-se a taxa de entropia (\textit{entropy rate}) para o vetor $\bs{W} = \{ W_1, \cdots, W_n \}$ por
-\begin{equation*}
-    \frac{1}{n} H(\bs{W}) = - \frac{1}{n} \sum_{\bs{w} \in L} p(\bs{w}) \log \big(p(\bs{w})\big). 
-\end{equation*}
-Além disso, assumindo que uma linguagem é um processo estocástico que consiste de uma sequência $L = \bs{W_i} \in \bs{W}$, pode-se obter a taxa de entropia de $L$ por meio de
-\begin{equation*}
-    H(L) = \lim_{n \rightarrow \infty} \frac{1}{n} H(W_1,\cdots,W_n). 
-\end{equation*}
-Ou seja, calcula-se a taxa de entropia da linguagem utilizando amostras cada vez maiores.
+\obs{
+\begin{itemize}
+    \item entropia cruzada: ``Quando a verdadeira distribuição...''
+    \item seja $m$ um estimador da p.m.f. de $p$, quando a verdadeira entropia é desconhecida, pode-se utilizar a entropia cruzada para aproximar $p$ 
+    \item trocar modelo por estimador
+\end{itemize}
 }
+
+
+Seja $p(w)$ a função massa de probabilidade de uma variável aleatória discreta $W$, associada a um conjunto de \textit{tokens} (ou vocabulário) $L$. A \textbf{entropia} mede a quantidade de informação de uma variável aleatória, sendo definida por
+\begin{equation*}
+    H(p) := -E \big(\log \big( p(W)\big) \big) = - \sum_{w \in L} p(w) \log \big(p(w)\big). 
+\end{equation*}
+No contexto de uma sequência de palavras de tamanho $n$, digamos $W_1, \cdots, W_n$, calcula-se a taxa de entropia (\textit{entropy rate})  por
+\begin{equation*}
+    H_{rate} := - \frac{1}{n} \sum_{\bs{w} \in L^n} p(\bs{w}) \log \big(p(\bs{w})\big). 
+\end{equation*}
+
 
 
 %\textbf{Entropia} é uma medida de informação. Seja $\chi$ um conjunto finito de \textit{tokens} e $X$ uma variável aleatória discreta associada à esses \textit{tokens} com função massa de probabilidade $p$. Define-se a entropia da variável aleatória $X$ como
@@ -422,14 +426,14 @@ Ou seja, calcula-se a taxa de entropia da linguagem utilizando amostras cada vez
 %    H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n)  \\
 %         & = \lim_{n \rightarrow \infty} - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n)  \log\big(p(w_1,\cdots,w_n)\big).
 %\end{align*}
-
-\nico{Quando a verdadeira distribuição probabilística $p$ que gerou os dados é desconhecida, pode-se utilizar a \textbf{entropia cruzada} (\textit{cross-entropy}). Por meio de um modelo $m$, ela é definida pela expressão}
+\pumi{Cara-crachá daqui pra diante}
+Quando a verdadeira massa de probabilidade $p$ que gerou os dados é desconhecida, pode-se utilizar a \textbf{entropia cruzada} (\textit{cross-entropy}) para aproximar a entropia. Seja $m$ um estimador para $p$ (por exemplo, a massa de probabilidade empírica), a entropia cruzada é definida pela expressão
 \begin{equation*}
-    H(p,m) := \lim_{n \rightarrow \infty}  - \frac{1}{n} \sum_{W \in L}  p(\bs{w}) \log\big(m(\bs{w})\big) .
+    H(p,m) := \lim_{n \rightarrow \infty}  - \frac{1}{n} \sum_{\bs\omega \in L^n}  p(\bs{w}) \log\big(m(\bs{w})\big) .
 \end{equation*}
-Considerando que o processo estocástico $H(p,m)$ seja estacionário e ergótico, temos que
+Quando o processo estocástico $H(p,m)$ é estacionário e ergótico, podemos aproximá-lo via
 \begin{equation*}
-    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{W \in L} \log\big(m(\bs{w})\big).
+    H(p,m) = \lim_{n \rightarrow \infty} \; - \frac{1}{n} \sum_{\bs\omega \in L^n} \log\big(m(\bs{w})\big).
 \end{equation*}
 A intuição é que uma sequência de palavras suficientemente longa conterá outras sequências menores, e que cada uma dessas irá ocorrer recorrentemente na sequência mais longa de acordo com suas respectivas probabilidades.
 
@@ -443,7 +447,7 @@ Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verda
 \begin{align*}
     \Perp (W) := e^{H(\bs{W})} = p(\bs{w})^{-\frac{1}{n}}.
 \end{align*}
-Medidas menores de perplexidade implicam uma qualidade de predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (\textit{corpus}) \citep{manning1999, kamath2019, jurafsky2021}.
+Medidas menores de perplexidade são indicativas de uma predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (\textit{corpus}) \citep{manning1999, kamath2019, jurafsky2021}.
 
 
 
@@ -546,7 +550,7 @@ O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC N
 
         % Arquitetura
 \subsection{\nico{Arquitetura}}
-\nico{Como elucidado em \ref{arquitetura rna}, uma rede neural é constituída de camadas de neurônios e de nós de fonte. O modelo utilizado contém} quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
+\nico{Como elucidado na seção \ref{arquitetura rna}, uma rede neural é constituída de camadas de neurônios e de nós de fonte. O modelo utilizado contém} quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
 
 %\nico{ % não sei oq mudar aqui...
 %A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}.} A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
@@ -699,7 +703,7 @@ Inicialmente, avaliou-se a primeira etapa do estudo. A tabela \ref{table:irish_t
     \caption{Perda dos modelos ajustados com Irish: curva verde representa $learning\_rate = 10^{-3}$ e roxo $learning\_rate = 10^{-5}$.}
     \label{fig:irish_tanh_loss}
 \end{figure}
-
+\FloatBarrier
 %\nico{
 De maneira geral, observou-se certos padrões no comportamento da função perda de acordo com a configuração da rede:
 \begin{itemize}
@@ -710,7 +714,7 @@ De maneira geral, observou-se certos padrões no comportamento da função perda
     \item Aumentar os valores de \textit{lstm\_units}, geralmente, ocasionou em uma redução na função perda. 
 \end{itemize}
 \nico{A figura \ref{fig:irish_tanh_corr} apresenta a matriz de correlação entre os parâmetros e as métricas, sendo o $\rho$ de Spearman a medida de correlação. É notável que a matriz corrobora os padrões identificados}. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate} \nico{tanto com a perda quanto com a perplexidade}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo. 
-
+%
 %Por meio da matriz de correlação da figura \ref{fig:irish_tanh_corr}, pode-se corroborar os padrões identificados anteriormente. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo.  
 %}
 \begin{figure}
@@ -722,7 +726,7 @@ De maneira geral, observou-se certos padrões no comportamento da função perda
 
 Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{5,7,11,25\}$. Pela tabela \ref{tab:irish_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}. 
 \rowcolors{3}{white}{gray!25}
-\begin{table}
+\begin{table}[h!]
     \caption{Irish: \textit{tanh} vs \textit{logit}} \label{tab:irish_tanh_vs_logit}
     \centering
     \begin{tabular}{c|cc|cc}
@@ -743,7 +747,7 @@ Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidad
 Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{5,7\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base Irish.  
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{irish_tanh_vs_logit.pdf}
+    \includegraphics[width=0.5\textwidth]{irish_tanh_vs_logit.pdf}
     \caption{Irish: \textit{tanh} (verde) vs \textit{logit} (roxo)}
     \label{fig:irish_tanh_vs_logit}
 \end{figure}
@@ -918,7 +922,7 @@ Os comentários feitos referente às composições geradas são as percepções 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão e Trabalhos Futuros
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Considerações Finais}
+\chapter{\nico{Considerações Finais}}
 
 %\nico{
 %\begin{itemize}
@@ -932,19 +936,21 @@ Os comentários feitos referente às composições geradas são as percepções 
 %\end{itemize}
 %}
 
-\nico{ % esboçado
-Este trabalho visou a explorar o problema de composição automática de músicas visto na literatura. Porém, diferentemente do foco da composição musical em si (como em \citet{agarwala2017}) ou a composição era um complemento do objetivo principal (caso de \citet{souza2018}, em que é construído um aplicativo), realizou-se uma abordagem de modelagem. Apesar de ser utilizado apenas um modelo RNN-LSTM com uma única arquitetura, a modificação dos parâmetros e os testes com mais de uma base de dados permitiram identificar certos padrões comportamentais, com características similares (ou não) dependendo da base utilizada. Os resultados referentes a piora do desempenho das redes ao trocar a função de ativação \textit{tanh} para \textit{logit} podem ser exemplos do que foi comentado por \citet{goodfellow2016}, em que a primeira performa melhor do que a segunda no contexto de RNNs \sout{(no caso, utilizou-se uma LSTM)}. 
+\nico{
+Este trabalho visou a explorar o problema de composição automática de músicas visto na literatura. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
+%
+%
+%Porém, diferentemente do foco da composição musical em si (como em \citet{agarwala2017}) ou a composição era um complemento do objetivo principal (caso de \citet{souza2018}, em que é construído um aplicativo), realizou-se uma abordagem de modelagem. Apesar de ser utilizado apenas um modelo RNN-LSTM com uma única arquitetura, a modificação dos parâmetros e os testes com mais de uma base de dados permitiram identificar certos padrões comportamentais, com características similares (ou não) dependendo da base utilizada. Os resultados referentes a piora do desempenho das redes ao trocar a função de ativação \textit{tanh} para \textit{logit} podem ser exemplos do que foi comentado por \citet{goodfellow2016}, em que a primeira performa melhor do que a segunda no contexto de RNNs \sout{(no caso, utilizou-se uma LSTM)}. 
 }
 
 \nico{
-As músicas geradas 
+Considerando a natureza subjetiva da música, o autor comentou sobre suas próprias percepções referente às composições. Devido a isso, os pontos elencados podem conflitar com outros pontos de vista. Isso posto, observou-se um padrão nas peças musicais produzidas pela rede ajustada com Irish, sendo bastante similares em perfil de ritmo e sequência de notas musicais. No caso de ABC Notation, houve uma maior variabilidade de estilos em comparação, além do fato de ter surgido uma peça aparentemente mais ruidosa. De maneira sucinta, conclui-se que os resultados são musicalmente plausíveis.
 }
 
 \nico{
-Extensão do trabalho
+É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artifical. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. No contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
 }
 
-%\obs{remover o excesso de comentários do .tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Referências
