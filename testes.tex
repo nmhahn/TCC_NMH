@@ -1,12 +1,32 @@
 \documentclass{article}
 
-\usepackage{amsmath}
+\usepackage{array}
+\usepackage{xcolor}
+
+\makeatletter
+\newcommand*{\@rowstyle}{}
+\newcommand*{\rowstyle}[1]{% sets the style of the next row
+  \gdef\@rowstyle{#1}%
+  \@rowstyle\ignorespaces%
+}
+\newcolumntype{=}{% resets the row style
+  >{\gdef\@rowstyle{}}%
+}
+\newcolumntype{+}{% adds the current row style to the next column
+  >{\@rowstyle}%
+}
+\makeatother
 
 \begin{document}
 
-\begin{equation}
-    \text{Valores de Entrada} (x_i) \text{ e} \\
-    \text{Pesos Sinápticos} (w_i)
-\end{equation}
+\begin{tabular}{ =l | +l +l +l +l }
+  \rowstyle{\color{red}}
+      & 1 & 2 & 3 & 4 \\
+  \hline
+  1   & A & B & C & D \\
+  2   & A & B & C & D \\
+  3   & A & B & C & D \\
+  4   & A & B & C & D \\
+\end{tabular}
 
 \end{document}
