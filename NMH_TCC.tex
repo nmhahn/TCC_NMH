@@ -896,17 +896,17 @@ Também, na figura \ref{fig:abcnotation_tanh_vs_logit} são comparadas as curvas
 %\end{itemize}
 %}
 
-\nico{
-Para cada modelo selecionado na segunda etapa, considerando ambas as bases e ambas as funções de ativação, foram geradas sequências de texto até compor dez blocos candidatos a músicas. Após isso, utilizou-se Python para a conversão dos arquivos \textit{.abc} em música. Se a conversão é bem sucedida, uma nova peça musical é gerada; caso contrário, o arquivo é invalidado. Os resultados observados seguem:
+
+Para cada modelo selecionado na segunda etapa, considerando ambas as bases e ambas as funções de ativação, foram geradas sequências de texto até compor dez blocos candidatos a músicas. Após isso, utilizou-se Python para a conversão dos arquivos \textit{.abc} em música. Se a conversão é bem sucedida, uma nova peça musical é gerada; caso contrário, \pumi{o arquivo é invalidado. Isto ocorre pois como não foi artificialmente imposta uma estrutura que garanta que toda peça gerada é compatível com uma música, isto significa que o arquivo .abc composto não gera uma música.} Os resultados observados seguem:
 \begin{itemize}
     \item Apenas candidatos dos melhores modelos foram convertidos com sucesso (porém não todos). Isso indica que uma menor perplexidade contribui para que o texto produzido seja mais coerente para a conversão em música.
     \item Há uma maior taxa de conversão nos modelos utilizando \textit{tanh} do que \textit{logit}, sendo mais um indicativo de que a primeira apresenta desempenho superior à segunda.
 \end{itemize}
 Em síntese, foram geradas 24 músicas com Irish ($10$ para $idx=11$ - com $6$ para \textit{tanh} e $4$ para \textit{logit} - e $14$ para $idx=25$ - com $8$ para \textit{tanh} e $6$ para \textit{logit}) e 14 com ABC Notation ($8$ para $idx=20$ - $4$ para cada função de ativação - e $6$ para $idx=28$ - com $5$ para \textit{tanh} e $1$ para \textit{logit}).
-}
+
 
 \nico{
-Ao escutarmos as músicas geradas para Irish, observa-se um certo padrão: diversos trechos são, via de regra, similares. É possível que o fator que justifique esteja relacionado com uma característica das músicas utilizadas no ajuste da rede neural. Além disso, é curioso observar que um dos arquivos \textit{.abc} convertidos não tem, na realidade, nenhuma nota musical. Ou seja, foi criada a estrutura do arquivo sem nenhum preenchimento referente a música. Por fim, pode-se concluir que as peças musicais resultantes são musicalmente plausíveis.
+Ao escutarmos as músicas geradas para Irish, observa-se um certo padrão: diversos trechos são, via de regra, similares. É possível que o fator que justifique esteja relacionado com uma característica das músicas utilizadas no ajuste da rede neural. Além disso, é curioso observar que um dos arquivos \textit{.abc} convertidos não têm, na realidade, nenhuma nota musical. Ou seja, foi criada a estrutura do arquivo sem nenhum preenchimento referente a música. Por fim, pode-se concluir que as peças musicais resultantes são musicalmente plausíveis, \pumi{embora, talvez, não muito agradáveis para alguns?}.
 }
 
 \nico{
@@ -935,9 +935,9 @@ Os comentários feitos referente às composições geradas são as percepções 
 %    \end{itemize}
 %\end{itemize}
 %}
-
+\pumi{Sugiro recapitular o que foi feito no trabalho em um pequeno parágrafo. }
 \nico{
-Este trabalho visou a explorar o problema de composição automática de músicas visto na literatura. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
+Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
 %
 %
 %Porém, diferentemente do foco da composição musical em si (como em \citet{agarwala2017}) ou a composição era um complemento do objetivo principal (caso de \citet{souza2018}, em que é construído um aplicativo), realizou-se uma abordagem de modelagem. Apesar de ser utilizado apenas um modelo RNN-LSTM com uma única arquitetura, a modificação dos parâmetros e os testes com mais de uma base de dados permitiram identificar certos padrões comportamentais, com características similares (ou não) dependendo da base utilizada. Os resultados referentes a piora do desempenho das redes ao trocar a função de ativação \textit{tanh} para \textit{logit} podem ser exemplos do que foi comentado por \citet{goodfellow2016}, em que a primeira performa melhor do que a segunda no contexto de RNNs \sout{(no caso, utilizou-se uma LSTM)}. 
@@ -948,7 +948,7 @@ Considerando a natureza subjetiva da música, o autor comentou sobre suas própr
 }
 
 \nico{
-É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artifical. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. No contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
+É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artificial. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. No contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
 }
 
 
