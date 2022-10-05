@@ -2,7 +2,7 @@
 \usepackage{ulem}
 \usepackage{dsfont}
 \usepackage{placeins}
-\usepackage{refcheck}
+%\usepackage{refcheck}
 \usepackage{enumitem}
 
 \usepackage[table]{xcolor}
@@ -92,14 +92,12 @@
 % resumo 
     % português
 \begin{abstract}
-\nico{não gostei do resultado que ficou, está mais longa e confusa}
-
-O problema de composição musical automática é um problema já explorado extensivamente na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são calibrados com o intuito de que a composição final gerada pelo modelo seja adequada em algum sentido.  Por sua vez, o impacto que pequenas modificação dos parâmetros do modelo responsável pelas composições ocasionam na composição final é um assunto que não é discutido na literatura. Neste trabalho, tempos por objetivo estudar a sensibilidade dos modelos de machine learning mais usados na composição automática de música no que tange pequenas modificações na arquitetura utilizada. A ferramente utilizada para este fim é uma métrica denominada perplexidade. Por fim as músicas são avaliadas ainda de forma subjetiva, no que tange a qualidade e musicalidade das composições obtidas com os métodos empregados.
+O problema de composição musical automática é extensivamente  explorado na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são ajustados para que a música gerada seja adequada em algum sentido. Porém, não são explorados os impactos das modificações dos parâmetros na composição final. Neste trabalho, temos por objetivo estudar a sensibilidade de um modelo construído via processamento de linguagem natural e redes neurais. Para tal, a mensuração será feita com a perplexidade, uma medida oriunda da teoria da informação. Por fim, as músicas são avaliadas, de forma subjetiva, em relação à musicalidade e qualidade das peças musicais obtidas.
 \end{abstract}
 
     % inglês
 \begin{englishabstract}
-The issue of automatically composed music has received a lot of attention in the literature. The literature generally focuses on the composition itself, and models are tuned to produce useful results. Technical details like the effects that slight adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive the most popular machine learning algorithms for music composition are to the consequences that even slight alterations in the composition's design can have. To accomplish this task, we apply a metric called perplexity. The composed works are then subjectively assessed for musicality and quality.
+The issue of automatically composed music has received a lot of attention in the literature. In general, the focuses is on the composition itself, and models are tuned to produce useful results. Technical details like the effects that adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive is a NLP-based (Natural Language Processing) neural network model built for music composition. To accomplish this task, we apply a metric from information theory called perplexity. The composed works are then subjectively assessed for musicality and quality.
 \end{englishabstract}
 
 % sumário (Obrigatório)
@@ -116,7 +114,7 @@ The issue of automatically composed music has received a lot of attention in the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Introdução
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{\nico{Introdução}}
+\chapter{Introdução}
 Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: estocástica, \textit{rule-based} e inteligência artificial.
 
 Wolfgang Amadeus Mozart (1756-1791) utilizou técnicas de composição algorítmica em sua obra \textit{Musikalisches Wurfelspiel} (\textit{Dice Music}), um jogo musical que envolvia atribuir um número para fragmentos de músicas, e combiná-los ao acaso, criando uma nova peça com as partes selecionadas. Além disso, John Cage (1912-1992), assim como Mozart, utilizou aleatoriedade em suas composições. Como exemplo, temos \textit{Reunion}, uma performance em que músicas são geradas ao jogar xadrez em um tabuleiro equipado com um foto receptor: cada lance emitia um som e, portanto, a música resultante é única por jogo. Por fim, com o auxílio de computadores, David Cope (1941-) criou, em 1981, o EMI (\textit{Experiments in Musical Intelligence}), um sistema baseado em grandes bases de dados com descrições de estilos de diferentes estratégias composicionais e, como complemento, o sistema também tinha a capacidade de criar as próprias regras composicionais por meio dos novos dados recebidos \citep{alpern1995, maurer}. 
@@ -148,7 +146,7 @@ Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \cite
 
     % Redes Neurais Artificiais
 \section{Redes Neurais Artificiais}
-Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018} sendo que, nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.  Por outro lado, tecnicamente RNAs podem ser vistas como modelos estatísticos não lineares \citep{hastie2008}.
+Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018}. Nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.
 
 
 
@@ -156,7 +154,7 @@ Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspi
 \subsection{Redes Neurais e a Estatística}
 Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística), especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação. Devido a esse foco em predição, RNAs são utilizadas como modelos \textbf{caixa preta}: uma certa entrada produz uma determinada saída da função, mas o processo interno que a rede utilizou para chegar nesse resultado é desconhecido e, consequentemente, há perda de interpretabilidade do modelo \citep{sarle1994, cheng1994, rojas1996}.
 
-No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): especificar a arquitetura da rede e treinar a rede com um conjuntos dados de treinamento. Paralelamente, no contexto estatístico, esses passos são equivalentes a especificar um modelo e estimar seus parâmetros dado um conjunto de dados. Posto isso, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e as respectivas equivalências de acordo com a estatística:
+No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): especificar a arquitetura da rede e treinar a rede com um conjunto de dados de treinamento. Paralelamente, no contexto estatístico, esses passos são equivalentes a especificar um modelo e estimar seus parâmetros dado um conjunto de dados. Posto isso, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e as respectivas equivalências de acordo com a estatística:
 \begin{itemize}
     \item variáveis são chamadas de atributos (\textit{features});
     \item variáveis independentes são chamadas de entrada (\textit{input});
@@ -184,6 +182,13 @@ Um neurônio (ou nó computacional) é uma unidade de processamento de informaç
 \end{enumerate}
 Também é incluído um intercepto no modelo, chamado de \textit{bias} na literatura de \textit{machine learning}, com o intuito de aumentar ou diminuir o sinal de entrada da função de ativação, dependendo do seu sinal.
 
+\FloatBarrier
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
+	\caption{Modelo Neuronal \citep[adaptado de][]{hair2005,haykin2009}}
+\end{figure}
+
 Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e uma função de ativação $\varphi(\cdot)$, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
 \begin{align}\label{vk}
     u_k & := \sum_{i=1}^{m} w_{k,i}x_i; \nonumber\\   
@@ -191,29 +196,11 @@ Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e 
 \end{align}
 sendo $b_k$ o \textit{bias} e $w_{k,i} \in \R$ os pesos associados ao neurônio.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
-	\caption{Modelo Neuronal \citep[adaptado de][]{hair2005,haykin2009}}
-\end{figure}
-
 
 
         % Função de Ativação
-\subsection{\nico{Função de Ativação}}
-Uma função de ativação pode ser linear ou não linear. \nico{Seu objetivo em geral é transformar o valor de $v_k := u_k + b_k$ para um valor que esteja de acordo com a distribuição de $y_k$, como pode ser visto em \eqref{vk}}. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. \nico{Em problemas de classificação de classe binária, ela é responsável por levar o valor de $v_k \in \R$ para o intervalo $(0,1)$, possibilitando a predição das respectivas classes}. Abaixo, seguem alguns exemplos:
-
-
-%O objetivo da função de ativação é mapear os valores de um neurônio
-%olhar link de glm (analogia)
-
-%O objetivo da função de ativação é determinar se a informação que o neurônio está recebendo será passada adiante ou será ignorada \citep{dsa2022}. \citet{hagan2014} comenta que uma função de ativação particular é selecionada para satisfazer uma determinada especificação do problema que o neurônio almeja resolver. Assim, temos que a função de ativação pode ser linear ou não-linear. Abaixo, seguem algumas funções de ativação:
-
-%\pumi{Minha sugestão: A função ativação é muito importante por que isto e aquilo blabla. Sua escolha portanto é muito importante blabla e uma função particular é escolhida por que blabla o suporte da função em geral determina blabla Algo nessas linhas. Existem vários tipos de função de ativação, como por exemplo:}
-% referente ao parágrafo
-% - funções são escolhidas para resolver problemas específicos
-% - peculiaridades para cada perfil de rede
-
+\subsection{Função de Ativação}
+Uma função de ativação pode ser linear ou não linear. Seu objetivo em geral é transformar o valor de $v_k := u_k + b_k$ para um valor que esteja de acordo com a distribuição de $y_k$, como pode ser visto em \eqref{vk}. A escolha de uma particular função de ativação depende do problema que o neurônio almeja resolver. Em problemas de classificação de classe binária, ela é responsável por levar o valor de $v_k \in \R$ para o intervalo $(0,1)$, possibilitando a predição das respectivas classes. Abaixo, seguem alguns exemplos:
 \begin{itemize}
     \item \textbf{linear:} $f: \R \rightarrow \R$ dada por 
     \[f(x) := \alpha x, \quad \alpha \in \R\backslash\{0\}.\]
@@ -223,7 +210,7 @@ Uma função de ativação pode ser linear ou não linear. \nico{Seu objetivo em
     Quando essa função de ativação é associada a uma rede, o neurônio é equivalente a uma regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação no contexto de modelos lineares generalizados: relacionar o preditor linear ao respectivo valor esperado \citep{sarle1994,frei2020,mccullagh1989}.
     \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por 
     \[f(x) := \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}.\]
-    Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidal são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
+    Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidais são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por 
     \[f(x) := \max\{0,x\}.\]
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. 
@@ -236,10 +223,10 @@ Listas de funções de ativação comumente utilizadas podem ser encontradas em 
 
 
         % Arquitetura de RNAs
-\subsection{\nico{Arquiteturas de RNAs}}
+\subsection{Arquiteturas de RNAs}
 \label{arquitetura rna}
 
-Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários por vezes diversas operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
+Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários por vezes diversos operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
 
 \begin{enumerate}
     \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
@@ -253,12 +240,14 @@ Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferent
             % Redes Alimentadas Adiante
 \subsubsection{Redes Alimentadas Adiante}
 A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2008} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2009}. 
-\begin{figure}
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=.7\textwidth]{figuras/network_layers.pdf}
 	\caption{Rede Camada Única e Múltipla \citep[adaptado de][]{haykin2009}}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=.7\textwidth]{figuras/network_connections.pdf}
 	\caption{Rede Totalmente e Parcialmente Conectada \citep[adaptado de][]{haykin2009}}
@@ -267,13 +256,13 @@ A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação part
 
             
             % Redes Neurais Recorrentes
-\subsubsection{\nico{Redes Neurais Recorrentes}}
+\subsubsection{Redes Neurais Recorrentes}
 Redes neurais recorrentes (RNNs) são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}. O que difere uma rede recorrente de uma rede alimentada adiante é seu laço de realimentação. Por exemplo, uma rede recorrente pode consistir de uma única camada de neurônios com cada neurônio alimentando seu sinal de volta para as entradas de todos os outros neurônios \citep{haykin2009}. 
 
 
 
             % RNN Vanilla    
-\subsubsection{\nico{RNN \textit{Vanilla}}}
+\subsubsection{RNN \textit{Vanilla}}
 Sejam $\bs{x}_{1},\cdots,\bs{x}_{n}$ dados de entrada. Uma  RNN \textit{vanilla} modela o estado oculto (\textit{hidden state}) $\bs{h}_{t}$ via
 \begin{equation*}
     \bs{h}_t = f_{\bs{{\theta}}} (\bs{h}_{t-1}, \bs{x}_{t}),    
@@ -282,30 +271,28 @@ em que $f_{\bs{\theta}}$ geralmente é uma função não linear parametrizada po
 
 Dada uma sequência de entrada $\bs{x}_{t},\cdots,\bs{x}_{1}$, pode-se utilizar $\bs{h}_{t}$ para fazer predições. Por exemplo, se a RNN é utilizada para modelagem estatística de linguagem (como prever as próximas palavras dadas as palavras anteriores), não é necessário armazenar todas as informações na sequência de entrada até o tempo $t$, apenas o suficiente para prever o resto da sentença.
 
-Um déficit da RNN \textit{vanilla} é sua dificuldade em capturar longa dependência nos dados. Esse problema é comumente relacionado ao fenômeno de dissipação (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figuras/rnn_hidden_state.pdf}
 	\caption{Diagrama de uma RNN \textit{Vanilla} \citep[adaptado de][]{goodfellow2016, kamath2019}}
 \end{figure}
 
+Um déficit da RNN \textit{vanilla} é sua dificuldade em capturar longa dependência nos dados. Esse problema é comumente relacionado ao fenômeno de dissipação (ou explosão) do gradiente, que ocorre no ajuste da rede. Dentre as variantes desenvolvidas para contornar esse problema, destacaremos a \textit{long short-term memory} \citep{goodfellow2016, fan2021}.
+
 
 
             % LSTM   
-\subsubsection{\nico{LSTM - \textit{Long Short-Term Memory}}}
-De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}). \nico{Os portões (\textit{gates}), que também são camadas da rede neural, controlam o fluxo de informação, mantendo ou descartando o estado oculto $\bs{h}_{t}$ a cada passo temporal \citep{kamath2019}}. 
+\subsubsection{LSTM - \textit{Long Short-Term Memory}}
+De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}). Os portões (\textit{gates}), que também são camadas da rede neural, controlam o fluxo de informação, mantendo ou descartando o estado oculto $\bs{h}_{t}$ a cada passo temporal \citep{kamath2019}. 
 
-%De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}), que estão entre os modelos para dados sequenciais com maior sucesso em aplicações práticas. RNNs fechadas são baseadas na ideia de criar caminhos ao longo do tempo que contêm derivadas que não dissipam e nem explodem a cada passo temporal (\textit{each time step}), ou seja, . Além disso, RNNs fechadas permitem que a rede acumule informação (como a evidência de um atributo ou categoria particular) de uma longa duração. No entanto, uma vez que a informação foi utilizada, talvez seja útil que esse estado antigo seja descartado. Por exemplo, se uma sequência é feita de sub-sequências, e queremos acumular a evidência dentro de cada sub-sequência, precisamos de um mecanismo para descartar o estado antigo, reiniciando o mecanismo (\textit{setting it to zero}). As RNNs fechadas aprendem quando fazer isso.
-
-
-Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ \nico{são mantidos}, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$, de forma que a arquitetura da rede se torna 
+Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemento (\textit{element-wise multiplication}). O estado de célula $\bs{c}_t$ carrega informações da sequência (por exemplo, forma singular ou plural de uma sentença). O portão de esquecimento (\textit{forget gate}) $\bs{f}_t$ determina por quanto tempo os valores de $\bs{c}_{t-1}$ são mantidos, o portão de entrada (\textit{input gate}) $\bs{i}_t$ controla a quantidade de atualizações realizadas no estado de célula, e o portão de saída (\textit{output gate}) $\bs{o}_t$ define quanta informação $\bs{c}_t$ revela para $\bs{h}_t$, de forma que a arquitetura da rede se torna 
 \begin{align*}
     \bs{c}_{t} & = \bs{f}_{t} \odot \bs{c}_{t-1} + \bs{i}_{t} \odot \bs{h}_{t}, \\
     \bs{h}_{t} & = \bs{o}_{t} \odot \varphi(\bs{c}_{t}),
 \end{align*}
-em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. \nico{Além disso, os elementos desses portões têm valores no intervalo $(0,1)$, sendo utilizada a função de ativação \textit{logit} para garantir isso}. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
+em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Além disso, os elementos desses portões têm valores no intervalo $(0,1)$, sendo utilizada a função de ativação \textit{logit} para garantir isso. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
 
-\nico{Entende-se, portanto, que} o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e o \nico{sistema de portões controlando o fluxo de informação} \citep{goodfellow2016}.
+Entende-se, portanto, que o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e um sistema de portões controlando o fluxo de informação \citep{goodfellow2016}.
 
 \nico{
 \begin{itemize}
@@ -317,11 +304,10 @@ em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh
 
         % Ajustando uma RNA
 \subsection{Ajustando uma RNA}
-\nico{
 Algoritmos de aprendizagem de máquina, usualmente, envolvem alguma parte de otimização, referindo-se a minimizar (ou maximizar) uma função $f(x)$. Tal função pode ser chamada de \textbf{função custo} (\textit{cost function}) ou de \textbf{função perda} (\textit{loss function}). 
-}
 
-\nico{Seja $f: \R^n \rightarrow \R^n$ uma função diferenciável, e denote por $\nabla_{\bs{x}} f(\bs{x})$ o gradiente de $f$ no ponto $\bs{x}\in\R^n$. Os pontos críticos de $f$ são as soluções das equações $\nabla_{\bs{x}} f(\bs{x}) = \bs{0}$, em que $\bs{0}$ denota o valor nulo em $\R^n$}. Posto isso, podemos minimizar $f$ por meio do método  do gradiente descendente (\textit{\textbf{gradient descent}}), também conhecido como \textit{\textbf{steepest descent}}, propondo um novo ponto
+
+Seja $f: \R^n \rightarrow \R^n$ uma função diferenciável, e denote por $\nabla_{\bs{x}} f(\bs{x})$ o gradiente de $f$ no ponto $\bs{x}\in\R^n$. Os pontos críticos de $f$ são as soluções das equações $\nabla_{\bs{x}} f(\bs{x}) = \bs{0}$, em que $\bs{0}$ denota o valor nulo em $\R^n$. Posto isso, podemos minimizar $f$ por meio do método  do gradiente descendente (\textit{\textbf{gradient descent}}), também conhecido como \textit{\textbf{steepest descent}}, propondo um novo ponto
 \begin{equation*}
     \bs{x'} = \bs{x} - \epsilon \nabla_{\bs{x}} f(\bs{x}),
 \end{equation*}
@@ -329,7 +315,7 @@ em que $\epsilon$ é chamada de \textbf{taxa de aprendizagem} (\textit{learning 
 
 Uma das desvantagens  do método do gradiente descendente é o uso de todo o conjunto de treino para o cálculo do gradiente. Devido a isso, a  gradiente descendente estocástico (\textbf{\textit{stochastic gradient descent} - SGD}) utiliza uma partição aleatória dos dados, denominada lote (\textbf{\textit{minibatch}}). Iniciando com um certo valor $\bs{\theta}_0$, o SGD ajusta os parâmetros $\bs{\theta}_t$ em direção ao gradiente negativo, e utilizando uma partição aleatória dos dados de forma iterativa para minimizar uma função perda. Pela Lei dos Grandes Números, o SGD aproxima-se do gradiente calculado. Por fim, temos que uma passagem pelo conjunto de dados de treinamento é denominada \textbf{época} (\textit{epoch}), e após um determinado número de épocas, o treinamento é concluído \citep{goodfellow2016, kamath2019, fan2021}. 
 
-ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. O detalhamento destes métodos fogem ao escopo deste trabalho. Detalhes podem ser encontrados em \citet{kingma2014}.
+ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. O detalhamento destes métodos fogem ao escopo deste trabalho. Mais informações podem ser encontradas em \citet{kingma2014}.
 
 O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função de custo flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes podem ser encontrados em \citet{haykin2009}, \citet{goodfellow2016} e \citet{fan2021}.  
 
@@ -347,26 +333,26 @@ De acordo com \citet{jurafsky2021}, é importante testar algoritmos em mais de u
 
         % Corpus e Corpora
 \subsection{Corpus e Corpora}
-Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um corpus com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um \textit{corpus} ou ao relatar os resultados obtidos nas análises são se o tipo de texto é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
+Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um \textit{corpus} com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um \textit{corpus} ou ao relatar os resultados obtidos nas análises são se o tipo de texto é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
 
 
 
         % Expressões Regulares
 \subsection{Expressões Regulares}
-Expressões Regulares são particularmente úteis para pesquisar em textos, localizando determinados padrões em um corpus. \citet{jurafsky2021} comentam que, formalmente, uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de strings. Além disso, uma função de busca com expressões regulares pode ser projetada para retornar todas as correspondências ao padrão definido, bem como apenas a primeira. Por fim, detalhamentos e demais definições referentes a expressões regulares estão disponíveis em \citet{jurafsky2021}.
+Expressões Regulares são particularmente úteis para pesquisar em textos, localizando determinados padrões em um \textit{corpus}. \citet{jurafsky2021} comentam que, formalmente, uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de \textit{strings}. Além disso, uma função de busca com expressões regulares pode ser projetada para retornar todas as correspondências ao padrão definido, bem como apenas a primeira. Por fim, detalhamentos e demais definições referentes a expressões regulares estão disponíveis em \citet{jurafsky2021}.
 
 
 
         % Vocabulário e Tokenização
 \subsection{Vocabulário e Tokenização}
-Tokenização é o processo computacional de segmentar texto em unidades denominadas tokens, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
+Tokenização é o processo computacional de segmentar texto em unidades denominadas \textit{tokens}, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
 
 Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela \textit{hash} (uma função \textit{hash} mapeia um conjunto de objetos para um intervalo específico de inteiros não negativos), que conterá um conjunto de \textit{tokens} e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os \textit{tokens} quando necessário.
 
 
 
         % Modelos de Linguagem
-\subsection{\nico{Modelos de Linguagem}}
+\subsection{Modelos de Linguagem}
 Um modelo estatístico de linguagem é aquele que atribui probabilidades para uma sequência de \textit{tokens}. Por exemplo, pode-se determinar a probabilidade de uma determinada sequência por meio da probabilidade de cada \textit{token} disponível nos \textit{tokens} anteriores. Dentre suas aplicações, tem-se reconhecimento de fala, tradução automática, marcação de parte da fala (\textit{part-of-speech tagging}), reconhecimento de manuscrito, recuperação de informação, entre outras
 \citep{kamath2019, jurafsky2021}.
 
@@ -377,23 +363,14 @@ Um modelo estatístico de linguagem é aquele que atribui probabilidades para um
 \subsection{Avaliação Intrínseca e Extrínseca}
 Existem dois tipos de avaliação de um modelo de linguagem: extrínseca e intrínseca. Uma avaliação \textbf{extrínseca} envolve encapsular o modelo em uma aplicação e medir se houve melhorias. Por exemplo, em um contexto de reconhecimento de fala, o texto transcrito seria comparado com o discurso realizado. Apesar da avaliação extrínseca verificar qual ajuste melhora o desempenho do modelo, desenvolver um sistema completo para tal objetivo é usualmente caro, afetando sua viabilidade. Uma alternativa é a avaliação \textbf{intrínseca}, que consiste em utilizar uma métrica objetiva para mensurar as potenciais melhorias do modelo de linguagem. Basicamente, é um tipo de avaliação que mede a qualidade de um modelo independentemente de sua aplicação. No entanto, uma melhora na métrica intrínseca não necessariamente implica em uma melhora na avaliação extrínseca. 
 
-No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pela \nico{seu desempenho} no conjunto de teste. Dado um \textit{corpus}, podemos dividi-lo em treino e teste por meio de sequências de \textit{tokens} (como palavras ou caracteres) presentes em partes sorteadas do texto. Mais detalhes podem ser encontrados em \citet{goldberg2017, jurafsky2021}.
+No caso de uma avaliação intrínseca de um modelo de linguagem, assim como em muitos modelos estatísticos, realizamos o ajuste por meio de um conjunto de treino, e medimos a qualidade do modelo pelo seu desempenho no conjunto de teste. Dado um \textit{corpus}, podemos dividi-lo em treino e teste por meio de sequências de \textit{tokens} (como palavras ou caracteres) presentes em partes sorteadas do texto. Mais detalhes podem ser encontrados em \citet{goldberg2017} e \citet{jurafsky2021}.
 
 
 
 
-        % Avaliação Intrínseca e Extrínseca
-\subsection{\nico{Entropia e Perplexidade}}
+        % Entropia e Perplexidade
+\subsection{Entropia e Perplexidade}
 \label{entropia e perplexidade}
-
-\obs{
-\begin{itemize}
-    \item entropia cruzada: ``Quando a verdadeira distribuição...''
-    \item seja $m$ um estimador da p.m.f. de $p$, quando a verdadeira entropia é desconhecida, pode-se utilizar a entropia cruzada para aproximar $p$ 
-    \item trocar modelo por estimador
-\end{itemize}
-}
-
 
 Seja $p(w)$ a função massa de probabilidade de uma variável aleatória discreta $W$, associada a um conjunto de \textit{tokens} (ou vocabulário) $L$. A \textbf{entropia} mede a quantidade de informação de uma variável aleatória, sendo definida por
 \begin{equation*}
@@ -404,29 +381,6 @@ No contexto de uma sequência de palavras de tamanho $n$, digamos $W_1, \cdots, 
     H_{rate} := - \frac{1}{n} \sum_{\bs{w} \in L^n} p(\bs{w}) \log \big(p(\bs{w})\big). 
 \end{equation*}
 
-
-
-%\textbf{Entropia} é uma medida de informação. Seja $\chi$ um conjunto finito de \textit{tokens} e $X$ uma variável aleatória discreta associada à esses \textit{tokens} com função massa de probabilidade $p$. Define-se a entropia da variável aleatória $X$ como
-%\begin{equation}
-%    \label{entropia}
-%    H(X) := - \sum_{x \in \chi} p(x) \log \big(p(x)\big). 
-%\end{equation}
-
-
-%A equação (\ref{entropia}) é utilizada para computar a entropia de apenas uma variável aleatória. Usualmente, computaremos a entropia de sequências. No caso de uma gramática, por exemplo, será computado a entropia de uma sequência de palavras $W = \{w_1,\dots,w_n; \; n \in \N \}$. Uma forma de fazer isso é definir uma variável que abrange todas as sequências de palavras. Por exemplo, podemos computar a entropia de uma variável aleatória que abrange todas as sequência de tamanho $n$ presentes em uma linguagem $L$ por meio de
-%\begin{equation*}
-%    H(w_1,\dots,w_n) = - \sum_{w_{1:n} \in L} p(w_{1:n}) \log(w_{1:n}).
-%\end{equation*}
-%Podemos definir, também, a taxa de entropia (ou entropia por palavra) da sequência dividindo pelo número de palavras:
-%\begin{equation*}
-%    \frac{1}{n}H(w_{1:n}) = - \frac{1}{n} \sum_{w_{1:n} \in L}  p(w_{1:n}) \log(w_{1:n}).
-%\end{equation*}
-%Para que seja possível mensurar a verdadeira entropia de uma linguagem, são necessárias sequências de tamanho infinito. Considerando que uma linguagem $L$ é um processo estocástico que produz uma sequência de palavras, e $W$ represente a sequência de palavras $w_1,\cdots,w_n$, então a taxa de entropia $H(L)$ é definida como:
-%\begin{align*}
-%    H(L) & = \lim_{n \rightarrow \infty} \; \frac{1}{n} H(w_1,\cdots,w_n)  \\
-%         & = \lim_{n \rightarrow \infty} - \frac{1}{n} \sum_{W \in L}  p(w_1,\cdots,w_n)  \log\big(p(w_1,\cdots,w_n)\big).
-%\end{align*}
-\pumi{Cara-crachá daqui pra diante}
 Quando a verdadeira massa de probabilidade $p$ que gerou os dados é desconhecida, pode-se utilizar a \textbf{entropia cruzada} (\textit{cross-entropy}) para aproximar a entropia. Seja $m$ um estimador para $p$ (por exemplo, a massa de probabilidade empírica), a entropia cruzada é definida pela expressão
 \begin{equation*}
     H(p,m) := \lim_{n \rightarrow \infty}  - \frac{1}{n} \sum_{\bs\omega \in L^n}  p(\bs{w}) \log\big(m(\bs{w})\big) .
@@ -437,35 +391,34 @@ Quando o processo estocástico $H(p,m)$ é estacionário e ergótico, podemos ap
 \end{equation*}
 A intuição é que uma sequência de palavras suficientemente longa conterá outras sequências menores, e que cada uma dessas irá ocorrer recorrentemente na sequência mais longa de acordo com suas respectivas probabilidades.
 
-É interessante observar que a entropia cruzada $H(p,m)$ é o limite superior da entropia $H(p)$. Devido a isso, para um modelo $m$
+É interessante observar que a entropia cruzada $H(p,m)$ é o limite superior da entropia $H(p)$. Devido a isso, temos que
 \begin{equation*}
     H(p) \leq H(p,m).
 \end{equation*}
-Isso indica que pode-se utilizar um modelo simplificado $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois modelos, $m_1$ e $m_2$, o melhor modelo será aquele com a menor entropia cruzada.
+Isso indica que pode-se utilizar $m$ para estimar a verdadeira entropia de uma sequência de \textit{tokens} gerados por $p$. Quanto maior for a acurácia de $m$, mais próximo $H(p,m)$ será de $H(p)$. Dessa forma, ao comparar dois estimadores, $m_1$ e $m_2$, o melhor será aquele com a menor entropia cruzada.
 
 \textbf{Perplexidade} é uma medida oriunda da teoria da informação, comumente utilizada para a avaliação intrínseca de um modelo de linguagem, definida como
 \begin{align*}
     \Perp (W) := e^{H(\bs{W})} = p(\bs{w})^{-\frac{1}{n}}.
 \end{align*}
-Medidas menores de perplexidade são indicativas de uma predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (\textit{corpus}) \citep{manning1999, kamath2019, jurafsky2021}.
+Medidas menores de perplexidade são indicativas de uma predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (\textit{corpus}). Maiores informações são encontradas em \citet{manning1999}, \citet{kamath2019} e \citet{jurafsky2021}.
 
 
 
         % Word Embedding
 \subsection{Word Embedding}
-Em PLN, as palavras (ou tokens) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
+Em PLN, as palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
 \begin{itemize}
     \item \textit{one-hot encoding}: é criado uma variável indicadora (\textit{dummy}) para cada categoria.
     \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida em um vetor $d$-dimensional.
 \end{itemize}
 O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
 
-No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}) na camada de entrada e uma camada embutida (\textit{embedding layer}) para obter o vetor denso que representará as categorias. Matematicamente, cada categoria $f_i$ é mapeada a um vetor denso $d-$dimensional $\bs v(f_i)$. Seja um vocabulário de $|V|$ palavras, a coleção de vetores pode ser representada pela matriz $\bs{E}_{|V| \times d}$, em que cada linha corresponde a uma categoria. Considerando $\bs{f_i}$ a representação \textit{one-hot} da categoria $f_i$, i.e., um vetor $|V|$ dimensional em que todas os valores são zeros exceto por um índice de valor 1, correspondente à $i$-ésima categoria. Dessa forma, o produto $\bs{f_i E}$ irá ``selecionar'' a respectiva linha de $\bs{E}$. Posto isso, podemos definir $\bs v(f_i)$ como
+No contexto de RNA, podemos utilizar vetores esparsos (\textit{one-hot encoding}) na camada de entrada e uma camada embutida (\textit{embedding layer}) para obter o vetor denso que representará as categorias. Matematicamente, cada categoria $f_i$ é mapeada a um vetor denso $d-$dimensional $\bs v(f_i)$. Seja um vocabulário de $|V|$ palavras, a coleção de vetores pode ser representada pela matriz $\bs{E}_{|V| \times d}$, em que cada linha corresponde a uma categoria. Considere $\bs{f_i}$ a representação \textit{one-hot} da categoria $f_i$, i.e., um vetor $|V|$ dimensional em que todas os valores são zeros exceto por um índice de valor 1, correspondente à $i$-ésima categoria. Dessa forma, o produto $\bs{f_i E}$ irá ``selecionar'' a respectiva linha de $\bs{E}$. Posto isso, podemos definir $\bs v(f_i)$ como
 \begin{equation*}
     \bs v(f_i) = \bs{f_i E}.
 \end{equation*}
-em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso.
-\citep{goldberg2017}
+em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de elegante e bem definido matematicamente, uma implementação computacional eficiente não utiliza essa representação, mas sim uma estrutura de dados estilo tabela \textit{hash}, mapeando cada categoria a seu respectivo vetor denso \citep{goldberg2017}.
 
 
 
@@ -475,10 +428,11 @@ Notação ABC é um sistema popular de notação musical baseada em texto para t
 
 A notação ABC é composta por duas partes: o cabeçalho, que fornece os metadados da música como o título e características da música, e o corpo, que detalha as notas musicais. Existem \textit{tags} no cabeçalho como ``T'' (título) e ``X'' (número da música) que não afetam a síntese musical de nenhuma forma. Vale notar que a notação ABC define um mapeamento entre seus caracteres e símbolos específicos de uma partitura musical, o que permite a conversão de um formato para outro \citep{agarwala2017}. 
 
+\nico{
 \begin{itemize}
     \item imagem de notação ABC e partitura
 \end{itemize}
-
+}
 
 
         % Web Scraping
@@ -494,13 +448,13 @@ Dentre as linguagens comumente utilizadas para o desenvolvimento do \textit{craw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Modelagem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{\nico{Estudo de Modelagem}}
-\nico{O estudo de modelagem visa a explorar o impacto de diferentes configurações de uma rede neural utilizada para composição musical. Ao modificar os parâmetros e hiperparâmetros, serão observados os impactos no ajuste da rede, bem como na métrica selecionada. Por fim, os diferentes modelos gerarão novas peças musicais, que serão avaliadas de forma subjetiva dado o desafio de mensurar uma música.}
+\chapter{Estudo de Modelagem}
+O estudo de modelagem visa a explorar o impacto de diferentes configurações de uma rede neural utilizada para composição musical. Ao modificar os parâmetros e hiperparâmetros, serão observados os impactos no ajuste da rede, bem como na métrica selecionada. Por fim, os diferentes modelos gerarão novas peças musicais, que serão avaliadas de forma subjetiva dado o desafio de mensurar uma música.
 
 
 
         % Implementação Computacional
-\section{\nico{Implementação Computacional}}
+\section{Implementação Computacional}
 \label{computacional}
 
 O processo de obtenção de dados, bem como os modelos utilizados nesse trabalho foram desenvolvidos na linguagem de programação \href{https://python.org/}{Python} e na IDE (\textit{Integrated Development Environment}) \href{https://code.visualstudio.com}{VS Code}. As bibliotecas utilizados neste trabalho foram as seguintes:
@@ -527,12 +481,12 @@ Por fim, todos os códigos desenvolvidos nesse trabalho estão disponíveis em u
 
         % Bases de Dados
 \section{Bases de Dados}
-O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC Notation}. Abaixo, seguem algumas explicações sobre cada uma:
+O trabalho foi realizado utilizando duas bases de dados: Irish e ABC Notation. Abaixo, seguem algumas explicações sobre cada uma:
 \begin{itemize}
     \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada pelo Instituto de Tecnologia de Massachusetts (MIT) em seu \href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{GitHub}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto \href{https://www.norbeck.nu/abc/links.asp}{nesta página}.
-    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem Python, um crawler e um scrapper para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
+    \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem Python, um \textit{crawler} e um \textit{scrapper} para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
 \end{itemize}
-\nico{Depois}, ambas as bases de dados utilizadas passaram por três procedimentos: tratamento, união e tokenização. Abaixo, alguns detalhes sobre cada uma:
+Depois, ambas as bases de dados utilizadas passaram por três procedimentos: tratamento, união e tokenização. Abaixo, alguns detalhes sobre cada uma:
 \begin{itemize}
     \item \textbf{tratamento}: um arquivo no formato \textit{.abc} contém diversas \textit{tags} com informações como título, subtítulo, autor, entre outras. Além disso, no arquivo também estão contidos caracteres representando letra de música, bem como caracteres de comentário. Como nenhuma desses itens afetam diretamente a música, considerando que as notas musicais serão as mesmas, o autor resolveu, por meio de expressões regulares, remover esses caracteres, com o intuito de diminuir o ruído nos arquivos. Após os tratamentos, o arquivo final contém dados como índice (representando o início da música), tonalidade, andamento, vozes da música (no caso de músicas com múltiplos instrumentos) e as notas musicais (mantendo a estrutura da peça musical).
     \item \textbf{união}: todas as músicas foram ``coladas'', como se fizessem parte de um único texto. Esse processo possibilita que uma música inicie após o término da outra, pois temos, de certa forma, uma ordem de músicas (no caso, foi a ordem presente na base, sem aleatorização).
@@ -544,22 +498,19 @@ O trabalho foi realizado utilizando duas bases de dados: \textit{Irish} e {ABC N
 
     % Modelo
 \section{Modelo}
-\nico{Utilizou-se} um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. \nico{Esse modelo não é original do autor, pois foi desenvolvido no \href{https://goodboychan.github.io/python/tensorflow/mit/2021/02/14/music-generation.html\#The-Recurrent-Neural-Network-(RNN)-model}{laboratório de geração musical} ministrado pelo MIT}. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
+Utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. Esse modelo não é original do autor, pois foi desenvolvido no \href{https://goodboychan.github.io/python/tensorflow/mit/2021/02/14/music-generation.html\#The-Recurrent-Neural-Network-(RNN)-model}{laboratório de geração musical} ministrado pelo MIT. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
 
 
 
         % Arquitetura
-\subsection{\nico{Arquitetura}}
-\nico{Como elucidado na seção \ref{arquitetura rna}, uma rede neural é constituída de camadas de neurônios e de nós de fonte. O modelo utilizado contém} quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
-
-%\nico{ % não sei oq mudar aqui...
-%A rede neural é constituída de quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}.} A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os tokens. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
+\subsection{Arquitetura}
+Como elucidado na seção \ref{arquitetura rna}, uma rede neural é constituída de camadas de neurônios e de nós de fonte. O modelo utilizado contém quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense}. A primeira contém o vocabulário (conjunto de \textit{tokens}), sendo único para cada base. A segunda é responsável pelo \textit{dense encoding}, identificando as possíveis relações entre os \textit{tokens}. A terceira contém os neurônios LSTM, responsáveis pelo mapeamento temporal da sequência de elementos. Por fim, na última camada encontram-se as saídas da rede, sendo os resultados preditos.
 
 
 
         % Parâmetros e Ajuste da Rede
-\subsection{\nico{Parâmetros e Ajuste da Rede}}
-O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, tendo a entropia cruzada como função perda e a perplexidade como métrica de avaliação. Ademais, houve uma segmentação em duas etapas. Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando-se os demais \nico{parâmetros e hiperparâmetros}: 
+\subsection{Parâmetros e Ajuste da Rede}
+O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, tendo a entropia cruzada como função perda e a perplexidade como métrica de avaliação. Ademais, houve uma segmentação em duas etapas. Na primeira etapa, foi fixada a função de ativação \textit{tanh} na camada LSTM, alterando-se os demais parâmetros e hiperparâmetros: 
 \begin{itemize}
     \item o tamanho do vocabulário: \textit{vocab\_size}, sendo $64$ para \textit{Irish} e $125$ para \textit{ABC Notation};
     \item número de células LSTM: \textit{lstm\_units} $\in \{256,1024\}$;
@@ -568,84 +519,67 @@ O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, t
     \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$;
     \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$.
 \end{itemize}
-Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. \nico{A segunda etapa do experimento consistiu em trocar a função de ativação para a \textit{logit}, e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao volume de modelos, alterou-se apenas os dois piores e os dois melhores em termos da perplexidade.}
+Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. A segunda etapa do experimento consistiu em trocar a função de ativação para a \textit{logit}, e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao volume de modelos, alterou-se apenas os dois piores e os dois melhores em termos da perplexidade.
 
 
 
 
         % Processo Gerador de Músicas
-\subsection{\nico{Processo Gerador de Músicas}}
+\subsection{Processo Gerador de Músicas}
 Tendo os modelos devidamente ajustados, foi possível realizar a composição algorítmica de novas peças musicais. O processo gerador consiste de cinco passos:
 \begin{enumerate}
-    \item \nico{construir um modelo com os devidos parâmetros (\textit{vocab\_size}, \textit{lstm\_units}, \textit{embedding\_dim} e \textit{batch\_size}), mas fixar $batch\_size=1$ para que haja apenas um vetor de entrada e um de saída}; 
-    \item \nico{fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente, sendo a única diferença entre eles o parâmetro \textit{batch\_size}};
-    \item \nico{o processo gerador envolve} fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música \nico{presente no arquivo} \textit{.abc} inicia;
-    \item \nico{de forma iterativa}, o modelo estima um novo \nico{elemento} para compor a sequência até \nico{atingir} um \nico{comprimento} definido (no caso, utilizou-se 1000);
-    \item via expressões regulares, são extraídas da sequência \nico{blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em} músicas.
+    \item construir um modelo com os devidos parâmetros (\textit{vocab\_size}, \textit{lstm\_units}, \textit{embedding\_dim} e \textit{batch\_size}), mas fixar $batch\_size=1$ para que haja apenas um vetor de entrada e um de saída; 
+    \item fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente, sendo a única diferença entre eles o parâmetro \textit{batch\_size};
+    \item o processo gerador envolve fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música presente no arquivo \textit{.abc} inicia;
+    \item de forma iterativa, o modelo estima um novo elemento para compor a sequência até atingir um comprimento definido (no caso, utilizou-se 1000);
+    \item via expressões regulares, são extraídos da sequência blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em músicas.
 \end{enumerate}
 
 
 
-%\nico{
-%\begin{enumerate}
-%    \item criar um novo modelo com os devidos parâmetros, mas fixar o valor 1 em \textit{batch\_size}; 
-%    \item carregar os pesos de um modelo já ajustado para esse novo modelo;
-%    \item fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'', pois é como qualquer música no formato \textit{.abc} inicia;
-%    \item o modelo estima um novo candidato para compor a sequência, e o processo é repetido até que o tamanho da sequência atinja um limite definido (no caso, utilizou-se 1000);
-%    \item por fim, via expressões regulares, são extraídas da sequência as músicas geradas.
-%\end{enumerate}
-%}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Resultados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{\nico{Resultados}}
-
-
-%\nico{
-%\begin{itemize}
-%    \item tabelas | gráficos (segmentar por base de dados)
-%    \item comentários sobre parâmetros vs métricas (perda e avaliação)
-%    \item comparativo entre tanh e logit (mudou algo?)
-%    \item músicas geradas + percepção subjetiva do autor (extra)
-%    \item est.: 10-15 páginas 
-%\end{itemize}
-%}
-% tabelas geradas via kable do R + ajustes manuais
-% matriz de correlação utilizou-se spearman em vez de pearson
-
-
-%\nico{
-%Comentários sobre o capítulo:
-%\begin{itemize}
-%    \item independente da base de dados, foram observados os mesmos padrões de comportamento. Como falar disso para evitar um copiar e colar da seção trocando poucos itens (paralelamente, similarmente...) ?
-%    \begin{itemize}
-%        \item ERRATA: apenas foi copiada a seção de Irish em ABC Notation, no entanto há diferenças claras no comportamento de alguns resultados (como o impacto de \textit{batch\_size})
-%    \end{itemize}
-%    \item falta comentar melhor nos captions das tabelas e figuras
-%    \item o que inserir na parte das músicas geradas? (2 parágrafos?)
-%    \item como concluir a seção de resultados? (1 parágrafo?)
-%    \item dicas para segmentar em seções?
-%\end{itemize}
-%}
-
-\nico{
+\chapter{Resultados}
 Cada base de dados será avaliada individualmente, considerando as diferentes configurações de parâmetros definidas e os impactos em ambas função perda (entropia cruzada) e métrica de avaliação (perplexidade). Como comentado na seção \ref{entropia e perplexidade}, dois modelos de linguagem são comparáveis apenas se compartilharem o mesmo vocabulário (único por base). Após, será explanado sobre as (potenciais) músicas geradas, bem como as percepções subjetivas do autor. 
-}
 
 
 
     % Irish
-\section{\nico{Irish}}
-%\pumi{vocabsize é fixo em 64 para todas as entradas desta tabela. logo não precisa estar numa coluna. Pode constar na caption. Sugiro ainda usar 3 casas depois da vírgula e diminuir o nome das colunas para diminuir o espaçamento entre colunas que está enorme. Use $10^{-3}$ e não 1e-03.  A organização das linhas está em termos de lstmunits. Sugiro que esta então seja a primeira coluna após idx, depois embeding que é a segunda coluna 'organizadora' e assim por diante. Aliás, idx é realmente uma coluna necessária?}
-
-
-
+\section{Irish}
 Inicialmente, avaliou-se a primeira etapa do estudo. A tabela \ref{table:irish_tanh_full} contém os resultados dos 32 modelos ajustados (identificados pela coluna \textit{idx}) para a base de dados Irish, bem como os respectivos parâmetros e função de ativação \textit{tanh}. Além disso, a figura \ref{fig:irish_tanh_loss} inclui a função perda calculada para cada época do ajuste. 
 
+De maneira geral, observou-se certos padrões no comportamento da função perda de acordo com a configuração da rede:
+\begin{itemize}
+    \item No geral, o aumento do \textit{batch\_size} resultou na redução dos valores da função perda, bem como em uma menor variabilidade a cada época. Tal comportamento é coerente, dado que há mais dados utilizados no treino.
+    \item \textit{seq\_length} tem comportamento e justificativa similares ao \textit{batch\_size}.
+    \item O impacto do \textit{learning\_rate} na função perda é evidente, acusando um aumento na perda quando a taxa de aprendizagem é menor. Isso ocorre, pois, ao ser calculado o gradiente, o passo foi demasiado pequeno para o processo de otimização. 
+    \item O parâmetro \textit{embedding\_dim} não parece, em geral, afetar significativamente nos valores da função perda nos experimentos conduzidos.
+    \item Aumentar os valores de \textit{lstm\_units}, geralmente, ocasionou em uma redução na função perda. 
+\end{itemize}
+
+A figura \ref{fig:irish_tanh_corr} apresenta a matriz de correlação entre os parâmetros e as métricas, sendo o $\rho$ de Spearman a medida de correlação. É notável que a matriz corrobora os padrões identificados. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate} tanto com a perda quanto com a perplexidade. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo. 
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_loss.pdf}
+    \caption{Perda dos modelos ajustados com Irish: curva verde representa $learning\_rate = 10^{-3}$ e roxo $learning\_rate = 10^{-5}$.}
+    \label{fig:irish_tanh_loss}
+\end{figure}
+
+Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{5,7,11,25\}$. Pela tabela \ref{tab:irish_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{irish_tanh_corr.pdf}
+    \caption{Correlação entre parâmetros e métricas para Irish}
+    \label{fig:irish_tanh_corr}
+\end{figure}
+
 \rowcolors{2}{gray!25}{white}
-\begin{table}
-    \caption{Resultados dos experimentos referentes à base de dados Irish, com $vocab\_size=64$, utilizando a função \textit{tanh} como função de ativação.} 
+\begin{table}[H]
+    \caption{Resultados dos experimentos referentes à base de dados Irish, com $vocab\_size=64$, utilizando a função \textit{tanh} como função de ativação. Em azul (vermelho), constam os dois melhores (piores) modelos em relação à perplexidade.} 
     \label{table:irish_tanh_full}
     \centering
     \resizebox{\linewidth}{!}{
@@ -697,36 +631,11 @@ Inicialmente, avaliou-se a primeira etapa do estudo. A tabela \ref{table:irish_t
         \end{tabular}
     }
 \end{table}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{irish_tanh_loss.pdf}
-    \caption{Perda dos modelos ajustados com Irish: curva verde representa $learning\_rate = 10^{-3}$ e roxo $learning\_rate = 10^{-5}$.}
-    \label{fig:irish_tanh_loss}
-\end{figure}
-\FloatBarrier
-%\nico{
-De maneira geral, observou-se certos padrões no comportamento da função perda de acordo com a configuração da rede:
-\begin{itemize}
-    \item No geral, o aumento do \textit{batch\_size} resultou na redução dos valores da função perda, bem como em uma menor variabilidade a cada época. Tal comportamento é coerente, dado que há mais dados utilizados no treino.
-    \item \textit{seq\_length} tem comportamento e justificativa similares ao \textit{batch\_size}.
-    \item \nico{O impacto do \textit{learning\_rate} na função perda é evidente, acusando um aumento na perda quando a taxa de aprendizagem é menor. Isso ocorre, pois, ao ser calculado o gradiente, o passo foi demasiado pequeno para o processo de otimização.} 
-    \item O parâmetro \textit{embedding\_dim} não parece, em geral, afetar significativamente nos valores da função perda nos experimentos conduzidos.
-    \item Aumentar os valores de \textit{lstm\_units}, geralmente, ocasionou em uma redução na função perda. 
-\end{itemize}
-\nico{A figura \ref{fig:irish_tanh_corr} apresenta a matriz de correlação entre os parâmetros e as métricas, sendo o $\rho$ de Spearman a medida de correlação. É notável que a matriz corrobora os padrões identificados}. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate} \nico{tanto com a perda quanto com a perplexidade}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo. 
-%
-%Por meio da matriz de correlação da figura \ref{fig:irish_tanh_corr}, pode-se corroborar os padrões identificados anteriormente. Destaque para a forte correlação negativa de $-0.87$ de \textit{learning\_rate}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação positiva com a perplexidade, sendo um indicativo de tendência a sobreajuste do modelo.  
-%}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{irish_tanh_corr.pdf}
-    \caption{Correlação entre parâmetros e métricas para Irish}
-    \label{fig:irish_tanh_corr}
-\end{figure}
 
-Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{5,7,11,25\}$. Pela tabela \ref{tab:irish_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}. 
+Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{5,7\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base Irish.  
+
 \rowcolors{3}{white}{gray!25}
-\begin{table}[h!]
+\begin{table}[H]
     \caption{Irish: \textit{tanh} vs \textit{logit}} \label{tab:irish_tanh_vs_logit}
     \centering
     \begin{tabular}{c|cc|cc}
@@ -743,11 +652,10 @@ Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidad
     \bottomrule
   \end{tabular}
 \end{table}
-%
-Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{5,7\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base Irish.  
-\begin{figure}
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{irish_tanh_vs_logit.pdf}
+    \includegraphics[width=\textwidth]{irish_tanh_vs_logit.pdf}
     \caption{Irish: \textit{tanh} (verde) vs \textit{logit} (roxo)}
     \label{fig:irish_tanh_vs_logit}
 \end{figure}
@@ -755,14 +663,42 @@ Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de pe
 
 
     % ABC Notation
-\section{\nico{ABC Notation}}
-\nico{Por meio de uma abordagem similar a Irish, avaliou-se a primeira etapa para os casos de ABC Notation. A tabela \ref{table:abcnotation_tanh_full} contém os resultados dos 32 modelos ajustados e na figura \ref{fig:abcnotation_tanh_loss} constam as perdas calculadas ao longo das épocas dos respectivos ajustes}.
+\section{ABC Notation}
+Por meio de uma abordagem similar a Irish, avaliou-se a primeira etapa para os casos de ABC Notation. A tabela \ref{table:abcnotation_tanh_full} contém os resultados dos 32 modelos ajustados e na figura \ref{fig:abcnotation_tanh_loss} constam as perdas calculadas ao longo das épocas dos respectivos ajustes.
 
-%Assim como para a base de dados Irish, avaliou-se, inicialmente, a primeira etapa do estudo. A tabela \ref{table:abcnotation_tanh_full} contém os resultados dos 32 modelos ajustados (identificados pela coluna \textit{idx}) para a base de dados ABC Notation, bem como os respectivos parâmetros e função de ativação \textit{tanh}. Além disso, as figuras \ref{fig:abcnotation_tanh_loss} inclui a entropia cruzada calculada para cada época do ajuste. 
+
+
+
+De maneira geral, observou-se certos padrões no comportamento da função perda com a modificação de acordo com a configuração da rede:
+\begin{itemize}
+    \item No geral, não é claro o impacto de \textit{batch\_size} na perda, mas permanece a redução de variabilidade a cada época.
+    \item Diferentemente do observado em Irish, o aumento de \textit{seq\_length} apresentou, comumente, uma redução na função perda. Novamente, permanece a redução de variabilidade.
+    \item Assim como notado em Irish, \textit{learning\_rate} tem um impacto expressivo na função perda, manifestando um aumento na perda quando a taxa de aprendizagem é menor. 
+    \item O parâmetro \textit{embedding\_dim} continuou sem expor modificações significativas na função perda.
+    \item Permanece o comportamento demonstrado em Irish para \textit{lstm\_units}. 
+\end{itemize}
+A figura \ref{fig:abcnotation_tanh_corr} apresenta a matriz de correlação entre os parâmetros e as métricas, sendo o $\rho$ de Spearman a medida de correlação. Uma vez mais, a matriz corrobora os padrões identificados, assim como a forte correlação negativa de $-0.87$ de \textit{learning\_rate} com a perda e com a perplexidade. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação negativa com a perplexidade, sendo o oposto observado na base Irish.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{abcnotation_tanh_loss.pdf}
+    \caption{Perda dos modelos ajustados com ABC Notation: curva verde representa $learning\_rate = 10^{-3}$ e roxo $learning\_rate = 10^{-5}$.}
+    \label{fig:abcnotation_tanh_loss}
+\end{figure}
+
+Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{8,6,20,28\}$. Pela tabela \ref{tab:abcnotation_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{abcnotation_tanh_corr.pdf}
+    \caption{Correlação entre parâmetros e métricas para ABC Notation}
+    \label{fig:abcnotation_tanh_corr}
+\end{figure}
 
 \rowcolors{2}{gray!25}{white}
-\begin{table}
-    \caption{Resultados dos experimentos referentes à base de dados ABC Notation, com $vocab\_size = 125$, utilizando a função \textit{tanh} como função de ativação.} \label{table:abcnotation_tanh_full}
+\begin{table}[H]
+    \caption{Resultados dos experimentos referentes à base de dados ABC Notation, com $vocab\_size = 125$, utilizando a função \textit{tanh} como função de ativação. Em azul
+(vermelho), constam os dois melhores (piores) modelos em relação à perplexidade.} \label{table:abcnotation_tanh_full}
     \centering
     \resizebox{\linewidth}{!}{
         \begin{tabular}[t]{ccccccccc}
@@ -813,40 +749,10 @@ Também, na figura \ref{fig:irish_tanh_vs_logit} são comparadas as curvas de pe
         \end{tabular}
     }
 \end{table}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{abcnotation_tanh_loss.pdf}
-    \caption{Perda dos modelos ajustados com ABC Notation: curva verde representa $learning\_rate = 10^{-3}$ e roxo $learning\_rate = 10^{-5}$.}
-    \label{fig:abcnotation_tanh_loss}
-\end{figure}
 
-%\nico{
-De maneira geral, observou-se certos padrões no comportamento da função perda com a modificação de acordo com a configuração da rede:
-\begin{itemize}
-    \item \nico{No geral, não é claro o impacto de \textit{batch\_size} na perda, mas permanece a redução de variabilidade a cada época}.
-    \item \nico{Diferentemente do observado em Irish, o aumento de \textit{seq\_length} apresentou, comumente, uma redução na função perda. Novamente, permanece a redução de variabilidade}.
-    \item \nico{Assim como notado em Irish, \textit{learning\_rate} tem um impacto expressivo na função perda, manifestando um aumento na perda quando a taxa de aprendizagem é menor}. 
-    \item \nico{O parâmetro \textit{embedding\_dim} continuou sem expor modificações significativas na função perda}.
-    \item Permanece o comportamento demonstrado em Irish para \textit{lstm\_units}. 
-\end{itemize}
-\nico{A figura \ref{fig:abcnotation_tanh_corr} apresenta a matriz de correlação entre os parâmetros e as métricas, sendo o $\rho$ de Spearman a medida de correlação. Uma vez mais, a matriz corrobora os padrões identificados, assim como a forte correlação negativa de $-0.87$ de \textit{learning\_rate} com a perda e com a perplexidade}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação negativa com a perplexidade, sendo o oposto observado na base Irish.
-
-%Por meio da matriz de correlação da figura \ref{fig:abcnotation_tanh_corr}, pode-se corroborar os padrões identificados anteriormente. Novamente, destaca-se a forte correlação negativa de $-0.87$ de \textit{learning\_rate}. Ademais, é interessante notar que \textit{batch\_size} apresentou uma (fraca) correlação negativa com a perplexidade, sendo o oposto observado na base Irish.  
-%}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{abcnotation_tanh_corr.pdf}
-    \caption{Correlação entre parâmetros e métricas para ABC Notation}
-    \label{fig:abcnotation_tanh_corr}
-\end{figure}
-
-
-\nico{
-Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidade, foram $idx \in \{8,6,20,28\}$. Pela tabela \ref{fig:abcnotation_tanh_vs_logit}, nota-se que as redes com função de ativação \textit{logit} tiveram um desempenho pior quando comparadas à \textit{tanh}.
-}
 \rowcolors{3}{white}{gray!25}
-\begin{table}
-    \label{fig:abcnotation_tanh_vs_logit}
+\begin{table}[H]
+    \label{tab:abcnotation_tanh_vs_logit}
     \caption{ABC Notation: \textit{tanh} vs \textit{logit}}
     \centering
     \begin{tabular}{c|cc|cc}
@@ -863,10 +769,9 @@ Na segunda etapa, os modelos selecionados, em ordem decrescente para perplexidad
     \bottomrule
   \end{tabular}
 \end{table}
-%
-\nico{
+
 Também, na figura \ref{fig:abcnotation_tanh_vs_logit} são comparadas as curvas de perda dos modelos com cada função de ativação. Observou-se que o ajuste dos modelos com \textit{logit} apresentou um comportamento mais suave nos modelos $idx \in \{8,6\}$, não ocorrendo a mesma queda abrupta próxima da época 250 observada na \textit{tanh}. Por fim, pode-se concluir que a função \textit{tanh} apresentou melhores resultados para a base ABC Notation. Nessa etapa, os resultados são similares aos vistos na base de dados Irish. 
-}
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{abcnotation_tanh_vs_logit.pdf}
@@ -877,79 +782,37 @@ Também, na figura \ref{fig:abcnotation_tanh_vs_logit} são comparadas as curvas
 
 
     % Músicas Geradas
-\section{\nico{Músicas Geradas}}
-
-%\obs{comparar músicas entre mesmos modelos com diferente função de ativação}
-
-%\obs{comparar melhor vs pior modelo (mesma função de ativação) em termos de perplexidade}
-
-%\obs{comentar sobre percepções das músicas geradas (bem heurístico, como se resultado parece música ou é mais ruído)} \pumi{e se as diferentes musicas são similares em algum sentido perceptivo}
-
-%\obs{disponibilizar músicas no GitHub, mas subir para o Youtube para facilitar a escuta na apresentação}
-
-
-%\nico{
-%\begin{itemize}
-%    \item conversão de músicas (texto --> midi) + modelos
-%    \item comentários sobre músicas geradas (geral e comparação entre modelos)
-%    \item músicas estão disponibilizadas em bla bla
-%\end{itemize}
-%}
-
-
-Para cada modelo selecionado na segunda etapa, considerando ambas as bases e ambas as funções de ativação, foram geradas sequências de texto até compor dez blocos candidatos a músicas. Após isso, utilizou-se Python para a conversão dos arquivos \textit{.abc} em música. Se a conversão é bem sucedida, uma nova peça musical é gerada; caso contrário, \pumi{o arquivo é invalidado. Isto ocorre pois como não foi artificialmente imposta uma estrutura que garanta que toda peça gerada é compatível com uma música, isto significa que o arquivo .abc composto não gera uma música.} Os resultados observados seguem:
+\section{Músicas Geradas}
+Para cada modelo selecionado na segunda etapa, considerando ambas as bases e ambas as funções de ativação, foram geradas sequências de texto até compor dez blocos candidatos a músicas. Após isso, realizou-se a conversão dos arquivos \textit{.abc} em música. Se a conversão é bem sucedida, uma nova peça musical é gerada; caso contrário, o arquivo é invalidado. Por não ter sido imposta uma estrutura que garanta a conversão, nem todo \textit{.abc} resultante gera uma música. Os resultados observados seguem:
 \begin{itemize}
     \item Apenas candidatos dos melhores modelos foram convertidos com sucesso (porém não todos). Isso indica que uma menor perplexidade contribui para que o texto produzido seja mais coerente para a conversão em música.
     \item Há uma maior taxa de conversão nos modelos utilizando \textit{tanh} do que \textit{logit}, sendo mais um indicativo de que a primeira apresenta desempenho superior à segunda.
 \end{itemize}
 Em síntese, foram geradas 24 músicas com Irish ($10$ para $idx=11$ - com $6$ para \textit{tanh} e $4$ para \textit{logit} - e $14$ para $idx=25$ - com $8$ para \textit{tanh} e $6$ para \textit{logit}) e 14 com ABC Notation ($8$ para $idx=20$ - $4$ para cada função de ativação - e $6$ para $idx=28$ - com $5$ para \textit{tanh} e $1$ para \textit{logit}).
 
+Ao escutarmos as músicas geradas para Irish, observa-se um certo padrão: diversos trechos são, via de regra, similares. É possível que o fator que justifique esteja relacionado com uma característica das músicas utilizadas no ajuste da rede neural. Além disso, é curioso observar que um dos arquivos \textit{.abc} convertidos não tem, na realidade, nenhuma nota musical. Ou seja, foi criada a estrutura do arquivo sem nenhum preenchimento referente a música. Por fim, pode-se concluir que as peças musicais resultantes são musicalmente plausíveis.
 
-\nico{
-Ao escutarmos as músicas geradas para Irish, observa-se um certo padrão: diversos trechos são, via de regra, similares. É possível que o fator que justifique esteja relacionado com uma característica das músicas utilizadas no ajuste da rede neural. Além disso, é curioso observar que um dos arquivos \textit{.abc} convertidos não têm, na realidade, nenhuma nota musical. Ou seja, foi criada a estrutura do arquivo sem nenhum preenchimento referente a música. Por fim, pode-se concluir que as peças musicais resultantes são musicalmente plausíveis, \pumi{embora, talvez, não muito agradáveis para alguns?}.
-}
-
-\nico{
 No caso das músicas geradas com ABC Notation, o comportamento é mais interessante. Inicialmente, é clara a maior variabilidade utilizando essa base, sendo identificado estilos e até mesmos duas vozes sendo executadas simultaneamente (como mão direita e mão esquerda do piano). Ademais, uma das peças musicais geradas destoou das demais, apresentando combinações de notas aparentemente mais ruidosas. Novamente, surgiram arquivos convertidos sem música. Por conseguinte, temos, mais uma vez, resultados musicalmente plausíveis.
-}
 
-\nico{
 Os comentários feitos referente às composições geradas são as percepções do autor com seu limitado conhecimento musical. Para o leitor interessado, todo o material produzido para este trabalho está disponível conforme informado na seção \ref{computacional}, incluindo as músicas.
-}
+
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Conclusão e Trabalhos Futuros
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{\nico{Considerações Finais}}
+\chapter{Considerações Finais}
 
-%\nico{
-%\begin{itemize}
-%    \item comentários iniciais de fechamento
-%    \item músicas geradas
-%    \item próximos passos (extensões):
-%    \begin{itemize}
-%        \item outras arquiteturas da RNN-LSTM
-%        \item utilizar outros modelos além da RNN-LSTM (transformer, por exemplo)
-%    \end{itemize}
-%\end{itemize}
-%}
-\pumi{Sugiro recapitular o que foi feito no trabalho em um pequeno parágrafo. }
-\nico{
+%\pumi{Sugiro recapitular o que foi feito no trabalho em um pequeno parágrafo. }
+%\nico{Interpreto o primeiro parágrafo como um certo ``resumo''}
+
 Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
-%
-%
-%Porém, diferentemente do foco da composição musical em si (como em \citet{agarwala2017}) ou a composição era um complemento do objetivo principal (caso de \citet{souza2018}, em que é construído um aplicativo), realizou-se uma abordagem de modelagem. Apesar de ser utilizado apenas um modelo RNN-LSTM com uma única arquitetura, a modificação dos parâmetros e os testes com mais de uma base de dados permitiram identificar certos padrões comportamentais, com características similares (ou não) dependendo da base utilizada. Os resultados referentes a piora do desempenho das redes ao trocar a função de ativação \textit{tanh} para \textit{logit} podem ser exemplos do que foi comentado por \citet{goodfellow2016}, em que a primeira performa melhor do que a segunda no contexto de RNNs \sout{(no caso, utilizou-se uma LSTM)}. 
-}
 
-\nico{
 Considerando a natureza subjetiva da música, o autor comentou sobre suas próprias percepções referente às composições. Devido a isso, os pontos elencados podem conflitar com outros pontos de vista. Isso posto, observou-se um padrão nas peças musicais produzidas pela rede ajustada com Irish, sendo bastante similares em perfil de ritmo e sequência de notas musicais. No caso de ABC Notation, houve uma maior variabilidade de estilos em comparação, além do fato de ter surgido uma peça aparentemente mais ruidosa. De maneira sucinta, conclui-se que os resultados são musicalmente plausíveis.
-}
 
-\nico{
 É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artificial. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. No contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
-}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
