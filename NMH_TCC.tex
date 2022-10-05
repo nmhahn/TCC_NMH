@@ -18,17 +18,19 @@
 
 %\makeindex  Opcional (Índice Remissivo)
 
-\newcommand{\obs}[1]{\textcolor{purple}{#1}}
-\newcommand{\nico}[1]{\textcolor{teal}{#1}}
+%\newcommand{\obs}[1]{\textcolor{purple}{#1}}
+%\newcommand{\nico}[1]{\textcolor{teal}{#1}}
 \newcommand{\pumi}[1]{\textcolor{red}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
 \newcommand{\B}{\mathds{B}}
 \newcommand{\Perp}{\mathcal{P}}
 \newcommand{\bs}[1]{\boldsymbol{#1}}
 
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
 
 \begin{document}
 
@@ -92,12 +94,12 @@
 % resumo 
     % português
 \begin{abstract}
-O problema de composição musical automática é extensivamente  explorado na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são ajustados para que a música gerada seja adequada em algum sentido. Porém, não são explorados os impactos das modificações dos parâmetros na composição final. Neste trabalho, temos por objetivo estudar a sensibilidade de um modelo construído via processamento de linguagem natural e redes neurais. Para tal, a mensuração será feita com a perplexidade, uma medida oriunda da teoria da informação. Por fim, as músicas são avaliadas, de forma subjetiva, em relação à musicalidade e qualidade das peças musicais obtidas.
+O problema de composição musical automática é extensivamente  explorado na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são ajustados para que a música gerada seja adequada em algum sentido. Detalhes técnicos como os impactos que as modificações nos parâmetros tem na composição final, ainda, são amplamente desconhecidos. Neste trabalho, temos por objetivo estudar o quão sensível é um modelo de rede neural, baseado em processamento de linguagem natural, construído para composição musical. Para tal tarefa, a mensuração será feita com a perplexidade, uma medida oriunda da teoria da informação. Por fim, as músicas são avaliadas, de forma subjetiva, em relação à musicalidade e qualidade das peças musicais obtidas.
 \end{abstract}
 
     % inglês
 \begin{englishabstract}
-The issue of automatically composed music has received a lot of attention in the literature. In general, the focuses is on the composition itself, and models are tuned to produce useful results. Technical details like the effects that adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive is a NLP-based (Natural Language Processing) neural network model built for music composition. To accomplish this task, we apply a metric from information theory called perplexity. The composed works are then subjectively assessed for musicality and quality.
+The issue of automatically composed music has received a lot of attention in the literature. In general, the focus is on the composition itself, and models are tuned to produce useful results. Technical details such as the effects that adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive is a neural network model, based on natural language processing,  built for music composition. To accomplish this task, we apply a metric from information theory called perplexity. The composed works are then subjectively assessed for musicality and quality.
 \end{englishabstract}
 
 % sumário (Obrigatório)
@@ -295,7 +297,7 @@ em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figuras/lstm_cell.pdf}
-	\caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{goodfellow2016, kamath2019}.}
+	\caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{kamath2019}.}
 \end{figure}
 
 Entende-se, portanto, que o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e um sistema de portões controlando o fluxo de informação \citep{goodfellow2016}.
@@ -806,7 +808,9 @@ Os comentários feitos referente às composições geradas são as percepções 
 %\pumi{Sugiro recapitular o que foi feito no trabalho em um pequeno parágrafo. }
 %\nico{Interpreto o primeiro parágrafo como um certo ``resumo''}
 
-Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
+%Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
+
+Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros, investigou-se a sensibilidade do modelo utilizado para a geração de arquivos \textit{.abc} que, posteriormente, foram convertidos em novas peças musicais. Com o auxílio da medida perplexidade, foi possível mensurar se houveram (ou não) mudanças nos resultados de cada configuração da rede neural. Também, observou-se que a função de ativação \textit{tanh} teve desempenho superior na métrica para os cenários testados. Por fim, pode-se concluir que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça produzida pelas redes com resultados altos na métrica. 
 
 Considerando a natureza subjetiva da música, o autor comentou sobre suas próprias percepções referente às composições. Devido a isso, os pontos elencados podem conflitar com outros pontos de vista. Isso posto, observou-se um padrão nas peças musicais produzidas pela rede ajustada com Irish, sendo bastante similares em perfil de ritmo e sequência de notas musicais. No caso de ABC Notation, houve uma maior variabilidade de estilos em comparação, além do fato de ter surgido uma peça aparentemente mais ruidosa. De maneira sucinta, conclui-se que os resultados são musicalmente plausíveis.
 
