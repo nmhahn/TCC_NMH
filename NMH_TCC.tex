@@ -292,14 +292,13 @@ Denote por $\odot$ o produto de Haddamard, isto é, a multiplicação por elemen
 \end{align*}
 em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh}. Além disso, os elementos desses portões têm valores no intervalo $(0,1)$, sendo utilizada a função de ativação \textit{logit} para garantir isso. O estado de célula $\bs{c}_t$ tem uma adição em sua fórmula, o que auxilia o algoritmo de retropropagação e, portanto, captura-se longa dependência nos dados \citep{goodfellow2016, fan2021}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/lstm_cell.pdf}
+	\caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{goodfellow2016, kamath2019}.}
+\end{figure}
+
 Entende-se, portanto, que o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e um sistema de portões controlando o fluxo de informação \citep{goodfellow2016}.
-
-\nico{
-\begin{itemize}
-    \item imagem do modelo LSTM (adaptar, talvez, de \citet{goodfellow2016}; pg 409 figura 10.16)
-\end{itemize}
-}
-
 
 
         % Ajustando uma RNA
@@ -424,15 +423,15 @@ em que a entrada da rede é a coleção de vetores \textit{one-hot}. Apesar de e
 
         % Notação ABC
 \section{Notação ABC}
-Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas folclóricas, particularmente de forma \textit{online}. Criada e formalizada por \citet{walshaw1993}, o autor mantém um website, \url{abcnotation.com}, com recursos como tutoriais, programas e coleções de músicas no formato \citep{walshaw2014}.
+Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas folclóricas, particularmente de forma \textit{online}. Criada e formalizada por \citet{walshaw1993}, o autor mantém um website, \href{https://abcnotation.com}{\url{abcnotation.com}}, com recursos como tutoriais, programas e coleções de músicas no formato \citep{walshaw2014}.
 
 A notação ABC é composta por duas partes: o cabeçalho, que fornece os metadados da música como o título e características da música, e o corpo, que detalha as notas musicais. Existem \textit{tags} no cabeçalho como ``T'' (título) e ``X'' (número da música) que não afetam a síntese musical de nenhuma forma. Vale notar que a notação ABC define um mapeamento entre seus caracteres e símbolos específicos de uma partitura musical, o que permite a conversão de um formato para outro \citep{agarwala2017}. 
 
-\nico{
-\begin{itemize}
-    \item imagem de notação ABC e partitura
-\end{itemize}
-}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/abc_notation_example.pdf}
+	\caption{Exemplo de notação ABC convertendo em música (disponível em \href{https://abcnotation.com}{\url{abcnotation.com}}).}
+\end{figure}
 
 
         % Web Scraping
