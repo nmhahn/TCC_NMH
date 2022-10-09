@@ -12,12 +12,13 @@
 \usepackage{graphicx}
 \usepackage[authoryear]{natbib}
 \usepackage{hyperref} 
-\usepackage{subfig}
-\usepackage{amssymb,amsfonts,amsmath,amsthm,euscript}
+%\usepackage{subfig}
+%\usepackage{amssymb,amsfonts,amsmath,amsthm,euscript}
 \usepackage{indentfirst}
-\usepackage{ulem}
+%\usepackage{ulem}
 \usepackage{dsfont}
-\usepackage{placeins}
+%\usepackage{placeins}
+%\usepackage{enumitem}
 
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
@@ -197,7 +198,9 @@
 
     \begin{frame}{PLN - Processamento de Linguagem Natural}
         \begin{itemize}
-            \item introdução
+            \justifying
+            \item aplicação de métodos estatísticos e computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019};
+            \item é importante testar os algoritmos em mais de uma linguagem, especialmente em linguagens com diferentes propriedades \citep{jurafsky2021}.
         \end{itemize}
     \end{frame}
 
@@ -209,10 +212,39 @@
         \end{itemize}
     \end{frame}
 
+    \begin{frame}{PLN - múltiplos}
+        \begin{itemize}
+            \item word embedding
+            \item expressões regulares
+            \item corpus
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{PLN - \textit{Word Embedding}}
+        \begin{itemize}
+            \item palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico
+            \item duas possibilidades:
+            \begin{itemize}
+                \item \textit{one-hot encoding}:
+                \item \textit{dense encoding}:
+            \end{itemize}
+            \item O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras
+        \end{itemize}
+    \end{frame}
+
+%Em PLN, as palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
+%\begin{itemize}
+%    \item \textit{one-hot encoding}: é criado uma variável indicadora (\textit{dummy}) para cada categoria.
+%    \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida em um vetor $d$-dimensional.
+%\end{itemize}
+%O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
+
+
     \begin{frame}{Notação ABC}
+        \vspace{0.1cm}
         \begin{itemize}
             \justifying
-            \item Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas folclóricas, particularmente de forma \textit{online}. 
+            \item Notação ABC é um sistema popular de notação musical baseada em texto para transcrever, publicar e compartilhar músicas, particularmente de forma \textit{online}. 
         \end{itemize}
 
         \begin{figure}
@@ -223,13 +255,24 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}{PLN - múltiplos}
+    \begin{frame}{\textit{Web Scraping}}
         \begin{itemize}
-            \item word embedding
-            \item expressões regulares
-            \item corpus
-            \item web scraping
+            \justifying
+            \vspace{0.1cm}
+            \item De acordo com \citet{lawson2015,patil2016}, envolve dois programas:
+            \vspace{0.1cm}
+            \begin{itemize}
+                \item \textit{crawler}: sistematicamente coleta os dados da Internet;
+                \item \textit{scraper}: extrai a informação relevante e armazena em uma base de dados.
+            \end{itemize}
         \end{itemize}
+        
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.16]{figuras/spider_crawler.png}
+	        \caption{\textit{Crawler} coletando páginas \textit{web}.}
+        \end{figure}
+        % https://www.scraping-bot.io/how-to-build-a-web-crawler/
     \end{frame}
 
 
@@ -252,9 +295,14 @@
     \end{frame}
     
     \begin{frame}{Processo Gerador de Música}
-        \begin{itemize}
-            \item passo a passo
-        \end{itemize}
+        \begin{enumerate}
+            \justifying
+            \item construir um modelo com os devidos parâmetros; 
+            \item fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente;
+            \item fornecer uma sequência de caracteres inicial, no caso ``X:'';
+            \item de forma iterativa, o modelo estima um novo elemento para compor a sequência até atingir um comprimento definido;
+            \item extrair da sequência blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em músicas.
+        \end{enumerate}
     \end{frame}
 
 
@@ -269,31 +317,106 @@
     \end{frame}
     
     \begin{frame}{Geração de Músicas}
-        bla bla bla
+        \vspace{-1cm}
+        \begin{columns}[onlytextwidth,t]
+            \begin{column}{0.48\textwidth}
+                \centering
+                \textbf{Irish}: 24 músicas
+                \vspace{0.1cm}
+                \begin{itemize}
+                    \item $idx=11$: 10 músicas
+                    \begin{itemize}
+                        \item \textit{logit}: 4 músicas
+                        \item \textit{tanh}: 6 músicas
+                    \end{itemize}
+                    \vspace{0.25cm}
+                    \item $idx=25$: 14 músicas
+                    \begin{itemize}
+                        \item \textit{logit}: 6 músicas 
+                        \item \textit{tanh}: 8 músicas
+                    \end{itemize}
+                \end{itemize}
+            \end{column}
+
+            \begin{column}{0.48\textwidth}
+                \centering
+                \textbf{ABC Notation}: 14 músicas
+                \vspace{0.1cm}
+                \begin{itemize}
+                    \item $idx=20$: 8 músicas
+                    \begin{itemize}
+                        \item \textit{logit}: 4 músicas
+                        \item \textit{tanh}: 4 músicas
+                    \end{itemize}
+                    \vspace{0.25cm}
+                    \item $idx=28$: 6 músicas
+                    \begin{itemize}
+                        \item \textit{logit}: 1 músicas
+                        \item \textit{tanh}: 5 músicas
+                    \end{itemize}
+                \end{itemize}
+            \end{column}
+        \end{columns}
     \end{frame}
     
     \begin{frame}{Percepções sobre as Músicas}
-        bla bla bla    
+        \begin{columns}[onlytextwidth,t]
+            \begin{column}{0.48\textwidth}
+                \centering
+                \textbf{Irish}
+                \vspace{0.1cm}
+                \begin{itemize}
+                    \item trechos similares
+                    \item voz única
+                    \item musicalmente plausível
+                \end{itemize}
+            \end{column}
+
+            \begin{column}{0.48\textwidth}
+                \centering
+                \textbf{ABC Notation}
+                \vspace{0.1cm}
+                \begin{itemize}
+                    \item mais variabilidade
+                    \item voz múltipla
+                    \item musicalmente plausível
+                \end{itemize}
+            \end{column}
+        \end{columns}
+        
+        \vspace{1cm}
+        Os comentários feitos referente às composições geradas são as percepções do autor com seu limitado conhecimento musical.
     \end{frame}
 
+
+
 \section{Considerações Finais}
-    \begin{frame}{Recapitula}
-        bla bla bla
+    \begin{frame}{Resumo}
+        \begin{itemize}
+            \justifying
+            \item explorou-se o problema de composição automática de músicas; 
+            \item investigou-se a sensibilidade dos modelos via modificação dos parâmetros;
+            \item mediu-se impactos das mudanças via perplexidade;
+            \item gerou-se novos arquivos \textit{.abc} que, quando possível, foram convertidos em músicas.
+        \end{itemize}
     \end{frame}
     
     \begin{frame}{Extensões}
-        bla bla bla
+        \begin{itemize}
+            \justifying
+            \item modificar a arquitetura contemplando o aumento do número de camadas;
+            \item explorar outros perfis de redes, como a \textit{transformer} \citep{vaswani2017};
+            \item analisar detalhadamente características musicais das composições.
+        \end{itemize}
     \end{frame}
-
 
 
 
 %
     \begin{frame}[allowframebreaks]
-        \frametitle{References}
+        \frametitle{Referências}
         \bibliographystyle{apalike}
         \bibliography{biblio}
-        
     \end{frame}
 
 
