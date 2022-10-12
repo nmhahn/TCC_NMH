@@ -187,41 +187,56 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}{Ajustando uma RNA}
+    \begin{frame}{Ajustando uma RNA - \textit{gradient descent}}
         \begin{itemize}
-            \item função perda
-            \item gradiente descendente e SGD
-            \item taxa de aprendizagem
-            \item retropropagação
+            \justifying
+            \item minimiza-se uma função perda $f(x)$ por meio do método do gradiente descendente estocástico (SGD);
+            \item utiliza-se uma partição aleatória dos dados de treino, chamada lote, para ajustar os parâmetros;
+            \item a taxa de aprendizagem $\epsilon$ define o tamanho do passo em direção ao gradiente negativo.
+            \item uma passagem pelo conjunto de dados de treinamento é denominada época.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Ajustando uma RNA - \textit{back-propagation}}
+        \begin{itemize}
+            \item O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função perda flua para trás através da rede neural, com o intuito de calcular o gradiente.
+            \item Por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados.
+            \item No contexto de RNN, os gradientes são calculados considerando o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (BPTT).
+            
         \end{itemize}
     \end{frame}
 
     \begin{frame}{PLN - Processamento de Linguagem Natural}
         \begin{itemize}
             \justifying
-            \item aplicação de métodos estatísticos e computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019};
-            \item é importante testar os algoritmos em mais de uma linguagem, especialmente em linguagens com diferentes propriedades \citep{jurafsky2021}.
+            \item Aplicação de métodos estatísticos e computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019}.
+            \item É importante testar os algoritmos em mais de uma linguagem, especialmente em linguagens com diferentes propriedades \citep{jurafsky2021}.
+            \item Um modelo estatístico de linguagem é aquele que atribui probabilidades para uma sequência de \textit{tokens}. 
         \end{itemize}
     \end{frame}
 
     \begin{frame}{PLN - Entropia e Perplexidade}
         \begin{itemize}
-            \item entropia
-            \item entropia cruzada
-            \item perplexidade
+            \justifying
+            \item A entropia $H(p)$ mede a quantidade de informação de uma variável aleatória discreta $W$.
+            \item A entropia cruzada $H(p,m)$ aproxima-se de $H(p)$ por meio de um estimador $m$.
+            \item A perplexidade $\Perp(W)=e^{H(\bs{W})}$ é uma medida oriunda da teoria da informação para a avaliação intrínseca de um modelo de linguagem.
+            \item Medidas menores de perplexidade são indicativas de uma predição melhor.
+            \item A perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário.
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{PLN - múltiplos}
+    \begin{frame}{PLN - Corpus e Expressões Regulares}
         \begin{itemize}
-            \item word embedding
-            \item expressões regulares
-            \item corpus
+            \justifying
+            \item Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério \citep{manning1999, kamath2019}.
+            \item Uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de \textit{strings}, particularmente útil para localizar padrões em um \textit{corpus} \citep{jurafsky2021}.
         \end{itemize}
     \end{frame}
 
     \begin{frame}{PLN - \textit{Word Embedding}}
         \begin{itemize}
+            \justifying
             \item palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico
             \item duas possibilidades:
             \begin{itemize}
@@ -231,14 +246,6 @@
             \item O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras
         \end{itemize}
     \end{frame}
-
-%Em PLN, as palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico. Seguem duas possibilidades:
-%\begin{itemize}
-%    \item \textit{one-hot encoding}: é criado uma variável indicadora (\textit{dummy}) para cada categoria.
-%    \item \textit{dense encoding (feature embeddings)}: cada categoria é embutida em um vetor $d$-dimensional.
-%\end{itemize}
-%O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras.
-
 
     \begin{frame}{Notação ABC}
         \vspace{0.1cm}
@@ -278,19 +285,74 @@
 
 
 \section{Modelagem}
-    \begin{frame}{Bases de Dados}
+    \begin{frame}{Bases de Dados - Fontes}
+        \textbf{Irish}
         \begin{itemize}
-            \item Irish
-            \item ABC Notation
-            \item tratamentos
+            \justifying
+            \item contém 817 músicas folclóricas irlandesas no formato \textit{.abc};
+            \item versão disponibilizada pelo Instituto de Tecnologia de Massachusetts (MIT).
+        \end{itemize}
+        
+        \textbf{ABC Notation}
+        \begin{itemize}
+            \justifying
+            \item coleta, via \textit{web scraping}, do site \href{https://abcnotation.com/}{abcnotation.com};
+            \item foram coletados $184.900$ músicas;
+            \item selecionada uma amostra de $5.000$.
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{Modelo}
+    \begin{frame}{Bases de Dados - Tratamentos}
         \begin{itemize}
-            \item modelo
-            \item arquitetura
-            \item parâmetros e hiperparâmetros
+            \justifying
+            \item \textbf{tratamento}: via expressões regulares, removeu-se caracteres que não afetam diretamente as músicas (título, letra de música);
+            \item \textbf{união}: todas as músicas foram ``coladas'', como se fizessem parte de um único texto.
+            \item \textbf{tokenização}: para cada caractere (\textit{token}) presente, foi criado um único índice.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Modelo - Arquitetura}
+        \begin{itemize}
+            \justifying
+            \item utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente;
+            \item quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense};
+            \item foi feita uma divisão dos dados em 80\% treino e 20\% teste.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Modelo - Parâmetros (inicial)}
+        \begin{itemize}
+            \justifying
+            \item 2000 épocas no ajuste do modelo;
+            \item função perda: entropia cruzada;
+            \item métrica de avaliação: perplexidade;
+            \item segmentou-se em duas etapas.
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Modelo - Parâmetros (1ª etapa)}
+        \begin{itemize}
+            \justifying
+            \item fixou-se a função de ativação \textit{tanh} na camada LSTM;
+            \item foram alterados os seguintes parâmetros e hiperparâmetros:
+            \begin{itemize}
+                \item \textit{vocab\_size} $\in \{64,125\}$;
+                \item \textit{lstm\_units} $\in \{256,1024\}$;
+                \item \textit{embedding\_dim} $\in \{256,512\}$;
+                \item \textit{learning\_rate} $\in \{10^{-3},10^{-5}\}$;
+                \item \textit{seq\_length} $\in \{50,200\}$;
+                \item \textit{batch\_size} $\in \{4,16\}$.
+            \end{itemize}
+            \item foram ajustados 64 modelos, sendo 32 para cada base de dados.
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Modelo - Parâmetros (2ª etapa)}
+        \begin{itemize}
+            \justifying
+            \item selecionou-se os dois melhores e os dois piores modelos da 1ª etapa;
+            \item critério: perplexidade;
+            \item trocou-se função de ativação para \textit{logit}.
         \end{itemize}
     \end{frame}
     
@@ -308,11 +370,27 @@
 
 
 \section{Resultados}
-    \begin{frame}{Primeira Etapa - 32 modelos por base}
+    \begin{frame}{Primeira Etapa - 32 modelos por base (texto)}
+        bla bla bla
+    \end{frame}
+    
+    \begin{frame}{Primeira Etapa - 32 modelos por base (tabela)}
         bla bla bla
     \end{frame}
 
-    \begin{frame}{Segunda Etapa - troca função de ativação}
+    \begin{frame}{Primeira Etapa - 32 modelos por base (gráfico)}
+        bla bla bla
+    \end{frame}
+
+    \begin{frame}{Segunda Etapa - troca função de ativação (texto)}
+        bla bla bla
+    \end{frame}
+    
+    \begin{frame}{Segunda Etapa - troca função de ativação (tabela)}
+        bla bla bla
+    \end{frame}
+    
+    \begin{frame}{Segunda Etapa - troca função de ativação (gráfico)}
         bla bla bla
     \end{frame}
     
