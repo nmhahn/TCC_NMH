@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[xcolor=table]{beamer}
 
 \usetheme[aspectratio=169]{Dresden}
 \definecolor{cerulean}{rgb}{0.0, 0.48, 0.65}
@@ -19,6 +19,10 @@
 \usepackage{dsfont}
 %\usepackage{placeins}
 %\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
 
 \newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
@@ -33,7 +37,7 @@
 \title{Composição Automática de Músicas utilizando Redes Neurais Recorrentes}
 \author[Hahn, N. M.]{Nicolas Mathias Hahn \\ \footnotesize Orientador: Guilherme Pumi}
 \institute[IME-UFRGS]{Departamento de Estatística \\ Instituto de Matemática e Estatística \\ Universidade Federal do Rio Grande do Sul (UFRGS)}
-\date{Outubro de 2022 \\ \tiny Porto Alegre - RS}
+\date{Outubro, 2022 \\ \tiny Porto Alegre - RS}
 
 \begin{document}
 
@@ -106,27 +110,31 @@
 
 
 \section{Referencial Teórico}
-    \begin{frame}{RNA - Redes Neurais Artificiais}
+    \begin{frame}{RNN - Redes Neurais Recorrentes}
+        \begin{itemize}
+            \item RNNs são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}.
+        \end{itemize}
+        \begin{figure}
+           \includegraphics[scale=0.3]{figuras/rnn_hidden_state.pdf}
+		    \caption{Diagrama de uma RNN \textit{Vanilla} \citep[adaptado de][]{goodfellow2016, kamath2019}}
+	    \end{figure}
+    \end{frame}
+
+    \begin{frame}{LSTM - \textit{Long Short-Term Memory}}
         \begin{itemize}
             \justifying
-            \item RNAs são técnicas de \textit{machine learning} inspiradas no mecanismo de aprendizagem de organismos vivos \citep{aggarwal2018}. 
-            \item Nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.
-            \item São constituídas por três tipos de camadas: entrada, oculta e saída.
-        \end{itemize}
+            \item De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}).
+            \item Os portões (\textit{gates}), que também são camadas da rede neural, controlam o fluxo de informação, mantendo ou descartando o estado oculto $\bs{h}_{t}$ a cada passo temporal \citep{kamath2019}.
+            \item É uma das variantes de RNN desenvolvidas para contornar o problema de dissipação (ou explosão) do gradiente, que ocorre no ajuste da rede.
+        \end{itemize}  
     \end{frame}
-
-    \begin{frame}{RNA - Neurônio}
-        \begin{figure}
-            \includegraphics[scale=0.25]{figuras/neuron_model.pdf}
-		    \caption{Modelo Neuronal \citep[adaptado de][]{hair2005,haykin2009}}
-	    \end{figure}
-    \end{frame}
-
-    \begin{frame}{RNA - Rede Neural}
-        \begin{figure}
-            \includegraphics[scale=0.25]{figuras/network_layers.pdf}
-		    \caption{Rede Camada Única e Múltipla \citep[adaptado de][]{haykin2009}}
-	    \end{figure}
+    
+    \begin{frame}{LSTM - \textit{Long Short-Term Memory}}
+       \begin{figure}
+            \centering
+            \includegraphics[scale=0.25]{figuras/lstm_cell.pdf}
+	        \caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{kamath2019}.}
+        \end{figure}
     \end{frame}
 
     \begin{frame}{Função de Ativação}
@@ -160,49 +168,13 @@
         \end{columns}
     \end{frame}
 
-    \begin{frame}{RNN - Redes Neurais Recorrentes}
-        \begin{itemize}
-            \item RNNs são um tipo de redes neurais criadas para processar séries temporais e outros tipos de dados sequenciais \citep{fan2021}.
-        \end{itemize}
-        \begin{figure}
-           \includegraphics[scale=0.3]{figuras/rnn_hidden_state.pdf}
-		    \caption{Diagrama de uma RNN \textit{Vanilla} \citep[adaptado de][]{goodfellow2016, kamath2019}}
-	    \end{figure}
-    \end{frame}
-
-    \begin{frame}{LSTM - \textit{Long Short-Term Memory}}
+    \begin{frame}{Ajustando uma RNA}
         \begin{itemize}
             \justifying
-            \item De acordo com \citet{goodfellow2016}, as LSTM fazem parte de uma classe de modelos chamada de RNN fechadas (\textit{gated RNN}).
-            \item Os portões (\textit{gates}), que também são camadas da rede neural, controlam o fluxo de informação, mantendo ou descartando o estado oculto $\bs{h}_{t}$ a cada passo temporal \citep{kamath2019}.
-            \item É uma das variantes de RNN desenvolvidas para contornar o problema de dissipação (ou explosão) do gradiente, que ocorre no ajuste da rede.
-        \end{itemize}  
-    \end{frame}
-    
-    \begin{frame}{LSTM - \textit{Long Short-Term Memory}}
-       \begin{figure}
-            \centering
-            \includegraphics[scale=0.25]{figuras/lstm_cell.pdf}
-	        \caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{kamath2019}.}
-        \end{figure}
-    \end{frame}
-
-    \begin{frame}{Ajustando uma RNA - \textit{gradient descent}}
-        \begin{itemize}
-            \justifying
-            \item minimiza-se uma função perda $f(x)$ por meio do método do gradiente descendente estocástico (SGD);
-            \item utiliza-se uma partição aleatória dos dados de treino, chamada lote, para ajustar os parâmetros;
-            \item a taxa de aprendizagem $\epsilon$ define o tamanho do passo em direção ao gradiente negativo.
-            \item uma passagem pelo conjunto de dados de treinamento é denominada época.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Ajustando uma RNA - \textit{back-propagation}}
-        \begin{itemize}
-            \item O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função perda flua para trás através da rede neural, com o intuito de calcular o gradiente.
-            \item Por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados.
-            \item No contexto de RNN, os gradientes são calculados considerando o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (BPTT).
-            
+            \item Os pesos da rede são ajustados por meio do método do gradiente descendente estocástico (SGD).
+            \item Utiliza-se uma partição aleatória dos dados de treino, denominada lote.
+            \item A taxa de aprendizagem $\epsilon$ define o tamanho do passo em direção ao gradiente negativo.
+            \item Uma passagem pelo conjunto de dados de treinamento é denominada época.
         \end{itemize}
     \end{frame}
 
@@ -215,35 +187,12 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}{PLN - Entropia e Perplexidade}
+    \begin{frame}{PLN - Perplexidade}
         \begin{itemize}
             \justifying
-            \item A entropia $H(p)$ mede a quantidade de informação de uma variável aleatória discreta $W$.
-            \item A entropia cruzada $H(p,m)$ aproxima-se de $H(p)$ por meio de um estimador $m$.
-            \item A perplexidade $\Perp(W)=e^{H(\bs{W})}$ é uma medida oriunda da teoria da informação para a avaliação intrínseca de um modelo de linguagem.
+            \item A perplexidade $\Perp(W)=e^{H(\bs{W})}$ é uma medida para a avaliação intrínseca de um modelo de linguagem.
             \item Medidas menores de perplexidade são indicativas de uma predição melhor.
             \item A perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{PLN - Corpus e Expressões Regulares}
-        \begin{itemize}
-            \justifying
-            \item Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério \citep{manning1999, kamath2019}.
-            \item Uma expressão regular é uma notação algébrica utilizada para caracterizar um conjunto de \textit{strings}, particularmente útil para localizar padrões em um \textit{corpus} \citep{jurafsky2021}.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{PLN - \textit{Word Embedding}}
-        \begin{itemize}
-            \justifying
-            \item palavras (ou \textit{tokens}) são variáveis categóricas que precisam de uma codificação para que sejam utilizadas em um modelo estatístico
-            \item duas possibilidades:
-            \begin{itemize}
-                \item \textit{one-hot encoding}:
-                \item \textit{dense encoding}:
-            \end{itemize}
-            \item O principal benefício da \textit{dense encoding} é a capacidade de generalização, pois os valores do vetor denso são ajustáveis, possibilitando a captura de relações entre as diferentes palavras
         \end{itemize}
     \end{frame}
 
@@ -314,9 +263,9 @@
     \begin{frame}{Modelo - Arquitetura}
         \begin{itemize}
             \justifying
-            \item utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente;
-            \item quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense};
-            \item foi feita uma divisão dos dados em 80\% treino e 20\% teste.
+            \item Utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente;
+            \item Quatro camadas: entrada, \textit{Embedding}, LSTM e \textit{Dense};
+            \item Foi feita uma divisão dos dados em 80\% treino e 20\% teste.
         \end{itemize}
     \end{frame}
 
@@ -359,41 +308,75 @@
     \begin{frame}{Processo Gerador de Música}
         \begin{enumerate}
             \justifying
-            \item construir um modelo com os devidos parâmetros; 
-            \item fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente;
-            \item fornecer uma sequência de caracteres inicial, no caso ``X:'';
-            \item de forma iterativa, o modelo estima um novo elemento para compor a sequência até atingir um comprimento definido;
-            \item extrair da sequência blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em músicas.
+            \item Construir um modelo com os devidos parâmetros; 
+            \item Fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente;
+            \item Fornecer uma sequência de caracteres inicial, no caso ``X:'';
+            \item Iterativamente, o modelo estima um novo elemento para compor a sequência até atingir um comprimento definido;
+            \item Extrair da sequência blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em músicas.
         \end{enumerate}
     \end{frame}
 
 
 
 \section{Resultados}
-    \begin{frame}{Primeira Etapa - 32 modelos por base (texto)}
-        bla bla bla
-    \end{frame}
-    
-    \begin{frame}{Primeira Etapa - 32 modelos por base (tabela)}
-        bla bla bla
-    \end{frame}
-
-    \begin{frame}{Primeira Etapa - 32 modelos por base (gráfico)}
-        bla bla bla
+    \begin{frame}{Irish - 1ª Etapa}
+        \begin{figure}
+            \includegraphics[scale=0.38]{figuras/irish_tanh_corr.pdf}
+            \caption{Correlação entre parâmetros e métricas para Irish}
+        \end{figure}
     \end{frame}
 
-    \begin{frame}{Segunda Etapa - troca função de ativação (texto)}
-        bla bla bla
+    \begin{frame}{Irish - 2ª Etapa}
+        \rowcolors{3}{white}{gray!25}
+        \large
+        \begin{table}
+            %\caption{Irish: \textit{tanh} vs \textit{logit}}
+            \centering
+            \begin{tabular}{c|cc|cc}
+                \toprule
+                \multirow{2}{*}{idx} &
+                \multicolumn{2}{c|}{\textit{train\_loss}} &
+                \multicolumn{2}{c}{\textit{test\_perplexity}} \\
+                & {\textit{tanh}} & {\textit{logit}} & {\textit{tanh}} & {\textit{logit}} \\
+                \midrule
+                5 & 2.964 & 3.021 & 24.709 & 27.576 \\
+                7 & 2.963 & 3.135 & 20.401 & 24.726 \\
+                11 & 0.982 & 1.195 & 2.835 & 3.549 \\
+                25 & 1.171 & 1.389 & 2.752 & 3.263 \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
     \end{frame}
-    
-    \begin{frame}{Segunda Etapa - troca função de ativação (tabela)}
-        bla bla bla
+
+    \begin{frame}{ABC Notation - 1ª Etapa}
+        \begin{figure}
+            \includegraphics[scale=0.38]{figuras/abcnotation_tanh_corr.pdf}
+            \caption{Correlação entre parâmetros e métricas para ABC Notation}
+        \end{figure}
     \end{frame}
-    
-    \begin{frame}{Segunda Etapa - troca função de ativação (gráfico)}
-        bla bla bla
+
+    \begin{frame}{ABC Notation - 2ª Etapa}
+        \rowcolors{3}{white}{gray!25}
+        \large
+        \begin{table}
+            %\caption{ABC Notation: \textit{tanh} vs \textit{logit}}
+            \centering
+            \begin{tabular}{c|cc|cc}
+                \toprule
+                \multirow{2}{*}{idx} &
+                \multicolumn{2}{c}{\textit{train\_loss}} &
+                \multicolumn{2}{c}{\textit{test\_perplexity}} \\
+                & {\textit{tanh}} & {\textit{logit}} & {\textit{tanh}} & {\textit{logit}} \\
+                \midrule
+                8 & 3.628 & 3.670 & 31.707 & 33.038 \\
+                6 & 3.522 & 3.571 & 35.991 & 37.849 \\
+                20 & 1.350 & 1.616 & 3.971 & 5.142 \\
+                28 & 1.305 & 1.585 & 3.940 & 4.960 \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
     \end{frame}
-    
+
     \begin{frame}{Geração de Músicas}
         \vspace{-1cm}
         \begin{columns}[onlytextwidth,t]
@@ -472,19 +455,19 @@
     \begin{frame}{Resumo}
         \begin{itemize}
             \justifying
-            \item explorou-se o problema de composição automática de músicas; 
-            \item investigou-se a sensibilidade dos modelos via modificação dos parâmetros;
-            \item mediu-se impactos das mudanças via perplexidade;
-            \item gerou-se novos arquivos \textit{.abc} que, quando possível, foram convertidos em músicas.
+            \item Explorou-se o problema de composição automática de músicas. 
+            \item Investigou-se a sensibilidade dos modelos via modificação dos parâmetros.
+            \item Mediu-se impactos das mudanças via perplexidade.
+            \item Gerou-se novos arquivos \textit{.abc} que, quando possível, foram convertidos em músicas.
         \end{itemize}
     \end{frame}
     
     \begin{frame}{Extensões}
         \begin{itemize}
             \justifying
-            \item modificar a arquitetura contemplando o aumento do número de camadas;
-            \item explorar outros perfis de redes, como a \textit{transformer} \citep{vaswani2017};
-            \item analisar detalhadamente características musicais das composições.
+            \item Modificar a arquitetura contemplando o aumento do número de camadas;
+            \item Explorar outros perfis de redes, como a \textit{transformer} \citep{vaswani2017};
+            \item Analisar detalhadamente características musicais das composições.
         \end{itemize}
     \end{frame}
 
