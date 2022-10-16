@@ -19,7 +19,7 @@
 %\makeindex  Opcional (Índice Remissivo)
 
 %\newcommand{\obs}[1]{\textcolor{purple}{#1}}
-%\newcommand{\nico}[1]{\textcolor{teal}{#1}}
+\newcommand{\nico}[1]{\textcolor{teal}{#1}}
 \newcommand{\pumi}[1]{\textcolor{red}{#1}}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
@@ -51,7 +51,7 @@
 \dept{\DEST}
 
 % data de entrega:
-\date{Outubro de 2022}
+\date{Outubro, 2022}
 
 
 % Capa
@@ -94,12 +94,12 @@
 % resumo 
     % português
 \begin{abstract}
-O problema de composição musical automática é extensivamente  explorado na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são ajustados para que a música gerada seja adequada em algum sentido. Detalhes técnicos como os impactos que as modificações nos parâmetros têm na composição final, ainda, são amplamente desconhecidos. Neste trabalho, temos por objetivo estudar o quão sensível é um modelo de rede neural, baseado em processamento de linguagem natural, construído para composição musical. Para tal tarefa, a mensuração será feita com a perplexidade, uma medida oriunda da teoria da informação. Por fim, as músicas são avaliadas, de forma subjetiva, em relação à musicalidade e qualidade das peças musicais obtidas.
+O problema de composição musical automática é extensivamente  explorado na literatura. Em geral, o objetivo final nesses trabalhos é a composição musical em si, de forma que os modelos utilizados são ajustados para que a música gerada seja adequada em algum sentido. Detalhes técnicos como os impactos que as modificações nos parâmetros têm na composição final, ainda, são amplamente desconhecidos. Neste trabalho, temos por objetivo estudar o quão sensível é um modelo de rede neural \nico{recorrente}, baseado em processamento de linguagem natural, construído para composição musical. Para tal tarefa, a mensuração será feita com a perplexidade, uma medida oriunda da teoria da informação. Por fim, as músicas são avaliadas, de forma subjetiva, em relação à musicalidade e qualidade das peças musicais obtidas.
 \end{abstract}
 
     % inglês
 \begin{englishabstract}
-The issue of automatically composed music has received a lot of attention in the literature. In general, the focus is on the composition itself, and models are tuned to produce useful results. Technical details such as the effects that adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive is a neural network model, based on natural language processing,  built for music composition. To accomplish this task, we apply a metric from information theory called perplexity. The composed works are then subjectively assessed for musicality and quality.
+The issue of automatically composed music has received a lot of attention in the literature. In general, the focus is on the composition itself, and models are tuned to produce useful results. Technical details such as the effects that adjustments to the model's parameters have on the composition, however, are still largely unknown. In this work, we investigate how sensitive is a \nico{recurrent} neural network model, based on natural language processing,  built for music composition. To accomplish this task, we apply a metric from information theory called perplexity. The composed works are then subjectively assessed for musicality and quality.
 \end{englishabstract}
 
 % sumário (Obrigatório)
@@ -134,13 +134,13 @@ O presente trabalho propõe-se a explorar o problema de composição algorítmic
 
 % composição algorítmica
 \section{Composição Algorítmica}
-Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo ``algoritmo'' é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O ``problema'' encarado por compositores é a composição musical, e as ``instruções'' predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, ``composição automática'' também descreve adequadamente esse tipo de composição musical, sendo que ``automático'' refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
+Composição algorítmica, ou composição automática, refere-se ao processo de criação de músicas por meio de algum processo formal com pouca ou nenhuma intervenção humana. O termo \nico{\textit{algoritmo}} é definido como um conjunto predeterminado de instruções com o objetivo de resolver um problema em específico com um número limitado de passos. O \nico{\textit{problema}} encarado por compositores é a composição musical, e as \nico{\textit{instruções}} predeterminadas sugerem que, uma vez que o processo é iniciado, a intervenção humana é substituída. Portanto, \nico{\textit{composição automática}} também descreve adequadamente esse tipo de composição musical, sendo que \nico{\textit{automático}} refere-se a ``qualquer coisa que pode se mover ou agir por conta própria'' \citep{alpern1995, maurer}.
 
 De acordo com \citet{maurer}, podemos encontrar três metodologias diferentes que existem em composição algorítmica: 
 \begin{itemize}
-    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser performada pelo músico.
-    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir uma vez iniciado o processo de composição. 
-    \item \textbf{inteligência artificial (IA): }similar ao ``\textit{rule-based}'' no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática, que pode evoluir (isto é, ser modificada de uma forma automática) ao longo do processo.
+    \item \textbf{estocástica:} abordagem mais simples. Envolve aleatoriedade e pode ser tão simples quanto gerar uma série de notas musicais ao acaso, bem como sortear uma ordem de fragmentos de músicas para ser \nico{executada} pelo músico.
+    \item \textbf{\textit{rule-based}:} em vez de delegar decisões ao acaso como no método estocástico, um sistema \textit{rule-based} define uma ``constituição'' ou ``gramática'' (sistema formal de princípios ou regras que as possíveis frases de uma linguagem são geradas) em que o sistema deve seguir\nico{,} uma vez iniciado o processo de composição. 
+    \item \textbf{inteligência artificial (IA):} similar ao \nico{\textit{rule-based}} no sentido de ser baseado em uma gramática pré-definida. No entanto, sistemas de IA têm a capacidade de definirem sua própria gramática, que pode evoluir (isto é, ser modificada de uma forma automática) ao longo do processo.
 \end{itemize}
 Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \citet{nierhaus2009}, \citet{fernandez2013} e \citet{olivan2021}.  
 
@@ -148,13 +148,14 @@ Mais detalhes podem ser encontrados em \citet{alpern1995}, \citet{maurer}, \cite
 
     % Redes Neurais Artificiais
 \section{Redes Neurais Artificiais}
-Redes Neurais Artificiais (RNA) são técnicas de aprendizagem de máquina inspiradas no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018}. Nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.
+Redes Neurais Artificiais (RNA) são \nico{modelos} de aprendizagem de máquina inspirados no mecanismo de aprendizagem presente em organismos vivos \citep{aggarwal2018}. Nos seus primórdios, os algoritmos tinham o intuito de ser um modelo computacional capaz de imitar a aprendizagem ocorrida no cérebro \citep{goodfellow2016}.
 
 
 
         % Redes Neurais e a Estatística
 \subsection{Redes Neurais e a Estatística}
-Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística), especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação. Devido a esse foco em predição, RNAs são utilizadas como modelos \textbf{caixa preta}: uma certa entrada produz uma determinada saída da função, mas o processo interno que a rede utilizou para chegar nesse resultado é desconhecido e, consequentemente, há perda de interpretabilidade do modelo \citep{sarle1994, cheng1994, rojas1996}.
+Muitos modelos de RNAs são similares ou idênticos a populares técnicas estatísticas como modelos lineares generalizados, regressão linear (simples e múltipla), regressão polinomial, regressão não paramétrica e análise discriminante (como a regressão logística), especialmente quando a ênfase é na predição de um fenômeno complexo em vez de sua explicação. \nico{Tal foco é devido às RNAs serem modelos \textbf{caixa-preta}, o que implica em perda de interpretabilidade} \citep{sarle1994, cheng1994, rojas1996}. 
+%Devido a esse foco em predição, RNAs são utilizadas como modelos \textbf{caixa preta}: uma certa entrada produz uma determinada saída da função, mas o processo interno que a rede utilizou para chegar nesse resultado é desconhecido e, consequentemente, há perda de interpretabilidade do modelo \citep{sarle1994, cheng1994, rojas1996}.
 
 No contexto de RNAs, é possível definir dois procedimentos para a resolução de algum problema prático (aplicado): especificar a arquitetura da rede e treinar a rede com um conjunto de dados de treinamento. Paralelamente, no contexto estatístico, esses passos são equivalentes a especificar um modelo e estimar seus parâmetros dado um conjunto de dados. Posto isso, apresentamos uma lista de termos comumente utilizados na literatura de RNAs e as respectivas equivalências de acordo com a estatística:
 \begin{itemize}
@@ -164,13 +165,13 @@ No contexto de RNAs, é possível definir dois procedimentos para a resolução 
     \item variáveis dependentes são chamadas de variáveis alvo (\textit{target}) ou valores de treinamento;
     \item resíduos são chamados de erros;
     \item estimação é chamada de treinamento ou aprendizagem;
-    \item um critério de estimação é chamado de função erro ou de função custo;
+    \item \nico{os critérios de estimação são chamados de função erro, função perda ou função custo};
     \item observações são chamadas de padrões (\textit{patterns}) ou de pares de treinamento (\textit{training pairs});
     \item parâmetros estimados são chamados de pesos (sinápticos);
     \item transformações são chamadas de links funcionais (\textit{functional links});
     \item interpolação e extrapolação são chamadas de generalização.
 \end{itemize}
-Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. No entanto, os dados são comumente divididos em conjunto de treino e de teste para validação cruzada \citep{cheng1994}.
+Os termos estatísticos \textbf{amostra} e \textbf{população} não demonstram conter equivalentes na literatura de RNAs. \nico{Por fim}, os dados são comumente divididos em conjunto de treino e de teste \citep{cheng1994}.
 
 
 
@@ -212,7 +213,8 @@ Uma função de ativação pode ser linear ou não linear. Seu objetivo em geral
     Quando essa função de ativação é associada a uma rede, o neurônio é equivalente a uma regressão logística. Dessa forma, notamos que a função de ativação tem um papel semelhante à função de ligação no contexto de modelos lineares generalizados: relacionar o preditor linear ao respectivo valor esperado \citep{mccullagh1989,sarle1994,frei2020}.
     \item \textbf{tangente hiperbólica (\textit{tanh}):}  $f:\R \rightarrow (-1,1)$ dada por 
     \[f(x) := \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}.\]
-    Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente performa melhor. Vale comentar que funções de ativação sigmoidais são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
+    Em contextos que uma função sigmoidal é necessária (como a predição de uma variável binária), a \textit{tanh} tipicamente \nico{desempenha} melhor. \nico{Vale comentar que as funções de ativação sigmoidais são mais comuns em estruturas como as redes recorrentes do que em redes alimentadas adiante}\citep{goodfellow2016}. 
+    %Vale comentar que funções de ativação sigmoidais são mais comuns em estruturas diferentes que a de redes alimentadas adiante, como as redes recorrentes \citep{goodfellow2016}.  
     \item \textbf{ReLU (\textit{Rectified Linear Unit}):} $f: \R \rightarrow [0,\infty)$ dada por 
     \[f(x) := \max\{0,x\}.\]
     De acordo com \citet{goodfellow2016}, é a recomendação padrão para redes neurais modernas. O autor justifica que, por ser uma função quase linear, são preservadas muitas propriedades que fazem os modelos lineares bons generalizadores. 
@@ -228,20 +230,21 @@ Listas de funções de ativação comumente utilizadas podem ser encontradas em 
 \subsection{Arquiteturas de RNAs}
 \label{arquitetura rna}
 
-Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários por vezes diversos operando paralelamente em uma estrutura que chamamos de ``camada''. Temos que uma rede neural é constituída por três tipos básicos de camadas:
+Um único neurônio, mesmo com muitas entradas, usualmente não é suficiente para resolver problemas complexos, sendo necessários\nico{,} por vezes\nico{,} diversos operando paralelamente em uma estrutura que chamamos de \nico{\textit{camada}}. Temos que uma rede neural é constituída por três tipos básicos de camadas:
 
 \begin{enumerate}
-    \item \textbf{entrada:} constituída por nós de fonte, em que cada nó representa uma variável independente. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
+    \item \textbf{entrada:} constituída por nós de fonte \nico{(consequentemente, não tem função de ativação)}, em que cada nó representa uma variável independente. Vale comentar que variáveis numéricas requerem apenas um nó, porém variáveis categóricas requerem um nó para cada categoria, semelhantemente ao processo de criação de variáveis dicotômicas ou \textit{dummies}, mas sem a eliminação de uma categoria de referência.
     \item \textbf{saída:} composta por neurônios, com a diferença que seu valor de saída é definitivo. No caso de um modelo preditivo, o valor será o resultado da previsão. Se o modelo é utilizado para classificação, então o valor resultante será empregado no processo de classificação (que será utilizado para determinar qual categoria foi classificada).
     \item \textbf{intermediária ou oculta:} assim como a camada de saída, é composta por neurônios. Seus valores de entrada podem ser originados da camada de entrada ou da camada oculta anterior, bem como seus valores de saída podem alimentar a próxima camada oculta ou a camada de saída.
 \end{enumerate}
-Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2009,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
+Posto isso, organizamos as redes em \nico{duas} arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2009,hagan2014}: redes alimentadas adiante e redes recorrentes.
+%Posto isso, organizamos as redes em três arquiteturas fundamentalmente diferentes \citep{hair2005,haykin2009,hagan2014}: redes alimentadas adiante com camada única, com múltiplas camadas e redes recorrentes.
 
 
 
             % Redes Alimentadas Adiante
 \subsubsection{Redes Alimentadas Adiante}
-A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2008} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação ``camada única'' se refere a uma camada de neurônios. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2009}. 
+A nomenclatura desse tipo de arquitetura é devida ao fluxo de informação partir da camada de entrada até a camada de saída, de forma unidirecional \citep{goodfellow2016}. \citet{hastie2008} e \citet{fan2021} comentam que é o tipo padrão de rede neural. A principal diferença entre uma rede de camada única e uma com múltiplas camadas é a existência (ou não) das camadas ocultas, sendo que a designação \nico{\textit{camada única}} se refere a uma camada de neurônios. Além disso, há a distinção entre a rede ser totalmente ou parcialmente conectada, no sentido de que os nós de uma camada são conectados a todos os nós da camada adjacente ou não \citep{haykin2009}. 
 
 \begin{figure}[ht!]
     \centering
@@ -300,7 +303,7 @@ em que $\varphi(\cdot)$ é uma função de ativação, usualmente a \textit{tanh
 	\caption{Diagrama de uma LSTM. Considere $\sigma$ como a função de ativação \textit{logit} \citep[adaptado de][]{kamath2019}.}
 \end{figure}
 
-Entende-se, portanto, que o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas ``células LSTM'' (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e um sistema de portões controlando o fluxo de informação \citep{goodfellow2016}.
+Entende-se, portanto, que o diferencial de uma LSTM em relação a RNN \textit{vanilla} são as suas \nico{células LSTM} (\textit{LSTM cells}), que contêm uma recorrência interna (\textit{self-loop}), além da recorrência existente da RNN. Sendo assim, cada célula possui as mesmas entradas e saídas de uma RNN, mas há mais parâmetros e um sistema de portões controlando o fluxo de informação \citep{goodfellow2016}.
 
 
         % Ajustando uma RNA
@@ -318,13 +321,13 @@ Uma das desvantagens  do método do gradiente descendente é o uso de todo o con
 
 ADAM (\textit{adaptive moment estimation}) é um método de otimização do SGD direcionado a problemas de aprendizagem de máquina com grandes conjuntos de dados ou com espaço paramétrico com muitas dimensões. O método combina as vantagens do AdaGrad \citep{duchi2011} de lidar com esparsidade de gradientes (gradientes iguais a zero) e as vantagens do RMSProp \citep{tieleman2012} de lidar com não estacionariedade. O detalhamento destes métodos fogem ao escopo deste trabalho. Mais informações podem ser encontradas em \citet{kingma2014}.
 
-O algoritmo de retropropagação (\textbf{\textit{back-propagation}}) permite que a informação da função perda flua para trás através da rede neural, com o intuito de calcular o gradiente. O termo ``retropropagação'' refere-se ao método de calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo (\textbf{\textit{back-propagation through time} - BPTT}). Maiores detalhes podem ser encontrados em \citet{haykin2009}, \citet{goodfellow2016} e \citet{fan2021}.  
+O algoritmo de retropropagação nico{(\textbf{\textit{backpropagation}})} permite que a informação da função perda \nico{retorne} através da rede neural, com o intuito de calcular o gradiente. O termo \nico{retropropagação} refere-se ao método de \nico{retornar o erro de predição para} calcular o gradiente e, por meio do SGD, os parâmetros da rede neural (no caso, os pesos) são ajustados. No contexto de RNN, os gradientes são calculados considerando, também, o índice $t \in T$ e, nesse caso, o algoritmo é chamado de retropropagação ao longo do tempo \nico{(\textbf{\textit{backpropagation through time} - BPTT})}. Maiores detalhes podem ser encontrados em \citet{haykin2009}, \citet{goodfellow2016} e \citet{fan2021}.  
 
 
 
     % Processamento de Linguagem Natural
 \section{Processamento de Linguagem Natural}
-O objetivo da ciência linguística é ser capaz de caracterizar e de explicar as diversas observações linguísticas ao nosso redor, presentes em conversações, na escrita e em outras mídias. Parte disso está relacionado à compreensão das estruturas linguísticas pelas quais a linguagem se comunica e, devido a isso, foram propostas regras para a estruturação das expressões linguísticas. Tal abordagem tornou-se cada vez mais formal e rigorosa à medida que os linguistas exploravam gramáticas detalhadas que tentavam descrever o que seria um texto bom ou mau escrito \citep{manning1999}.
+O objetivo da \nico{linguística} é ser capaz de caracterizar e de explicar as diversas observações linguísticas ao nosso redor, presentes em conversações, na escrita e em outras mídias. Parte disso está relacionado à compreensão das estruturas linguísticas pelas quais a linguagem se comunica e, devido a isso, foram propostas regras para a estruturação das expressões linguísticas. Tal abordagem tornou-se cada vez mais formal e rigorosa à medida que os linguistas exploravam gramáticas detalhadas que tentavam descrever o que seria um texto \nico{bem ou mal} escrito \citep{manning1999}.
 
 Processamento de Linguagem Natural (PLN), também conhecida como Linguística Computacional, foca na aplicação de métodos quantitativos e estatísticos para entender como seres humanos modelam linguagem, bem como abordagens computacionais para responder perguntas linguísticas. Ou seja, é a aplicação de métodos computacionais para modelar e extrair informações da linguagem humana \citep{kamath2019}. 
 
@@ -334,7 +337,7 @@ De acordo com \citet{jurafsky2021}, é importante testar algoritmos em mais de u
 
         % Corpus e Corpora
 \subsection{Corpus e Corpora}
-Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, comumente temos um \textit{corpus} com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um \textit{corpus} ou ao relatar os resultados obtidos nas análises são se o tipo de texto é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
+Um \textit{corpus} (plural \textit{corpora}) é uma coleção de material textual (seja em um único documento ou uma coleção de documentos) construído de acordo com algum critério. Esse material é constituído com ao menos uma linguagem escrita (representação via símbolos de uma linguagem falada ou gestual). Em PLN, \nico{comumentemente} temos um \textit{corpus} com uma determinada quantidade de dados de algum domínio de interesse (como discursos, material literário, conversas em redes sociais, entre outros), sem necessariamente ter algum tipo de opinião de como ele foi construído. Dentre os cuidados que devemos ter ao selecionar um \textit{corpus} ou ao relatar os resultados obtidos nas análises são se o tipo de texto é representativo ou se os resultados obtidos são úteis para o domínio de interesse \citep{manning1999, kamath2019}.
 
 
 
@@ -348,7 +351,7 @@ Expressões Regulares são particularmente úteis para pesquisar em textos, loca
 \subsection{Vocabulário e Tokenização}
 Tokenização é o processo computacional de segmentar texto em unidades denominadas \textit{tokens}, podendo ser palavras, números ou sinais de pontuação. Em seu processo mais simples, tokenização pode ser realizada ao separar texto por espaços em branco, induzindo um vocabulário ou um dicionário \citep{kamath2019, jurafsky2021}.
 
-Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus tokens para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela \textit{hash} (uma função \textit{hash} mapeia um conjunto de objetos para um intervalo específico de inteiros não negativos), que conterá um conjunto de \textit{tokens} e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os \textit{tokens} quando necessário.
+Segundo \citet{manning1999}, um método comumente utilizado em PLN é o mapeamento de palavras e de seus \nico{\textit{tokens}} para números (realizando a conversão do número para caractere quando necessário). Dentre as formas de realizar esse mapeamento, podemos citar uma tabela \textit{hash} (uma função \textit{hash} mapeia um conjunto de objetos para um intervalo específico de inteiros não negativos), que conterá um conjunto de \textit{tokens} e seus respectivos índices. Por meio de tal tabela, pode-se obter tanto os índices quanto os \textit{tokens} quando necessário.
 
 
 
@@ -438,7 +441,7 @@ A notação ABC é composta por duas partes: o cabeçalho, que fornece os metada
 
         % Web Scraping
 \section{Web Scraping}
-\textit{Web scraping} é uma técnica de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da Internet (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário \citep{lawson2015,patil2016}.
+\textit{Web scraping} é uma técnica de extração automática de dados de fontes online como \textit{websites} \citep{farley2017,khder2021}. Seu desenvolvimento envolve dois programas customizados: um \textit{crawler} e um \textit{scraper}. O \textit{crawler} sistematicamente coleta os dados da \nico{internet} (especificamente, cria uma réplica da página visitada). Já o \textit{scraper} extrai a informação relevante dos dados baixados e os armazena em uma base de dados, no formato e estrutura definidos pelo usuário \citep{lawson2015,patil2016}.
 
 Grande parte dos \textit{websites} contém um arquivo \textit{robots.txt} para informar sobre quaisquer restrições sobre o uso da técnica em seus domínios. Essas restrições são apenas sugestões, mas é recomendado que sejam seguidas, pois além de poderem conter informações sobre a estrutura do \textit{website}, minimiza a chance do \textit{crawler} ser bloqueado. Mais informações sobre o arquivo \textit{robots.txt} estão disponíveis em \url{robotstxt.org} \citep{lawson2015}.
 
@@ -520,7 +523,7 @@ O processo de modelagem foi feito utilizando 2000 épocas no ajuste do modelo, t
     \item comprimento da sequência obtida dos dados: \textit{seq\_length} $\in \{50,200\}$;
     \item tamanho do lote sorteado do texto único, via amostra aleatória simples sem reposição: \textit{batch\_size} $\in \{4,16\}$.
 \end{itemize}
-Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. A segunda etapa do experimento consistiu em trocar a função de ativação para a \textit{logit}, e avaliar se houveram mudanças na perplexidade dos modelos. Devido ao volume de modelos, alterou-se apenas os dois piores e os dois melhores em termos da perplexidade.
+Consequentemente, foram ajustados 64 modelos, sendo 32 para cada base de dados. A segunda etapa do experimento consistiu em trocar a função de ativação para a \textit{logit}, e avaliar se \nico{houve} mudanças na perplexidade dos modelos. Devido ao volume de modelos, alterou-se apenas os dois piores e os dois melhores em termos da perplexidade.
 
 
 
@@ -810,7 +813,7 @@ Os comentários feitos referente às composições geradas são as percepções 
 
 %Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros do modelo utilizado, foram identificados padrões referentes à modelagem que, em suma, não são muito investigados. Ainda, observou-se que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça musical produzida pelas redes com altos valores na métrica.
 
-Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros, investigou-se a sensibilidade do modelo utilizado para a geração de arquivos \textit{.abc} que, posteriormente, foram convertidos em novas peças musicais. Com o auxílio da medida perplexidade, foi possível mensurar se houveram (ou não) mudanças nos resultados de cada configuração da rede neural. Também, observou-se que a função de ativação \textit{tanh} teve desempenho superior na métrica para os cenários testados. Por fim, pode-se concluir que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça produzida pelas redes com resultados altos na métrica. 
+Este trabalho visou a explorar o problema de composição automática de músicas. Via modificações dos parâmetros, investigou-se a sensibilidade do modelo utilizado para a geração de arquivos \textit{.abc} que, posteriormente, foram convertidos em novas peças musicais. Com o auxílio da medida perplexidade, foi possível mensurar se \nico{houve} (ou não) mudanças nos resultados de cada configuração da rede neural. Também, observou-se que a função de ativação \textit{tanh} teve desempenho superior na métrica para os cenários testados. Por fim, pode-se concluir que valores menores de perplexidade contribuem para a etapa de geração musical, posto que não houve nenhuma peça produzida pelas redes com resultados altos na métrica. 
 
 Considerando a natureza subjetiva da música, o autor comentou sobre suas próprias percepções referente às composições. Devido a isso, os pontos elencados podem conflitar com outros pontos de vista. Isso posto, observou-se um padrão nas peças musicais produzidas pela rede ajustada com Irish, sendo bastante similares em perfil de ritmo e sequência de notas musicais. No caso de ABC Notation, houve uma maior variabilidade de estilos em comparação, além do fato de ter surgido uma peça aparentemente mais ruidosa. De maneira sucinta, conclui-se que os resultados são musicalmente plausíveis.
 
