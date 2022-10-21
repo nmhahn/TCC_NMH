@@ -191,7 +191,7 @@ Também é incluído um intercepto no modelo, chamado de \textbf{\textit{bias}} 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=.7\textwidth]{figuras/neuron_model.pdf}
-	\caption{Modelo Neuronal \citep[adaptado de][]{hair2005,haykin2009}}
+	\caption{Modelo do $k$-ésimo Neurônio \citep[adaptado de][]{hair2005,haykin2009}}
 \end{figure}
 
 Dada uma sequência $x_1,\cdots,x_m$ de dados de entrada (valores observados) e uma função de ativação $\varphi(\cdot)$, a descrição do $k$-ésimo neurônio em uma rede neural nada mais é do que a determinação da função que leva o vetor de entrada $(x_1,\cdots,x_m)$ na $k$-ésima saída $y_k$. Uma configuração simples de um neurônio é dada pelo sistema de equações:
@@ -407,7 +407,7 @@ Isso indica que pode-se utilizar $m$ para estimar a verdadeira entropia de uma s
 \begin{align*}
     \Perp (\bs{W}) := e^{H(\bs{W})} = p(\bs{w})^{-\frac{1}{n}},
 \end{align*}
-\nico{em que $\bs{W}$ é a sequência de palavras, $n$ é o comprimento da sequência e $p(\bs{w})$ é a função probabilidade massa de probabilidade conjunta}. 
+em que $\bs{W}$ é o vetor de tamanho $n$ contendo a sequência de palavras e $p$ é a função massa de probabilidade conjunta associada. 
 Medidas menores de perplexidade são indicativas de uma predição melhor. Por fim, é importante destacar que a perplexidade de dois modelos de linguagem apenas podem ser comparadas se ambos utilizam o mesmo vocabulário (\textit{corpus}). Maiores informações são encontradas em \citet{manning1999}, \citet{kamath2019} e \citet{jurafsky2021}.
 
 
@@ -490,7 +490,7 @@ Por fim, todos os códigos desenvolvidos nesse trabalho estão disponíveis em u
 \section{Bases de Dados}
 O trabalho foi realizado utilizando duas bases de dados: Irish e ABC Notation. Abaixo, seguem algumas explicações sobre cada uma:
 \begin{itemize}
-    \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada pelo Instituto de Tecnologia de Massachusetts (MIT) em seu GitHub\footnote{\href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{\url{github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}}}. No entanto, existem mais exemplos de fontes de músicas no formato como pode ser visto nesta página\footnote{\href{https://www.norbeck.nu/abc/links.asp}{\url{norbeck.nu/abc/links.asp}}}.
+    \item \textbf{Irish}: base de dados contendo 817 músicas folclóricas irlandesas no formato \textit{.abc}. Foi utilizada a versão disponibilizada pelo Instituto de Tecnologia de Massachusetts (MIT) em seu GitHub\footnote{\href{https://github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data/irish.abc}{\url{github.com/aamini/introtodeeplearning/blob/master/mitdeeplearning/data}}}. No entanto, existem mais exemplos de fontes de músicas no formato\footnote{\href{https://www.norbeck.nu/abc/links.asp}{\url{norbeck.nu/abc/links.asp}}}.
     \item \textbf{ABC Notation}: inspirado pelo artigo de \citet{agarwala2017}, o autor quis realizar sua própria coleta de músicas no formato \textit{.abc} do site \href{https://abcnotation.com/}{abcnotation.com}. Foi desenvolvido, na linguagem Python, um \textit{crawler} e um \textit{scrapper} para a obtenção dos dados. Após uma semana de execução, foram obtidos 184.900 arquivos no formato desejado contendo diversas informações referentes às peças musicais (como título, autor, tonalidade da música, entre outras). Por conseguinte, foi selecionada uma amostra aleatória simples de 5.000 músicas dessa base.
 \end{itemize}
 Depois, ambas as bases de dados utilizadas passaram por três procedimentos: tratamento, união e tokenização. Abaixo, alguns detalhes sobre cada uma:
@@ -505,7 +505,7 @@ Depois, ambas as bases de dados utilizadas passaram por três procedimentos: tra
 
     % Modelo
 \section{Modelo}
-Utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. Esse modelo não é original do autor, pois foi desenvolvido no \href{https://goodboychan.github.io/python/tensorflow/mit/2021/02/14/music-generation.html\#The-Recurrent-Neural-Network-(RNN)-model}{laboratório de geração musical} ministrado pelo MIT. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
+Utilizou-se um modelo de RNN-LSTM, que foi ajustado com ambas as bases de dados de forma independente, ou seja, tem-se uma versão com a base Irish e outra com a base ABC Notation. Esse modelo não é original do autor, pois foi desenvolvido no laboratório de geração musical\footnote{\href{https://goodboychan.github.io/python/tensorflow/mit/2021/02/14/music-generation.html}{\url{goodboychan.github.io/python/tensorflow/mit/2021/02/14/music-generation.html}}}  ministrado pelo MIT. Além disso, foi feita uma divisão dos dados em 80\% treino e 20\% teste. No entanto, todo o processo de tratamento foi realizado antes dessa divisão.
 
 
 
@@ -537,7 +537,7 @@ Tendo os modelos devidamente ajustados, foi possível realizar a composição al
 \begin{enumerate}
     \item construir um modelo com os devidos parâmetros (\textit{vocab\_size}, \textit{lstm\_units}, \textit{embedding\_dim} e \textit{batch\_size}), mas fixar $batch\_size=1$ para que haja apenas um vetor de entrada e um de saída; 
     \item fixado o modelo, carregam-se os pesos de um modelo similar ajustado previamente, sendo a única diferença entre eles o parâmetro \textit{batch\_size};
-    \item o processo gerador envolve fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'' \nico{(\textit{tag} que contém o número da música)}, pois é como qualquer música presente no arquivo \textit{.abc} inicia;
+    \item o processo gerador envolve fornecer uma sequência de caracteres inicial, neste trabalho foi fornecida ``X:'' (\textit{tag} que contém o número da música), pois é como qualquer música presente no arquivo \textit{.abc} inicia;
     \item de forma iterativa, o modelo estima um novo elemento para compor a sequência até atingir um comprimento definido (no caso, utilizou-se 1000);
     \item via expressões regulares, são extraídos da sequência blocos de texto candidatos a músicas e, ao serem convertidos com sucesso, resultam em músicas.
 \end{enumerate}
@@ -820,7 +820,7 @@ Este trabalho visou a explorar o problema de composição automática de música
 
 Considerando a natureza subjetiva da música, o autor comentou sobre suas próprias percepções referente às composições. Devido a isso, os pontos elencados podem conflitar com outros pontos de vista. Isso posto, observou-se um padrão nas peças musicais produzidas pela rede ajustada com Irish, sendo bastante similares em perfil de ritmo e sequência de notas musicais. No caso de ABC Notation, houve uma maior variabilidade de estilos em comparação, além do fato de ter surgido uma peça aparentemente mais ruidosa. De maneira sucinta, conclui-se que os resultados são musicalmente plausíveis.
 
-É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artificial. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. \nico{Além disso, explorar o dilema do viés e da variância com o objetivo de identificar quando que o modelo de fato fica sobreajustado, fenômeno em que o modelo continua reduzindo a perda nos dados de treino, mas acaba piorando seu desempenho nos dados de teste. Por conseguinte},  no contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
+É importante destacar que há muito a ser investigado no problema de composição algorítmica utilizando inteligência artificial. O presente trabalho concentrou-se em apenas um único modelo com uma única arquitetura. Assim sendo, extensões envolvem modificar a arquitetura contemplando o aumento do número de camadas, tal como outros perfis de redes, como a \textit{transformer} \citep{vaswani2017}. Além disso, devido aos indícios de sobreajuste dos modelos apresentados no trabalho, um tema interessante a ser explorado seria o dilema do viés e da variância \citep{geman_1992}. Por conseguinte, no contexto das composições, analisar detalhadamente características musicais almejando, talvez, peças com estilos específicos.
 
 
 
