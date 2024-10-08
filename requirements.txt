@@ -1,0 +1,7 @@
+tensorflow==2.9.1
+numpy==1.22.3
+regex==2.5.112
+scikit-learn==1.1.1
+beautifulsoup4==2.9.1
+requests==2.27.1
+music==7.3.3

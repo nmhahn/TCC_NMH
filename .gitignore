@@ -1,19 +1,6 @@
-# Folders
-bibliografia/
-material_complementar/
-abcnotation/
-geradas/
-# Files
-tmp.abc
+*.Rhistory
+*.Rproj.user
+/data/abcnotation
+/musicas_geradas
 checkpoint*
 my_ckpt*
-# Extensions
-*.mp3
-*.ini
-*.log
-*.aux
-*.gz
-*.fdb*
-*.fls
-*.txt
-*.mid
