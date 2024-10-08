@@ -1,7 +1,7 @@
 *.Rhistory
 *.Rproj.user
+*.mid
 /data/abcnotation
-/musicas_geradas
 checkpoint*
 my_ckpt*
 .vscode/*
